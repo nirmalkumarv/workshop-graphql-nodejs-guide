@@ -39,42 +39,43 @@ type ExampleType {
 
 ## Code
 
-In the below example we will implement a directive that can be assigned to fields
-This directive transform to lowercase the string attribute.
+From my point of view, this could be the challenging part when implementinga GraphQL API.
+Have a look at [apollographql.com](https://www.apollographql.com/docs/graphql-tools/schema-directives.html) to understand
+how we can implement our own directives.
 
-**LowercaseDirective.js** (this file will be in package directive)
-```java
-@Component
-public class LowercaseDirective implements SchemaDirectiveWiring {
+Below a very basic example of directive.
 
-    @Override
-    public GraphQLFieldDefinition onField(SchemaDirectiveWiringEnvironment<GraphQLFieldDefinition> env) {
-        GraphQLFieldDefinition field = env.getElement();
-        DataFetcher dataFetcher = DataFetcherFactories.wrapDataFetcher(field.getDataFetcher(), (((dataFetchingEnvironment, value) -> {
-            if (value instanceof String) {
-                return ((String) value).toLowercase();
-            }
-            return value;
-        })));
-        return field.transform(builder -> builder.dataFetcher(dataFetcher));
-    }
+**directives.js**
+```js
+import { SchemaDirectiveVisitor } from "graphql-tools";
+
+class DeprecatedDirective extends SchemaDirectiveVisitor {
+  
+  visitFieldDefinition(field) {
+    field.isDeprecated = true;
+    field.deprecationReason = this.args.reason;
+  }
+
+  visitEnumValue(value) {
+    value.isDeprecated = true;
+    value.deprecationReason = this.args.reason;
+  }
 }
-
 ```
 
-Once we've defined our directive we just need to register the bean.
+Once we've implemented the directive ,  we just need to add the directives as shown below:
 
-**Application.java**
-```java
-@SpringBootApplication
-public class Application {
-    
-    @Bean
-    @Autowired
-    public SchemaDirective lowerCaseDirective(LowercaseDirective directive) {
-        return new SchemaDirective("lower", directive);
-    }
-}
+**schema.js**
+```js
+export default makeExecutableSchema({
+    typeDefs,
+    resolvers,
+    schemaDirectives: {
+        dreprecated: DeprecatedDirective,
+        
+    },
+    ...
+});
 ```
 
 ## Challenges

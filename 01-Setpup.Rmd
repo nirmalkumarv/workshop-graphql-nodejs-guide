@@ -2,60 +2,32 @@
 
 ## Download the project
 
-The workshop can be followed in: NodeJS. (Java, Python, Go are coming soon).
+Clone the repository
 
 ```bash
-git clone https://github.com/wesovilabs-workshops/workshop-graphql-java.git
-cd workshop-graphql-java
+git clone https://github.com/wesovilabs-workshops/workshop-graphql-nodejs.git
+cd workshop-graphql-nodejs
 ```
 
 ## Project organization
 
 
-> Project follows the guidelines for structuring a Java project with Gradle. 
+> Project follows the guidelines for structuring a NodeJS project
 
- 
-### ./src/main/java
+In this project you will find two separated directories:
 
-- **com.wesovilabs.workshops.graphql.domain**: It contains the classes that represent
-the GraphQL domain model. 
+### Javascript code
 
-- **com.wesovilabs.workshops.graphql.database**: This package contains two sub-packages
-model and repository. The first onw contains the database model and the second one
-the DAO layer.
-
-- **com.wesovilabs.workshops.graphql.converter**: This package contains classes
-that will help in order to make transformation between objects. Basically for 
-transforming the GraphQL domain objects into entities that will be persisted
-into the database.
-
-- **com.wesovilabs.workshops.graphql.publisher**: Pub-sub implementations that will be used
-by subscription operations.
-
-- **com.wesovilabs.workshops.graphql.resolver**: It contains the resolver for our application: 
-queries, mutations and subscriptions but also the resolver of the output types when it is required.
-
-- **com.wesovilabs.workshops.graphql.service**: This is the business layer which is 
-call from the resolver package and It delegates the request to the repository.
-
-- **com.wesovilabs.workshops.graphql.directive**: Empty package that will be used during the workshop.
-
-- **com.wesovilabs.workshops.graphql.scalae**: Empty package that will be used during the workshop.
+- **src**: It contains the source code for the application
 
 
-### ./src/main/resources
+### Docker and configuration files
 
-- **workshop.graphqls**: GraphQL schema that is implemented by our application.
+- **resources/graphql**: It contains the GraphQL schema implemented by the API.
 
-- **application.yaml**: Default configuration file used by spring-boot when running the application locally.
+- **resources/docker-compose**: It contains the docker-compose descriptor and the containers configuration files.
 
-- **docker/Dockerfile**: Docker descriptor for out application.
-
-- **docker-compose/docker-compose.yml**: Descriptor for launching bot database and our application.
-
-- **docker-compose/api**: Configuration files used by api container.
-
-- **docker-compose/postgres**: Configuration files used by postgres container.
+- **resources/local**: It contains default configuration file that will be used when running the server locally.. 
 
 ## Running the server
 
@@ -69,9 +41,8 @@ or in case of you don't have make command installed
 
 
 ```bash
-gradle build;
-docker build -f src/main/resources/docker/Dockerfile -t=wesovilabs/workshop-graphql-java:local .;
-docker-compose -f docker-compose/docker-compose.yml -run -p9001:9001 api
+docker build -t=wesovilabs/workshop-graphql-nodejs:local .;
+docker-compose -f resources/docker-compose/docker-compose.yml run --rm -p9001:9001 api
 ```
 
 To clean the launched containers you just need to perform
@@ -84,6 +55,31 @@ or
 
 ```bash
 docker-compose -f docker-compose/docker-compose.yml down -v
+```
+
+### While you're coding
+
+The above commands launch the full environment: database and API. On the other hand,
+when we're coding we could rather launch the database from the docker-compose and the 
+API from our local machine.
+
+1. Launching database container from docker-compose
+
+```bash
+make database
+```
+
+or 
+
+```bash
+docker-compose -f src/main/resources/docker-compose/docker-compose.yml run --rm -p5456:5432 database
+```
+
+2. Run the application from your IDE or by command line
+
+```bash
+npm install;
+APP_CONFIG_PATH=./resources/local/config.json NODE_ENV=local npm start;
 ```
 
 ## The application

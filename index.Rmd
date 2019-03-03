@@ -1,26 +1,16 @@
 --- 
-title: "GraphQL workshop for Java developers"
+title: "GraphQL workshop for NodeJS developers"
 author: 
     - "Iván Corrales Solera <ivan.corrales.solera@gmail.com>"
 date: "v0.0.1"
-site: wesovilabs::workshops-graphql-java
+site: wesovilabs::workshops-graphql-nodejs
 output: bookdown::gitbook
 documentclass: book
 biblio-style: apalike
 link-citations: yes
-github-repo: wesovilabs-workshops/workshop-graphql-java-guide
-description: "GraphQL workshop for Java developers"
+github-repo: wesovilabs-workshops/workshop-graphql-nodejs-guide
+description: "GraphQL workshop for NodeJS developers"
 ---
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135506677-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-135506677-1');
-</script>
-
 # Pre-requisites 
 
 - Git: Installation guide can be found [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
@@ -29,4 +19,4 @@ description: "GraphQL workshop for Java developers"
 
 - Docker & docker-compose. (docker-compose must support version:"2").
 
-- Gradle correctly installed in your computer. [Installation guide](https://gradle.org/install/) 
+- Npm installed in your computer. 

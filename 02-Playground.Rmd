@@ -6,21 +6,22 @@ Once the server is up and ready we can interact with our API by making use of th
 several desktop applications that allow us to run our queries against GraphQL API's. On the other hand, to follow the
 workshop we will make use of an embedded web client which is deployed within out api.
 
-Just open [ohttp://localhost:9001/graphiql](http://localhost:9001/graphiql) in your browser.
+Just open [ohttp://localhost:9001/graphql](http://localhost:9001/graphql) in your browser.
 
-![GraphQL playground](assets/graphiql.png)
+![GraphQL playground](assets/playground.png)
 
-Learn to use  Graphiql is  not rock science. We will write our queries on the left panel and the result will be
-displayed on the right panel. 
+Learn to use ir is not rock science at all. Queries are written on the left side and the result of these is displayed on the right one. 
 
-To check the **API documentation** we just need to click on  button on the right (< Docs) and a handy  menu will
-be shown.  
+Headers can be entered  by clicking the **HTTP Headers** button on the bottom.
+
+To check the **API documentation** we just need to click on the green button on the right (SCHEMA) and a handy  menu will
+be shown.
 
 ## GraphQL syntax
 
 On the below picture we can observe how queries, mutations and subscriptions are made from the Graphiql. Beer in mind
-that you can only run one ot these three operations at time. On the other hand you can perform several queries or several mutations
-at time. Have a look at the examples to understand how queries cna eb executed.
+that you can only run one of these three operations at time. On the other hand you can perform several queries or several mutations
+at time. Have a look at the examples to understand how queries can be executed.
 
 ![Queries with alias](assets/queries.png)
 
@@ -36,7 +37,7 @@ at time. Have a look at the examples to understand how queries cna eb executed.
 
 - How many actors are shown?
 
-- The returned fields in the picture are the same that the returned by your query?
+- Are the returned fields the same that appear in the picture?
 
 
 2. Create a new director (**addDirector**)

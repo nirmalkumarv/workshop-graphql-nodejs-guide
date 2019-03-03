@@ -10,66 +10,50 @@ GraphQL provides us 3 different operations:
 This enables the client to get immediate information about related events. Basically, a client 
 subscribes to an event in the server, and whenever that event ocurrs, the server sends data to the client. 
 
-In our workshop.graphqls we will find already implemented operations.
+In our workshop.graphql we will find already implemented operations.
 
 ## Code
 
-The only difference between implementing a mutation and a query is that methods for  mutations 
-are in a class that implements GraphQLMutationResolver and for queries in a class that 
-implements GraphQLQueryResolver. 
+Actually there's not difference between implement a query or a mutation. We will just implament a function that 
+can retrieve 4 arguments:
 
-**QueryResolver.java**
-```java
-@Component
-public class QueryResolver implements GraphQLQueryResolver {
-    
-    public List<Monkeys> listMonkeys(DataFetchingEnvironment env) {
-        return monkeyService
-            .listMonkeys()
-            .stream()
-            .map(monkeyModelToMonkey::convert)
-            .collect(Collectors.toList());
-    }
+- **parent**: The result of the previous resolver call.
+- **args**: The arguments of the resolver’s field.
+- **context**: A custom object each resolver can read from/write to.
+- **info**: It contains the query AST and more execution information. 
+
+**queries.js**
+```js
+
+export const myQuery = (parentValue, args, ctx,info) => {
+    return {
         
-    public Movie getMonkey(Integer monkeyId,DataFetchingEnvironment env) {
-        MovieEntity entity = monkeyService.findMonkeyById(monkeyId);
-        return monkeyModelToMonkey.convert(entity);
     }
-        
-}
+};
 ```
 
-**MutationResolver.java**
-```java
-@Component
-public class MutationResolver implements GraphQLMutationResolver {
-     public Monkey addMonkey(MonkeyRequest request,DataFetchingEnvironment env) {
-        try {
-            MonkeyModel entity = monkeyRequestToMonkeyModel.convert(request);
-            entity = monkeyService.addMonkey(entity);
-            return monkeyModelToMonkey.convert(entity);
-        } catch (Exception ex) {
-            throw ex;
-        }
+**mutations.js**
+```js
+export const myMutation = (parentValue, args, ctx, info) => {
+    return {
+              
     }
-}
+};
 ``` 
 
-Subscriptions looks a little bit different because we need to subscribe to an event.
-The methods must be defined in a class that implements GraphQLSubscriptionResolver.
+Subscriptions looks a little bit different because we need to register to an event.
 
-
-**SubscriptionResolver.java**
-```java
-import org.reactivestreams.Publisher;
-
-@Component
-public class SubscriptionResolver implements GraphQLSubscriptionResolver {
- 
-    public Publisher<Monkey> checkNewMonekys() {
-        return monkeysPublisher.getPublisher();
+**subscriptions.js**
+```js
+export const listenChangesInTeam = {
+    subscribe: (
+        (_, {teamId}) => {
+            return pubsub.asyncIterator(`teams.${teamId}`);
+        }
+    ),
+    resolve: (payload, args, context, info) => {
+        return payload;
     }
-        
 }
 ```
 
@@ -82,7 +66,7 @@ persist data into table **movies_rates** and will return the Movie.
 3. Modify type Movie and add a new attribute rate whose value is the average score for 
 all the given rates.
 4. Modify operation addMovie. Add a new attribute actorsId (array with the id's of the actors).
-4. Define a new query **getMovieRate** that retrieves an argument movieId and the output
+5. Define a new query **getMovieRate** that retrieves an argument movieId and the output
 type is MovieRate. The output must look like this:
 
 ```json

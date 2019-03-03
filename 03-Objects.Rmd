@@ -38,21 +38,6 @@ in type Movie.
 
 ## Code
 
-### Enum
-
-In the introduction we see how to define a enum type in the schema. In the code
-we just need to create an enum type with the same name.
-
-**Direction.java** (This file should be in package domain)
-```java
-public enum Direction {
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST
-}
-```
-
 ### Resolvers
 
 
@@ -62,17 +47,13 @@ And this attribute won't be always required by the API consumers. Server should 
 waste time on obtaining something that clients do not need.
 
 
-**PersonResolver.js**  (This file should be in package resolver)
-```java
-@Component
-public class PersonResolver implements GraphQLResolver<Person> {
-    
-    public SocialDetails details(Person person) {
-        /** 
-        *  We will invoke Linkedin API to obtain the info.
-        **/
-        SocialDetails details = linkedinAPI.getDetals(person.getId());
-        return details;
+**resolvers.js**
+```js
+export default {
+    Person: {
+        details: async ({personId}) => {
+            return await getDetailsFromLinkedin(personId)
+        },
     }
     
 }
@@ -82,7 +63,7 @@ Now, image that SocialDetails can be taken from more than one social network
 and we want to permit the consumers to decide which social network must be used. 
 (It's known as field arguments)
 
-**schema.graphqls.**
+**schema.graphql.**
 ```graphl
 enum Source{
     Linkedin
@@ -96,28 +77,16 @@ type Person {
 ```
 Our resolver could look like this
 
-**Source.java** (This file should be in package domain)
-```java
-public enum Source {
-    Facebook,
-    Linkedin
-}
-
-```
-**SouPersonResolverrce.java** (This file should be in package resolver)
-```java
-@Component
-public class PersonResolver implements GraphQLResolver<Person> {
-    
-    public SocialDetails details(Person person, Source source) {
-        if (source==Source.Linkedin){
-            SocialDetails details = linkedinAPI.getDetals(person.getId());
-            return details;
-        }
-        if (source==Source.Facebook){
-            SocialDetails details = facebookAPI.getDetals(person.getId());
-            return details;
-        } 
+**resolvers.js**
+```js
+export default {
+    Person: {
+        details: async ({personId},{source}) => {
+            if (source === 'Linkedin'){
+                return await getDetailsFromLinkedin(personId)    
+            }
+            return await getDetailsFromFacebook(personId)
+        },
     }
     
 }
@@ -125,71 +94,41 @@ public class PersonResolver implements GraphQLResolver<Person> {
 
 ### Scalars
 
-The java-graphql library that we use provides with class `GraphQLScalarType` that we need to extend to
-define our own scalars. 
+The library **graphql** provides us with  class **GraphQLScalarType**. We just need to create a new instance an add it
+as a new resolver. An example of scalar type is shown below:
 
-Scalar documentation can be found [here](https://www.graphql-java.com/documentation/master/scalars/)
+**scalars.js**
+```js
+import {GraphQLScalarType} from 'graphql';
 
-Keep in mind that our application works with Spring, so the code could be a little bit different
-than the examples in the above documentation.
-
-Below we can see the implementation for a scalar type that only permit odd numbers.
-
-**OddScalar.js** (This file should be in package scalar)
-```java
-@Component
-public class OddScalar extends GraphQLScalarType {
-
-
-    public OddScalar() {
-        /**
-        * args[0] Scalar name: It must be the one defined in the GraphQL schema
-        * args[1] Scalar description: A brief description for our scalar type
-        * args[2] A Coercing instance that we define below
-        */
-        super("Odd", "Odd scalar", coercing);
+var OddType = new GraphQLScalarType({
+  name: 'Odd',
+  serialize: oddValue,
+  parseValue: oddValue,
+  parseLiteral(ast) {
+    if (ast.kind === Kind.INT) {
+      return oddValue(parseInt(ast.value, 10));
     }
+    return null;
+  }
+});
 
-    private static final Coercing coercing = new Coercing<Object, Object>() {
-        @Override
-        public Object serialize(Object input) {
-             if (input instanceof Integer) {
-                if (result % 2 !=0){
-                    throw new CoercingSerializeException(
-                        "It's not a valid odd number."
-                    );             
-               }
-               return result;
-            }
-            throw new CoercingSerializeException(
-                     "Expected type 'Int' but was other."
-            );
-        }
-
-        @Override
-        public Object parseValue(Object input) {
-            return serialize(input);
-        }
-
-        @Override
-        public Object parseLiteral(Object input) {
-           if (!(input instanceof IntValue)) {
-               throw new CoercingParseLiteralException(
-                   "Expected AST type 'IntValue' but was other'."
-               );
-           }
-           Integer value = ((IntValue) input).getValue();
-           if (result % 2 !=0){
-                throw new CoercingSerializeException(
-                    "It's not a valid odd number."
-                );             
-            }
-            return value;
-        }
-    };
-    
+function oddValue(value) {
+  return value % 2 === 1 ? value : null;
 }
 ```
+
+**schema.js**
+```js
+export default makeExecutableSchema({
+    resolvers: {
+        Odd:OddType
+    }
+
+})
+``` 
+
+You can find more details [here](https://graphql.org/graphql-js/type/#graphqlscalartype)
 
 
 

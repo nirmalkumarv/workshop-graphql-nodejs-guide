@@ -78,63 +78,31 @@ query {
 
 ## Code
 
-Unions and interfaces can be easily represented in Java since the language provides us with abstract classes and interfaces.
-The below pieces of code  show an example for the GraphQL definitions in the previous point.
+To implement a new operation with interfaces or unions is easy. We just need to do it as we did in the previous chapter
+[GraphQL: Operations](#GraphQL:-Operations)
 
-**Restaurant.java**
-```java
-public class Restaurant {
+On the other hand, we need to define new resolvers to make the server understand which kind of inherited type it
+must return. Below we can find a real example: 
+
+**resolvers.js**
+```graphql
+export default {
+    Url: Url,
+    Query:{
     
-    private String id;
+    },
+    Mutation: {
     
-    private Integer name;
-}
-```
-
-**Indian.java**
-```java
-public class Indiand extends Restaurant {
-    private Boolean brewedBeer;
-}
-```
-
-**Burger.java**
-```java
-public class Burger extends Restaurant {
-    private Boolean vegetarianOptions;
-}
-```
-
-**QueryResolver.java**
-```java
-@Component
-public class QueryResolver implements GraphQLQueryResolver {
-    
-    public List<Restaurant> listRestaurants() {
-        List<Resturant> restaurants = new ArrayList<Restaurant>();
-        restaurants.addAll(indianService.listAll());
-        restaurants.addAll(burgerService.listAll());
-        return restaurants;
-    } 
-}
-```
-
-To implement an Union classes don't have common attributes so we could classes implements and Interface instead of
-extending a class.
-
-
-**Item.java**
-```java
-public interface Item{
-    
-}
-```
-
-**Electronic.java**
-```java
-public class Electronic implements Item{
-    private Float size;
-    private Float weight;
+    },
+    Restaurant: {
+        __resolveType(restaurant, context, info){
+            if(restaurant.brewedBeer){
+                return 'Indian';
+            }
+            return 'Burger'
+        },
+    }
+    ...
 }
 ```
 
