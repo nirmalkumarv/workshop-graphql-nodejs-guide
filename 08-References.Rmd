@@ -1,6 +1,5 @@
 `r if (knitr:::is_html_output()) '
 # References {-}
 '`
-- [GraphQL Java Quickstart](https://www.graphql-java-kickstart.com)
+- [Apollo GraphQL](https://www.apollographql.com/docs/)
 - [GraphQL Specification](https://facebook.github.io/graphql/)
-- [Spring Boot](https://spring.io/projects/spring-boot)

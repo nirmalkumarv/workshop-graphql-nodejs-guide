@@ -5,21 +5,21 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 4 GraphQL: Objects | GraphQL workshop for Java developers</title>
-  <meta name="description" content="Chapter 4 GraphQL: Objects | GraphQL workshop for Java developers">
+  <title>Chapter 4 GraphQL: Objects | GraphQL workshop for NodeJS developers</title>
+  <meta name="description" content="Chapter 4 GraphQL: Objects | GraphQL workshop for NodeJS developers">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 4 GraphQL: Objects | GraphQL workshop for Java developers" />
+  <meta property="og:title" content="Chapter 4 GraphQL: Objects | GraphQL workshop for NodeJS developers" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Chapter 4 GraphQL: Objects | GraphQL workshop for Java developers" />
-  <meta name="github-repo" content="wesovilabs-workshops/workshop-graphql-java-guide" />
+  <meta property="og:description" content="Chapter 4 GraphQL: Objects | GraphQL workshop for NodeJS developers" />
+  <meta name="github-repo" content="wesovilabs-workshops/workshop-graphql-nodejs-guide" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 GraphQL: Objects | GraphQL workshop for Java developers" />
+  <meta name="twitter:title" content="Chapter 4 GraphQL: Objects | GraphQL workshop for NodeJS developers" />
   
-  <meta name="twitter:description" content="Chapter 4 GraphQL: Objects | GraphQL workshop for Java developers" />
+  <meta name="twitter:description" content="Chapter 4 GraphQL: Objects | GraphQL workshop for NodeJS developers" />
   
 
 <meta name="author" content="Iván Corrales Solera ivan.corrales.solera@gmail.com">
@@ -47,6 +47,19 @@
 
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135460737-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-135460737-1');
+</script>
 
 
 <style type="text/css">
@@ -88,16 +101,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
-<!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135506677-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-135506677-1');
-    </script>
-
 </head>
 
 <body>
@@ -110,17 +113,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">GraphQL for Java developers</a></li>
+<li><a href="./">GraphQL for NodeJS developers</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pre-requisites</a></li>
 <li class="chapter" data-level="2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html"><i class="fa fa-check"></i><b>2</b> Set up your environment</a><ul>
 <li class="chapter" data-level="2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#download-the-project"><i class="fa fa-check"></i><b>2.1</b> Download the project</a></li>
 <li class="chapter" data-level="2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#project-organization"><i class="fa fa-check"></i><b>2.2</b> Project organization</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#srcmainjava"><i class="fa fa-check"></i><b>2.2.1</b> ./src/main/java</a></li>
-<li class="chapter" data-level="2.2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#srcmainresources"><i class="fa fa-check"></i><b>2.2.2</b> ./src/main/resources</a></li>
+<li class="chapter" data-level="2.2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#javascript-code"><i class="fa fa-check"></i><b>2.2.1</b> Javascript code</a></li>
+<li class="chapter" data-level="2.2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#docker-and-configuration-files"><i class="fa fa-check"></i><b>2.2.2</b> Docker and configuration files</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#running-the-server"><i class="fa fa-check"></i><b>2.3</b> Running the server</a></li>
+<li class="chapter" data-level="2.3" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#running-the-server"><i class="fa fa-check"></i><b>2.3</b> Running the server</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#while-youre-coding"><i class="fa fa-check"></i><b>2.3.1</b> While you’re coding</a></li>
+</ul></li>
 <li class="chapter" data-level="2.4" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#the-application"><i class="fa fa-check"></i><b>2.4</b> The application</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#database"><i class="fa fa-check"></i><b>2.4.1</b> Database</a></li>
 <li class="chapter" data-level="2.4.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#api"><i class="fa fa-check"></i><b>2.4.2</b> API</a></li>
@@ -135,9 +140,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="graphql-objects.html"><a href="graphql-objects.html"><i class="fa fa-check"></i><b>4</b> GraphQL: Objects</a><ul>
 <li class="chapter" data-level="4.1" data-path="graphql-objects.html"><a href="graphql-objects.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="graphql-objects.html"><a href="graphql-objects.html#code"><i class="fa fa-check"></i><b>4.2</b> Code</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="graphql-objects.html"><a href="graphql-objects.html#enum"><i class="fa fa-check"></i><b>4.2.1</b> Enum</a></li>
-<li class="chapter" data-level="4.2.2" data-path="graphql-objects.html"><a href="graphql-objects.html#resolvers"><i class="fa fa-check"></i><b>4.2.2</b> Resolvers</a></li>
-<li class="chapter" data-level="4.2.3" data-path="graphql-objects.html"><a href="graphql-objects.html#scalars"><i class="fa fa-check"></i><b>4.2.3</b> Scalars</a></li>
+<li class="chapter" data-level="4.2.1" data-path="graphql-objects.html"><a href="graphql-objects.html#resolvers"><i class="fa fa-check"></i><b>4.2.1</b> Resolvers</a></li>
+<li class="chapter" data-level="4.2.2" data-path="graphql-objects.html"><a href="graphql-objects.html#scalars"><i class="fa fa-check"></i><b>4.2.2</b> Scalars</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="graphql-objects.html"><a href="graphql-objects.html#challenges-1"><i class="fa fa-check"></i><b>4.3</b> Challenges</a></li>
 </ul></li>
@@ -171,7 +175,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">GraphQL workshop for Java developers</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">GraphQL workshop for NodeJS developers</a>
           </h1>
         </div>
 
@@ -205,35 +209,20 @@ type MyType {
 </div>
 <div id="code" class="section level2">
 <h2><span class="header-section-number">4.2</span> Code</h2>
-<div id="enum" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> Enum</h3>
-<p>In the introduction we see how to define a enum type in the schema. In the code we just need to create an enum type with the same name.</p>
-<p><strong>Direction.java</strong> (This file should be in package domain)</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">enum</span> Direction {
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST
-}</code></pre></div>
-</div>
 <div id="resolvers" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Resolvers</h3>
+<h3><span class="header-section-number">4.2.1</span> Resolvers</h3>
 <p>Let’s imagine that we have an operation that returns a Employee type and this type contains an attribute details of type SocialDetails whose information needs to be taken from an external API. And this attribute won’t be always required by the API consumers. Server should not waste time on obtaining something that clients do not need.</p>
-<p><strong>PersonResolver.js</strong> (This file should be in package resolver)</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="at">@Component</span>
-<span class="kw">public</span> <span class="kw">class</span> PersonResolver <span class="kw">implements</span> GraphQLResolver&lt;Person&gt; {
+<p><strong>resolvers.js</strong></p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span>
+    <span class="dt">Person</span><span class="op">:</span> <span class="op">{</span>
+        <span class="dt">details</span><span class="op">:</span> <span class="at">async</span> (<span class="op">{</span>personId<span class="op">}</span>) <span class="op">=&gt;</span> <span class="op">{</span>
+            <span class="cf">return</span> await <span class="at">getDetailsFromLinkedin</span>(personId)
+        <span class="op">},</span>
+    <span class="op">}</span>
     
-    <span class="kw">public</span> SocialDetails <span class="fu">details</span>(Person person) {
-        <span class="co">/**</span> 
-        <span class="co">*</span>  We will invoke Linkedin API to obtain the info<span class="co">.</span>
-        <span class="co">**/</span>
-        SocialDetails details = linkedinAPI.<span class="fu">getDetals</span>(person.<span class="fu">getId</span>());
-        <span class="kw">return</span> details;
-    }
-    
-}</code></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>Now, image that SocialDetails can be taken from more than one social network and we want to permit the consumers to decide which social network must be used. (It’s known as field arguments)</p>
-<p><strong>schema.graphqls.</strong></p>
+<p><strong>schema.graphql.</strong></p>
 <pre class="graphl"><code>enum Source{
     Linkedin
     Facebook
@@ -244,87 +233,48 @@ type Person {
 }
 </code></pre>
 <p>Our resolver could look like this</p>
-<p><strong>Source.java</strong> (This file should be in package domain)</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">enum</span> <span class="bu">Source</span> {
-    Facebook,
-    Linkedin
-}</code></pre></div>
-<p><strong>SouPersonResolverrce.java</strong> (This file should be in package resolver)</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="at">@Component</span>
-<span class="kw">public</span> <span class="kw">class</span> PersonResolver <span class="kw">implements</span> GraphQLResolver&lt;Person&gt; {
+<p><strong>resolvers.js</strong></p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span>
+    <span class="dt">Person</span><span class="op">:</span> <span class="op">{</span>
+        <span class="dt">details</span><span class="op">:</span> <span class="at">async</span> (<span class="op">{</span>personId<span class="op">},{</span>source<span class="op">}</span>) <span class="op">=&gt;</span> <span class="op">{</span>
+            <span class="cf">if</span> (source <span class="op">===</span> <span class="st">&#39;Linkedin&#39;</span>)<span class="op">{</span>
+                <span class="cf">return</span> await <span class="at">getDetailsFromLinkedin</span>(personId)    
+            <span class="op">}</span>
+            <span class="cf">return</span> await <span class="at">getDetailsFromFacebook</span>(personId)
+        <span class="op">},</span>
+    <span class="op">}</span>
     
-    <span class="kw">public</span> SocialDetails <span class="fu">details</span>(Person person, <span class="bu">Source</span> source) {
-        <span class="kw">if</span> (source==<span class="bu">Source</span>.<span class="fu">Linkedin</span>){
-            SocialDetails details = linkedinAPI.<span class="fu">getDetals</span>(person.<span class="fu">getId</span>());
-            <span class="kw">return</span> details;
-        }
-        <span class="kw">if</span> (source==<span class="bu">Source</span>.<span class="fu">Facebook</span>){
-            SocialDetails details = facebookAPI.<span class="fu">getDetals</span>(person.<span class="fu">getId</span>());
-            <span class="kw">return</span> details;
-        } 
-    }
-    
-}</code></pre></div>
+<span class="op">}</span></code></pre></div>
 </div>
 <div id="scalars" class="section level3">
-<h3><span class="header-section-number">4.2.3</span> Scalars</h3>
-<p>The java-graphql library that we use provides with class <code>GraphQLScalarType</code> that we need to extend to define our own scalars.</p>
-<p>Scalar documentation can be found <a href="https://www.graphql-java.com/documentation/master/scalars/">here</a></p>
-<p>Keep in mind that our application works with Spring, so the code could be a little bit different than the examples in the above documentation.</p>
-<p>Below we can see the implementation for a scalar type that only permit odd numbers.</p>
-<p><strong>OddScalar.js</strong> (This file should be in package scalar)</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="at">@Component</span>
-<span class="kw">public</span> <span class="kw">class</span> OddScalar <span class="kw">extends</span> GraphQLScalarType {
+<h3><span class="header-section-number">4.2.2</span> Scalars</h3>
+<p>The library <strong>graphql</strong> provides us with class <strong>GraphQLScalarType</strong>. We just need to create a new instance an add it as a new resolver. An example of scalar type is shown below:</p>
+<p><strong>scalars.js</strong></p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span>GraphQLScalarType<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;graphql&#39;</span><span class="op">;</span>
 
+<span class="kw">var</span> OddType <span class="op">=</span> <span class="kw">new</span> <span class="at">GraphQLScalarType</span>(<span class="op">{</span>
+  <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;Odd&#39;</span><span class="op">,</span>
+  <span class="dt">serialize</span><span class="op">:</span> oddValue<span class="op">,</span>
+  <span class="dt">parseValue</span><span class="op">:</span> oddValue<span class="op">,</span>
+  <span class="at">parseLiteral</span>(ast) <span class="op">{</span>
+    <span class="cf">if</span> (<span class="va">ast</span>.<span class="at">kind</span> <span class="op">===</span> <span class="va">Kind</span>.<span class="at">INT</span>) <span class="op">{</span>
+      <span class="cf">return</span> <span class="at">oddValue</span>(<span class="at">parseInt</span>(<span class="va">ast</span>.<span class="at">value</span><span class="op">,</span> <span class="dv">10</span>))<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span>
 
-    <span class="kw">public</span> <span class="fu">OddScalar</span>() {
-        <span class="co">/**</span>
-        <span class="co">*</span> args<span class="co">[0]</span> Scalar name<span class="co">:</span> It must be the one defined in the GraphQL schema
-        <span class="co">*</span> args<span class="co">[1]</span> Scalar description<span class="co">:</span> A brief description for our scalar type
-        <span class="co">*</span> args<span class="co">[2]</span> A Coercing instance that we define below
-        <span class="co">*/</span>
-        <span class="kw">super</span>(<span class="st">&quot;Odd&quot;</span>, <span class="st">&quot;Odd scalar&quot;</span>, coercing);
-    }
+<span class="kw">function</span> <span class="at">oddValue</span>(value) <span class="op">{</span>
+  <span class="cf">return</span> value <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> value : <span class="kw">null</span><span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p><strong>schema.js</strong></p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="im">default</span> <span class="at">makeExecutableSchema</span>(<span class="op">{</span>
+    <span class="dt">resolvers</span><span class="op">:</span> <span class="op">{</span>
+        <span class="dt">Odd</span><span class="op">:</span>OddType
+    <span class="op">}</span>
 
-    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> Coercing coercing = <span class="kw">new</span> Coercing&lt;<span class="bu">Object</span>, <span class="bu">Object</span>&gt;() {
-        <span class="at">@Override</span>
-        <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">serialize</span>(<span class="bu">Object</span> input) {
-             <span class="kw">if</span> (input <span class="kw">instanceof</span> <span class="bu">Integer</span>) {
-                <span class="kw">if</span> (result % <span class="dv">2</span> !=<span class="dv">0</span>){
-                    <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">CoercingSerializeException</span>(
-                        <span class="st">&quot;It&#39;s not a valid odd number.&quot;</span>
-                    );             
-               }
-               <span class="kw">return</span> result;
-            }
-            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">CoercingSerializeException</span>(
-                     <span class="st">&quot;Expected type &#39;Int&#39; but was other.&quot;</span>
-            );
-        }
-
-        <span class="at">@Override</span>
-        <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">parseValue</span>(<span class="bu">Object</span> input) {
-            <span class="kw">return</span> <span class="fu">serialize</span>(input);
-        }
-
-        <span class="at">@Override</span>
-        <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">parseLiteral</span>(<span class="bu">Object</span> input) {
-           <span class="kw">if</span> (!(input <span class="kw">instanceof</span> IntValue)) {
-               <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">CoercingParseLiteralException</span>(
-                   <span class="st">&quot;Expected AST type &#39;IntValue&#39; but was other&#39;.&quot;</span>
-               );
-           }
-           <span class="bu">Integer</span> value = ((IntValue) input).<span class="fu">getValue</span>();
-           <span class="kw">if</span> (result % <span class="dv">2</span> !=<span class="dv">0</span>){
-                <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">CoercingSerializeException</span>(
-                    <span class="st">&quot;It&#39;s not a valid odd number.&quot;</span>
-                );             
-            }
-            <span class="kw">return</span> value;
-        }
-    };
-    
-}</code></pre></div>
+<span class="op">}</span>)</code></pre></div>
+<p>You can find more details <a href="https://graphql.org/graphql-js/type/#graphqlscalartype">here</a></p>
 </div>
 </div>
 <div id="challenges-1" class="section level2">
@@ -381,7 +331,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["workshop-graphql-java.pdf", "workshop-graphql-java.epub"],
+"download": ["workshop-graphql-nodejs.pdf", "workshop-graphql-nodejs.epub"],
 "toc": {
 "collapse": "subsection"
 }
