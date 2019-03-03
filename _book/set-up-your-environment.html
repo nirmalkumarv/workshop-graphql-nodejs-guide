@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 2 Set up your environment | GraphQL workshop for Java developers</title>
+  <meta name="description" content="Chapter 2 Set up your environment | GraphQL workshop for Java developers">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 2 Set up your environment | GraphQL workshop for Java developers" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Chapter 2 Set up your environment | GraphQL workshop for Java developers" />
+  <meta name="github-repo" content="wesovilabs-workshops/workshop-graphql-java-guide" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Set up your environment | GraphQL workshop for Java developers" />
+  
+  <meta name="twitter:description" content="Chapter 2 Set up your environment | GraphQL workshop for Java developers" />
+  
+
+<meta name="author" content="Iván Corrales Solera ivan.corrales.solera@gmail.com">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="the-graphql-playground.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135506677-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-135506677-1');
+    </script>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">GraphQL for Java developers</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pre-requisites</a></li>
+<li class="chapter" data-level="2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html"><i class="fa fa-check"></i><b>2</b> Set up your environment</a><ul>
+<li class="chapter" data-level="2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#download-the-project"><i class="fa fa-check"></i><b>2.1</b> Download the project</a></li>
+<li class="chapter" data-level="2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#project-organization"><i class="fa fa-check"></i><b>2.2</b> Project organization</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#srcmainjava"><i class="fa fa-check"></i><b>2.2.1</b> ./src/main/java</a></li>
+<li class="chapter" data-level="2.2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#srcmainresources"><i class="fa fa-check"></i><b>2.2.2</b> ./src/main/resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#running-the-server"><i class="fa fa-check"></i><b>2.3</b> Running the server</a></li>
+<li class="chapter" data-level="2.4" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#the-application"><i class="fa fa-check"></i><b>2.4</b> The application</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#database"><i class="fa fa-check"></i><b>2.4.1</b> Database</a></li>
+<li class="chapter" data-level="2.4.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#api"><i class="fa fa-check"></i><b>2.4.2</b> API</a></li>
+<li class="chapter" data-level="2.4.3" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#graphql-schema"><i class="fa fa-check"></i><b>2.4.3</b> GraphQL schema</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="the-graphql-playground.html"><a href="the-graphql-playground.html"><i class="fa fa-check"></i><b>3</b> The GraphQL Playground</a><ul>
+<li class="chapter" data-level="3.1" data-path="the-graphql-playground.html"><a href="the-graphql-playground.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="the-graphql-playground.html"><a href="the-graphql-playground.html#graphql-syntax"><i class="fa fa-check"></i><b>3.2</b> GraphQL syntax</a></li>
+<li class="chapter" data-level="3.3" data-path="the-graphql-playground.html"><a href="the-graphql-playground.html#challenges"><i class="fa fa-check"></i><b>3.3</b> Challenges</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="graphql-objects.html"><a href="graphql-objects.html"><i class="fa fa-check"></i><b>4</b> GraphQL: Objects</a><ul>
+<li class="chapter" data-level="4.1" data-path="graphql-objects.html"><a href="graphql-objects.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="graphql-objects.html"><a href="graphql-objects.html#code"><i class="fa fa-check"></i><b>4.2</b> Code</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="graphql-objects.html"><a href="graphql-objects.html#enum"><i class="fa fa-check"></i><b>4.2.1</b> Enum</a></li>
+<li class="chapter" data-level="4.2.2" data-path="graphql-objects.html"><a href="graphql-objects.html#resolvers"><i class="fa fa-check"></i><b>4.2.2</b> Resolvers</a></li>
+<li class="chapter" data-level="4.2.3" data-path="graphql-objects.html"><a href="graphql-objects.html#scalars"><i class="fa fa-check"></i><b>4.2.3</b> Scalars</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="graphql-objects.html"><a href="graphql-objects.html#challenges-1"><i class="fa fa-check"></i><b>4.3</b> Challenges</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="graphql-operations.html"><a href="graphql-operations.html"><i class="fa fa-check"></i><b>5</b> GraphQL: Operations</a><ul>
+<li class="chapter" data-level="5.1" data-path="graphql-operations.html"><a href="graphql-operations.html#introduction-2"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="graphql-operations.html"><a href="graphql-operations.html#code-1"><i class="fa fa-check"></i><b>5.2</b> Code</a></li>
+<li class="chapter" data-level="5.3" data-path="graphql-operations.html"><a href="graphql-operations.html#challenges-2"><i class="fa fa-check"></i><b>5.3</b> Challenges</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graphql-interfaces-and-unions.html"><a href="graphql-interfaces-and-unions.html"><i class="fa fa-check"></i><b>6</b> GraphQL: Interfaces and Unions</a><ul>
+<li class="chapter" data-level="6.1" data-path="graphql-interfaces-and-unions.html"><a href="graphql-interfaces-and-unions.html#introduction-3"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="graphql-interfaces-and-unions.html"><a href="graphql-interfaces-and-unions.html#fragments"><i class="fa fa-check"></i><b>6.2</b> Fragments</a></li>
+<li class="chapter" data-level="6.3" data-path="graphql-interfaces-and-unions.html"><a href="graphql-interfaces-and-unions.html#code-2"><i class="fa fa-check"></i><b>6.3</b> Code</a></li>
+<li class="chapter" data-level="6.4" data-path="graphql-interfaces-and-unions.html"><a href="graphql-interfaces-and-unions.html#challenges-3"><i class="fa fa-check"></i><b>6.4</b> Challenges</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="graphql-directives.html"><a href="graphql-directives.html"><i class="fa fa-check"></i><b>7</b> GraphQL: Directives</a><ul>
+<li class="chapter" data-level="7.1" data-path="graphql-directives.html"><a href="graphql-directives.html#introduction-4"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="graphql-directives.html"><a href="graphql-directives.html#code-3"><i class="fa fa-check"></i><b>7.2</b> Code</a></li>
+<li class="chapter" data-level="7.3" data-path="graphql-directives.html"><a href="graphql-directives.html#challenges-4"><i class="fa fa-check"></i><b>7.3</b> Challenges</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="challenges-solution.html"><a href="challenges-solution.html"><i class="fa fa-check"></i><b>8</b> Challenges Solution</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://twitter.com/wesovilabs" target="blank">By Ivan Corrales Solera</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">GraphQL workshop for Java developers</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="set-up-your-environment" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Set up your environment</h1>
+<div id="download-the-project" class="section level2">
+<h2><span class="header-section-number">2.1</span> Download the project</h2>
+<p>The workshop can be followed in: NodeJS. (Java, Python, Go are coming soon).</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> clone https://github.com/wesovilabs-workshops/workshop-graphql-java.git
+<span class="bu">cd</span> workshop-graphql-java</code></pre></div>
+</div>
+<div id="project-organization" class="section level2">
+<h2><span class="header-section-number">2.2</span> Project organization</h2>
+<blockquote>
+<p>Project follows the guidelines for structuring a Java project with Gradle.</p>
+</blockquote>
+<div id="srcmainjava" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> ./src/main/java</h3>
+<ul>
+<li><p><strong>com.wesovilabs.workshops.graphql.domain</strong>: It contains the classes that represent the GraphQL domain model.</p></li>
+<li><p><strong>com.wesovilabs.workshops.graphql.database</strong>: This package contains two sub-packages model and repository. The first onw contains the database model and the second one the DAO layer.</p></li>
+<li><p><strong>com.wesovilabs.workshops.graphql.converter</strong>: This package contains classes that will help in order to make transformation between objects. Basically for transforming the GraphQL domain objects into entities that will be persisted into the database.</p></li>
+<li><p><strong>com.wesovilabs.workshops.graphql.publisher</strong>: Pub-sub implementations that will be used by subscription operations.</p></li>
+<li><p><strong>com.wesovilabs.workshops.graphql.resolver</strong>: It contains the resolver for our application: queries, mutations and subscriptions but also the resolver of the output types when it is required.</p></li>
+<li><p><strong>com.wesovilabs.workshops.graphql.service</strong>: This is the business layer which is call from the resolver package and It delegates the request to the repository.</p></li>
+<li><p><strong>com.wesovilabs.workshops.graphql.directive</strong>: Empty package that will be used during the workshop.</p></li>
+<li><p><strong>com.wesovilabs.workshops.graphql.scalae</strong>: Empty package that will be used during the workshop.</p></li>
+</ul>
+</div>
+<div id="srcmainresources" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> ./src/main/resources</h3>
+<ul>
+<li><p><strong>workshop.graphqls</strong>: GraphQL schema that is implemented by our application.</p></li>
+<li><p><strong>application.yaml</strong>: Default configuration file used by spring-boot when running the application locally.</p></li>
+<li><p><strong>docker/Dockerfile</strong>: Docker descriptor for out application.</p></li>
+<li><p><strong>docker-compose/docker-compose.yml</strong>: Descriptor for launching bot database and our application.</p></li>
+<li><p><strong>docker-compose/api</strong>: Configuration files used by api container.</p></li>
+<li><p><strong>docker-compose/postgres</strong>: Configuration files used by postgres container.</p></li>
+</ul>
+</div>
+</div>
+<div id="running-the-server" class="section level2">
+<h2><span class="header-section-number">2.3</span> Running the server</h2>
+<p>From the root directory you just need to execute</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">make</span> deploy</code></pre></div>
+<p>or in case of you don’t have make command installed</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">gradle</span> build<span class="kw">;</span>
+<span class="ex">docker</span> build -f src/main/resources/docker/Dockerfile -t=wesovilabs/workshop-graphql-java:local .<span class="kw">;</span>
+<span class="ex">docker-compose</span> -f docker-compose/docker-compose.yml -run -p9001:9001 api</code></pre></div>
+<p>To clean the launched containers you just need to perform</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">make</span> docker-stop</code></pre></div>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker-compose</span> -f docker-compose/docker-compose.yml down -v</code></pre></div>
+</div>
+<div id="the-application" class="section level2">
+<h2><span class="header-section-number">2.4</span> The application</h2>
+<div id="database" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Database</h3>
+<div class="figure">
+<img src="assets/database-model.png" alt="Workshop database model" />
+<p class="caption">Workshop database model</p>
+</div>
+<p>Databases will be populated with below data when postgres container is launched.</p>
+<table>
+<caption>directors</caption>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="right">full_name</th>
+<th align="right">country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">Tim Burton</td>
+<td align="right">USA</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">James Cameron</td>
+<td align="right">Canada</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">Steven Spielberg</td>
+<td align="right">USA</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">Martin Scorsese</td>
+<td align="right">UK</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">Alfred Hitchcock</td>
+<td align="right">USA</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">Clint Eastwood</td>
+<td align="right">UK</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>actors</caption>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="right">full_name</th>
+<th align="right">country</th>
+<th align="right">male</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">Johnny Depp</td>
+<td align="right">USA</td>
+<td align="right">true</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">Winona Ryder</td>
+<td align="right">USA</td>
+<td align="right">false</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">Russell Crowe</td>
+<td align="right">Australia</td>
+<td align="right">true</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">Joaquin Phoenix</td>
+<td align="right">USA</td>
+<td align="right">true</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">Al Pacino</td>
+<td align="right">USA</td>
+<td align="right">true</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">Robert de Niro</td>
+<td align="right">USA</td>
+<td align="right">true</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>movies</caption>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="center">title</th>
+<th align="right">release_year</th>
+<th align="right">genre</th>
+<th align="right">budget</th>
+<th align="right">thriller</th>
+<th align="right">director_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="center">Edward Scissorhands</td>
+<td align="right">1990</td>
+<td align="right">SciFi</td>
+<td align="right">20</td>
+<td align="right"><a href="https://www.yout" class="uri">https://www.yout</a>…</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="center">Gladiator</td>
+<td align="right">2000</td>
+<td align="right">Drama</td>
+<td align="right">103</td>
+<td align="right"><a href="https://www.yout" class="uri">https://www.yout</a>…</td>
+<td align="right">7</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>movies_actors</caption>
+<thead>
+<tr class="header">
+<th align="right">movie_id</th>
+<th align="right">actor_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="api" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> API</h3>
+<p>By defualt the below operations are already implemented in our project.</p>
+<div id="queries" class="section level4">
+<h4><span class="header-section-number">2.4.2.1</span> Queries</h4>
+<ul>
+<li><strong>listDirectors:[Director!]</strong>: It returns the list of directors.</li>
+<li><strong>listActors:[Actor!]</strong>:It returns the list of actors.</li>
+<li><strong>listMovies:[Movie!]</strong>: It returns the list of movies.</li>
+<li><strong>getMovie(movieId:ID!):Movie</strong>: It returns the movie with given id.</li>
+</ul>
+</div>
+<div id="mutations" class="section level4">
+<h4><span class="header-section-number">2.4.2.2</span> Mutations</h4>
+<ul>
+<li><strong>addMovie(request:MovieRequest):Movie!</strong>: It adds a new movie.</li>
+<li><strong>addActor(request:ActorRequest):Actor!</strong>: It adds a new actor.</li>
+<li><strong>deleteActor(“Identifier of the actor” actorId:ID!):[Actor!]</strong>: It deletes the actor with the given id.</li>
+</ul>
+</div>
+<div id="subscriptions" class="section level4">
+<h4><span class="header-section-number">2.4.2.3</span> Subscriptions</h4>
+<ul>
+<li><strong>listenDirectorMovies(directorId:ID!):Movie!</strong>: It open a communication with the server and It is notified when a new movie is created for the directorId in the request.</li>
+</ul>
+</div>
+</div>
+<div id="graphql-schema" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> GraphQL schema</h3>
+<p>The full GraphQL schema looks</p>
+<pre class="graphql"><code>schema {
+    # The query root of Workshop GraphQL interface.
+    query: Query
+    # The root query for implementing GraphQL mutations.
+    mutation: Mutation
+    # The root query for implementing GraphQL subscriptions.
+    subscription: Subscription
+
+}
+
+&quot;&quot;&quot;Available queries for Workshop API&quot;&quot;&quot;
+type Query {
+    &quot;&quot;&quot;It returns the list of directors.&quot;&quot;&quot;
+    listDirectors:[Director!]
+    &quot;&quot;&quot;It returns the list of actors.&quot;&quot;&quot;
+    listActors:[Actor!]
+    &quot;&quot;&quot;It returns the list of movies.&quot;&quot;&quot;
+    listMovies:[Movie!]
+    &quot;&quot;&quot;It returns the movie with the fiven id&quot;&quot;&quot;
+    getMovie(&quot;Movie identifier&quot; movieId:ID!):Movie
+}
+
+&quot;&quot;&quot;Available mutations for Workshop API&quot;&quot;&quot;
+type Mutation {
+    &quot;&quot;&quot;I adds a new movie&quot;&quot;&quot;
+    addMovie(request:MovieRequest):Movie!
+    &quot;&quot;&quot;I adds a new actor&quot;&quot;&quot;
+    addActor(request:ActorRequest):Actor!
+    &quot;&quot;&quot;I deletes an actor with the fiven identifier&quot;&quot;&quot;
+    deleteActor(&quot;Identifier of the actor&quot; actorId:ID!):[Actor!]
+}
+
+&quot;&quot;&quot;Available subscriptions for Workshop API&quot;&quot;&quot;
+type Subscription {
+    &quot;&quot;&quot;It returns the movies for a given director&quot;&quot;&quot;
+    listenDirectorMovies(directorId:ID!):Movie!
+}
+
+
+&quot;&quot;&quot;Request info for creating a movie&quot;&quot;&quot;
+input MovieRequest {
+    &quot;Name of the movie&quot;
+    title: String!
+    &quot;Year when the movie was released&quot;
+    year: Int
+    &quot;Genre for the movie, supported values should be: SciFi, Drama, Comedy or Action&quot;
+    genre: String
+    &quot;Budget for the movie, the value is provided in Euro&quot;
+    budget: Float!
+    &quot;URL in which we can watch the thriller of this movie&quot;
+    thriller: String
+    &quot;Identifier of director&quot;
+    directorId: ID!
+}
+
+&quot;&quot;&quot;Movie details&quot;&quot;&quot;
+type Movie {
+    &quot;Unique identifier for each movie&quot;
+    id: ID!
+    &quot;Name of the movie&quot;
+    title: String!
+    &quot;Year when the movie was released&quot;
+    year: Int
+    &quot;Genre for the movie, supported values should be: SciFi, Drama, Comedy or Action&quot;
+    genre: String
+    &quot;Budget for the movie, the value is provided in Euro&quot;
+    budget: Float!
+    &quot;URL in which we can watch the thriller of this movie&quot;
+    thriller: String
+    &quot;The director details of the movie&quot;
+    director: Director!
+    &quot;List of actors for the movie&quot;
+    actors(&quot;Total of returned actors&quot; total:Int=1): [Actor!]
+}
+
+&quot;&quot;&quot;Director details&quot;&quot;&quot;
+type Director{
+    &quot;Unique identifier for each director&quot;
+    id: ID!
+    &quot;Full name of the director&quot;
+    fullName: String!
+    &quot;Country in which the director was born&quot;
+    country: String
+}
+
+&quot;&quot;&quot;Actor creation info&quot;&quot;&quot;
+input ActorRequest {
+    &quot;Full name of the director&quot;
+    fullName: String!
+    &quot;Country in which the actor was born&quot;
+    country: String
+    &quot;Gender of actor: Supported values are male or female&quot;
+    gender: String
+}
+
+&quot;&quot;&quot;Actor details&quot;&quot;&quot;
+type Actor {
+    &quot;Unique identifier for each actor&quot;
+    id: ID!
+    &quot;Full name of the actor&quot;
+    fullName: String!
+    &quot;Country in which the actor was born&quot;
+    country: String
+    &quot;Gender of actor: Supported values are male or female&quot;
+    gender: String
+}</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-graphql-playground.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["workshop-graphql-java.pdf", "workshop-graphql-java.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

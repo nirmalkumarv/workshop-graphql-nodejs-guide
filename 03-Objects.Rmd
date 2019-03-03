@@ -1,0 +1,203 @@
+# GraphQL: Objects
+
+## Introduction
+
+The GraphQL specification includes the following default scalar types: Int, Float, String, Boolean and ID. 
+While this covers most of the use cases, often you need to support custom atomic data types (e.g. Date), 
+or you want a version of an existing type that does some validation. To enable this, GraphQL allows you to 
+define custom scalar types. Enumerations are similar to custom scalars, but their values can only be one 
+of a pre-defined list of strings. 
+
+
+The way to define new scalars or enums in the schema is shown below:
+
+```graphql
+scalar MyCustomScalar
+
+enum Direction {
+  NORTH
+  EAST
+  SOUTH
+  WEST
+}
+
+type MyType {
+    myAttribute: MyCustomScalar
+    direction: Direction
+    ...
+}
+
+```
+
+Fields can take arguments as input. These can be used to determine the return value (eg, filtering search results) or 
+to modify the application state. These are known as **field arguments**.
+
+If you have a look at our schema.graphql you can find an example of usage of a field argument for attribute actors 
+in type Movie. 
+
+
+## Code
+
+### Enum
+
+In the introduction we see how to define a enum type in the schema. In the code
+we just need to create an enum type with the same name.
+
+**Direction.java** (This file should be in package domain)
+```java
+public enum Direction {
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST
+}
+```
+
+### Resolvers
+
+
+Let's imagine that we have an operation that returns a Employee type and this
+type contains an attribute details of type SocialDetails whose information needs to be taken from an external API.
+And this attribute won't be always required by the API consumers. Server should not
+waste time on obtaining something that clients do not need.
+
+
+**PersonResolver.js**  (This file should be in package resolver)
+```java
+@Component
+public class PersonResolver implements GraphQLResolver<Person> {
+    
+    public SocialDetails details(Person person) {
+        /** 
+        *  We will invoke Linkedin API to obtain the info.
+        **/
+        SocialDetails details = linkedinAPI.getDetals(person.getId());
+        return details;
+    }
+    
+}
+``` 
+
+Now, image that SocialDetails can be taken from more than one social network
+and we want to permit the consumers to decide which social network must be used. 
+(It's known as field arguments)
+
+**schema.graphqls.**
+```graphl
+enum Source{
+    Linkedin
+    Facebook
+}
+type Person {
+
+  details(source:Source=Linkedin):SocialDetails
+}
+
+```
+Our resolver could look like this
+
+**Source.java** (This file should be in package domain)
+```java
+public enum Source {
+    Facebook,
+    Linkedin
+}
+
+```
+**SouPersonResolverrce.java** (This file should be in package resolver)
+```java
+@Component
+public class PersonResolver implements GraphQLResolver<Person> {
+    
+    public SocialDetails details(Person person, Source source) {
+        if (source==Source.Linkedin){
+            SocialDetails details = linkedinAPI.getDetals(person.getId());
+            return details;
+        }
+        if (source==Source.Facebook){
+            SocialDetails details = facebookAPI.getDetals(person.getId());
+            return details;
+        } 
+    }
+    
+}
+``` 
+
+### Scalars
+
+The java-graphql library that we use provides with class `GraphQLScalarType` that we need to extend to
+define our own scalars. 
+
+Scalar documentation can be found [here](https://www.graphql-java.com/documentation/master/scalars/)
+
+Keep in mind that our application works with Spring, so the code could be a little bit different
+than the examples in the above documentation.
+
+Below we can see the implementation for a scalar type that only permit odd numbers.
+
+**OddScalar.js** (This file should be in package scalar)
+```java
+@Component
+public class OddScalar extends GraphQLScalarType {
+
+
+    public OddScalar() {
+        /**
+        * args[0] Scalar name: It must be the one defined in the GraphQL schema
+        * args[1] Scalar description: A brief description for our scalar type
+        * args[2] A Coercing instance that we define below
+        */
+        super("Odd", "Odd scalar", coercing);
+    }
+
+    private static final Coercing coercing = new Coercing<Object, Object>() {
+        @Override
+        public Object serialize(Object input) {
+             if (input instanceof Integer) {
+                if (result % 2 !=0){
+                    throw new CoercingSerializeException(
+                        "It's not a valid odd number."
+                    );             
+               }
+               return result;
+            }
+            throw new CoercingSerializeException(
+                     "Expected type 'Int' but was other."
+            );
+        }
+
+        @Override
+        public Object parseValue(Object input) {
+            return serialize(input);
+        }
+
+        @Override
+        public Object parseLiteral(Object input) {
+           if (!(input instanceof IntValue)) {
+               throw new CoercingParseLiteralException(
+                   "Expected AST type 'IntValue' but was other'."
+               );
+           }
+           Integer value = ((IntValue) input).getValue();
+           if (result % 2 !=0){
+                throw new CoercingSerializeException(
+                    "It's not a valid odd number."
+                );             
+            }
+            return value;
+        }
+    };
+    
+}
+```
+
+
+
+## Challenges
+
+1. Define an enum type Genre whose values are Drama and SciFi (add as many other as you want) and use it
+for attribute genre in type Movie and  MovieRequest.
+2. Define an enum Gender and use it for attribute gender in type Actor.
+3. Define a scalar type Url and use it in attribute thriller of types Movie and MovieRequest.
+4. Define an enum type Currency whose possible values are Euro and Dollar. Our API must permit
+the API consumers to decide in which currency they want to obtain attribute budget in type Movie.

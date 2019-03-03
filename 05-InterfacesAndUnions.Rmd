@@ -1,0 +1,146 @@
+# GraphQL: Interfaces and Unions
+
+## Introduction
+
+An interface exposes a certain set of fields that a type must include to implement the interface. 
+
+**schema.graphql**
+```graphql
+interface Restaurant {
+    id:ID!
+    name: String!
+}
+
+type Indian implements Restaurant{
+    id:ID!
+    name: String!
+    brewedBeer:Boolean!
+}
+
+type Burger implements Restaurant{
+    id:ID!
+    name: String!
+    vegetarianOptions: Boolean!
+}
+
+type Query{
+    listRestaurants: [Restaurant!]
+}
+
+```
+
+Unions are identical to interfaces, except that they don't define a common set of fields. Unions are generally preferred 
+over interfaces when the possible types do not share a logical hierarchy.
+
+```graphql
+union Item = Food | Electronic | Customer
+
+type Electronic {
+    size: Float
+    weight: Float
+}
+
+type Food {
+    family: String
+}
+
+type Customer {
+    fullName: String
+    zip: String
+}
+type Query{
+    listItems: [Item!]
+}
+ 
+```
+
+## Fragments
+
+Fragments are powerful technique when we are consuming a query that returns an Interface or an Union. They are used to define
+what attributes we want to obtain from the server depending on the type of the concrete element.
+
+```graphql
+query {
+    listRestaurants:{
+        id
+        name
+        ... on Indian {
+            brewedBeer
+        }
+        ... on Burger {
+            vegetarianOptions
+        }
+        __typename
+    }
+}  
+
+```
+
+## Code
+
+Unions and interfaces can be easily represented in Java since the language provides us with abstract classes and interfaces.
+The below pieces of code  show an example for the GraphQL definitions in the previous point.
+
+**Restaurant.java**
+```java
+public class Restaurant {
+    
+    private String id;
+    
+    private Integer name;
+}
+```
+
+**Indian.java**
+```java
+public class Indiand extends Restaurant {
+    private Boolean brewedBeer;
+}
+```
+
+**Burger.java**
+```java
+public class Burger extends Restaurant {
+    private Boolean vegetarianOptions;
+}
+```
+
+**QueryResolver.java**
+```java
+@Component
+public class QueryResolver implements GraphQLQueryResolver {
+    
+    public List<Restaurant> listRestaurants() {
+        List<Resturant> restaurants = new ArrayList<Restaurant>();
+        restaurants.addAll(indianService.listAll());
+        restaurants.addAll(burgerService.listAll());
+        return restaurants;
+    } 
+}
+```
+
+To implement an Union classes don't have common attributes so we could classes implements and Interface instead of
+extending a class.
+
+
+**Item.java**
+```java
+public interface Item{
+    
+}
+```
+
+**Electronic.java**
+```java
+public class Electronic implements Item{
+    private Float size;
+    private Float weight;
+}
+```
+
+## Challenges
+
+- Define an interface Person with commons attributes for Actor and Director. Add  a new query
+listPeople that returns a list of people ([Person!]).
+- Define an union named Item that could be a Movie or an Actor. Add an operations listItems that return
+the full list of Items. [Item!]

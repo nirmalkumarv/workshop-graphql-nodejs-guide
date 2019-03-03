@@ -1,0 +1,272 @@
+# Set up your environment
+
+## Download the project
+
+The workshop can be followed in: NodeJS. (Java, Python, Go are coming soon).
+
+```bash
+git clone https://github.com/wesovilabs-workshops/workshop-graphql-java.git
+cd workshop-graphql-java
+```
+
+## Project organization
+
+
+> Project follows the guidelines for structuring a Java project with Gradle. 
+
+ 
+### ./src/main/java
+
+- **com.wesovilabs.workshops.graphql.domain**: It contains the classes that represent
+the GraphQL domain model. 
+
+- **com.wesovilabs.workshops.graphql.database**: This package contains two sub-packages
+model and repository. The first onw contains the database model and the second one
+the DAO layer.
+
+- **com.wesovilabs.workshops.graphql.converter**: This package contains classes
+that will help in order to make transformation between objects. Basically for 
+transforming the GraphQL domain objects into entities that will be persisted
+into the database.
+
+- **com.wesovilabs.workshops.graphql.publisher**: Pub-sub implementations that will be used
+by subscription operations.
+
+- **com.wesovilabs.workshops.graphql.resolver**: It contains the resolver for our application: 
+queries, mutations and subscriptions but also the resolver of the output types when it is required.
+
+- **com.wesovilabs.workshops.graphql.service**: This is the business layer which is 
+call from the resolver package and It delegates the request to the repository.
+
+- **com.wesovilabs.workshops.graphql.directive**: Empty package that will be used during the workshop.
+
+- **com.wesovilabs.workshops.graphql.scalae**: Empty package that will be used during the workshop.
+
+
+### ./src/main/resources
+
+- **workshop.graphqls**: GraphQL schema that is implemented by our application.
+
+- **application.yaml**: Default configuration file used by spring-boot when running the application locally.
+
+- **docker/Dockerfile**: Docker descriptor for out application.
+
+- **docker-compose/docker-compose.yml**: Descriptor for launching bot database and our application.
+
+- **docker-compose/api**: Configuration files used by api container.
+
+- **docker-compose/postgres**: Configuration files used by postgres container.
+
+## Running the server
+
+From the root directory you just need to execute
+
+```bash
+make deploy
+``` 
+
+or in case of you don't have make command installed 
+
+
+```bash
+gradle build;
+docker build -f src/main/resources/docker/Dockerfile -t=wesovilabs/workshop-graphql-java:local .;
+docker-compose -f docker-compose/docker-compose.yml -run -p9001:9001 api
+```
+
+To clean the launched containers you just need to perform
+
+```bash
+make docker-stop
+```
+
+or 
+
+```bash
+docker-compose -f docker-compose/docker-compose.yml down -v
+```
+
+## The application
+
+### Database 
+
+![Workshop database model](assets/database-model.png)
+
+Databases will be populated with below data when postgres container is launched. 
+
+Table: directors
+
+           id         full_name        country
+-------------  ----------------  -------------
+            1        Tim Burton            USA
+            2     James Cameron         Canada
+            3  Steven Spielberg            USA
+            4   Martin Scorsese             UK
+            5  Alfred Hitchcock            USA
+            6    Clint Eastwood             UK
+            
+Table: actors
+
+           id         full_name        country         male
+-------------  ----------------  -------------  -----------
+            1       Johnny Depp            USA         true
+            2     Winona Ryder             USA        false
+            3  Russell Crowe         Australia         true
+            4   Joaquin Phoenix            USA         true
+            5  Al Pacino                   USA     true
+            6  Robert de Niro              USA     true
+            
+Table: movies
+
+           id                       title    release_year        genre       budget                thriller    director_id
+-------------  ---------------------------  -------------  -----------  -----------  ----------------------  -------------
+            1       Edward Scissorhands         1990            SciFi       20        https://www.yout...       1
+            2       Gladiator                   2000            Drama       103       https://www.yout...       7
+            
+            
+            
+Table: movies_actors
+
+     movie_id          actor_id
+-------------  ----------------
+            1       1
+            1       2
+            2       3
+            2       4
+            
+### API
+
+By defualt the below operations are already implemented in our project.
+
+#### Queries
+
+- **listDirectors:[Director!]**: It returns the list of directors.
+- **listActors:[Actor!]**:It returns the list of actors.
+- **listMovies:[Movie!]**: It returns the list of movies.
+- **getMovie(movieId:ID!):Movie**: It returns the movie with given id.
+
+#### Mutations
+
+- **addMovie(request:MovieRequest):Movie!**: It adds a new movie.
+- **addActor(request:ActorRequest):Actor!**: It adds a new actor. 
+- **deleteActor("Identifier of the actor" actorId:ID!):[Actor!]**: It 
+deletes the actor with the given id.
+
+#### Subscriptions
+
+- **listenDirectorMovies(directorId:ID!):Movie!**: It open a communication with 
+the server and It is notified when a new movie is created for the directorId in the request.
+
+
+### GraphQL schema
+
+The full GraphQL schema looks
+
+```graphql
+schema {
+    # The query root of Workshop GraphQL interface.
+    query: Query
+    # The root query for implementing GraphQL mutations.
+    mutation: Mutation
+    # The root query for implementing GraphQL subscriptions.
+    subscription: Subscription
+
+}
+
+"""Available queries for Workshop API"""
+type Query {
+    """It returns the list of directors."""
+    listDirectors:[Director!]
+    """It returns the list of actors."""
+    listActors:[Actor!]
+    """It returns the list of movies."""
+    listMovies:[Movie!]
+    """It returns the movie with the fiven id"""
+    getMovie("Movie identifier" movieId:ID!):Movie
+}
+
+"""Available mutations for Workshop API"""
+type Mutation {
+    """I adds a new movie"""
+    addMovie(request:MovieRequest):Movie!
+    """I adds a new actor"""
+    addActor(request:ActorRequest):Actor!
+    """I deletes an actor with the fiven identifier"""
+    deleteActor("Identifier of the actor" actorId:ID!):[Actor!]
+}
+
+"""Available subscriptions for Workshop API"""
+type Subscription {
+    """It returns the movies for a given director"""
+    listenDirectorMovies(directorId:ID!):Movie!
+}
+
+
+"""Request info for creating a movie"""
+input MovieRequest {
+    "Name of the movie"
+    title: String!
+    "Year when the movie was released"
+    year: Int
+    "Genre for the movie, supported values should be: SciFi, Drama, Comedy or Action"
+    genre: String
+    "Budget for the movie, the value is provided in Euro"
+    budget: Float!
+    "URL in which we can watch the thriller of this movie"
+    thriller: String
+    "Identifier of director"
+    directorId: ID!
+}
+
+"""Movie details"""
+type Movie {
+    "Unique identifier for each movie"
+    id: ID!
+    "Name of the movie"
+    title: String!
+    "Year when the movie was released"
+    year: Int
+    "Genre for the movie, supported values should be: SciFi, Drama, Comedy or Action"
+    genre: String
+    "Budget for the movie, the value is provided in Euro"
+    budget: Float!
+    "URL in which we can watch the thriller of this movie"
+    thriller: String
+    "The director details of the movie"
+    director: Director!
+    "List of actors for the movie"
+    actors("Total of returned actors" total:Int=1): [Actor!]
+}
+
+"""Director details"""
+type Director{
+    "Unique identifier for each director"
+    id: ID!
+    "Full name of the director"
+    fullName: String!
+    "Country in which the director was born"
+    country: String
+}
+
+"""Actor creation info"""
+input ActorRequest {
+    "Full name of the director"
+    fullName: String!
+    "Country in which the actor was born"
+    country: String
+    "Gender of actor: Supported values are male or female"
+    gender: String
+}
+
+"""Actor details"""
+type Actor {
+    "Unique identifier for each actor"
+    id: ID!
+    "Full name of the actor"
+    fullName: String!
+    "Country in which the actor was born"
+    country: String
+    "Gender of actor: Supported values are male or female"
+    gender: String
+}
+```

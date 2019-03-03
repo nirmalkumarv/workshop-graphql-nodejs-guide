@@ -1,0 +1,1333 @@
+\documentclass[]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={GraphQL workshop for Java developers},
+            pdfauthor={Iván Corrales Solera ivan.corrales.solera@gmail.com},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{natbib}
+\bibliographystyle{apalike}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{GraphQL workshop for Java developers}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Iván Corrales Solera
+\href{mailto:ivan.corrales.solera@gmail.com}{\nolinkurl{ivan.corrales.solera@gmail.com}}}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{v0.0.1}
+
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\chapter{Pre-requisites}\label{pre-requisites}
+
+\begin{itemize}
+\item
+  Git: Installation guide can be found
+  \href{https://git-scm.com/book/en/v2/Getting-Started-Installing-Git}{here}.
+\item
+  Access to \href{https://www.github.com}{Github}: Resources for the
+  course are hosted on Github.
+\item
+  Docker \& docker-compose. (docker-compose must support version:``2'').
+\item
+  Gradle correctly installed in your computer.
+  \href{https://gradle.org/install/}{Installation guide}
+\end{itemize}
+
+\chapter{Set up your environment}\label{set-up-your-environment}
+
+\section{Download the project}\label{download-the-project}
+
+The workshop can be followed in: NodeJS. (Java, Python, Go are coming
+soon).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ clone https://github.com/wesovilabs-workshops/workshop-graphql-java.git}
+\BuiltInTok{cd}\NormalTok{ workshop-graphql-java}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Project organization}\label{project-organization}
+
+\begin{quote}
+Project follows the guidelines for structuring a Java project with
+Gradle.
+\end{quote}
+
+\subsection{./src/main/java}\label{srcmainjava}
+
+\begin{itemize}
+\item
+  \textbf{com.wesovilabs.workshops.graphql.domain}: It contains the
+  classes that represent the GraphQL domain model.
+\item
+  \textbf{com.wesovilabs.workshops.graphql.database}: This package
+  contains two sub-packages model and repository. The first onw contains
+  the database model and the second one the DAO layer.
+\item
+  \textbf{com.wesovilabs.workshops.graphql.converter}: This package
+  contains classes that will help in order to make transformation
+  between objects. Basically for transforming the GraphQL domain objects
+  into entities that will be persisted into the database.
+\item
+  \textbf{com.wesovilabs.workshops.graphql.publisher}: Pub-sub
+  implementations that will be used by subscription operations.
+\item
+  \textbf{com.wesovilabs.workshops.graphql.resolver}: It contains the
+  resolver for our application: queries, mutations and subscriptions but
+  also the resolver of the output types when it is required.
+\item
+  \textbf{com.wesovilabs.workshops.graphql.service}: This is the
+  business layer which is call from the resolver package and It
+  delegates the request to the repository.
+\item
+  \textbf{com.wesovilabs.workshops.graphql.directive}: Empty package
+  that will be used during the workshop.
+\item
+  \textbf{com.wesovilabs.workshops.graphql.scalae}: Empty package that
+  will be used during the workshop.
+\end{itemize}
+
+\subsection{./src/main/resources}\label{srcmainresources}
+
+\begin{itemize}
+\item
+  \textbf{workshop.graphqls}: GraphQL schema that is implemented by our
+  application.
+\item
+  \textbf{application.yaml}: Default configuration file used by
+  spring-boot when running the application locally.
+\item
+  \textbf{docker/Dockerfile}: Docker descriptor for out application.
+\item
+  \textbf{docker-compose/docker-compose.yml}: Descriptor for launching
+  bot database and our application.
+\item
+  \textbf{docker-compose/api}: Configuration files used by api
+  container.
+\item
+  \textbf{docker-compose/postgres}: Configuration files used by postgres
+  container.
+\end{itemize}
+
+\section{Running the server}\label{running-the-server}
+
+From the root directory you just need to execute
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{make}\NormalTok{ deploy}
+\end{Highlighting}
+\end{Shaded}
+
+or in case of you don't have make command installed
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{gradle}\NormalTok{ build}\KeywordTok{;}
+\ExtensionTok{docker}\NormalTok{ build -f src/main/resources/docker/Dockerfile -t=wesovilabs/workshop-graphql-java:local .}\KeywordTok{;}
+\ExtensionTok{docker-compose}\NormalTok{ -f docker-compose/docker-compose.yml -run -p9001:9001 api}
+\end{Highlighting}
+\end{Shaded}
+
+To clean the launched containers you just need to perform
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{make}\NormalTok{ docker-stop}
+\end{Highlighting}
+\end{Shaded}
+
+or
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{docker-compose}\NormalTok{ -f docker-compose/docker-compose.yml down -v}
+\end{Highlighting}
+\end{Shaded}
+
+\section{The application}\label{the-application}
+
+\subsection{Database}\label{database}
+
+\begin{figure}
+\centering
+\includegraphics{assets/database-model.png}
+\caption{Workshop database model}
+\end{figure}
+
+Databases will be populated with below data when postgres container is
+launched.
+
+\begin{longtable}[]{@{}rrr@{}}
+\caption{directors}\tabularnewline
+\toprule
+id & full\_name & country\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+id & full\_name & country\tabularnewline
+\midrule
+\endhead
+1 & Tim Burton & USA\tabularnewline
+2 & James Cameron & Canada\tabularnewline
+3 & Steven Spielberg & USA\tabularnewline
+4 & Martin Scorsese & UK\tabularnewline
+5 & Alfred Hitchcock & USA\tabularnewline
+6 & Clint Eastwood & UK\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}rrrr@{}}
+\caption{actors}\tabularnewline
+\toprule
+id & full\_name & country & male\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+id & full\_name & country & male\tabularnewline
+\midrule
+\endhead
+1 & Johnny Depp & USA & true\tabularnewline
+2 & Winona Ryder & USA & false\tabularnewline
+3 & Russell Crowe & Australia & true\tabularnewline
+4 & Joaquin Phoenix & USA & true\tabularnewline
+5 & Al Pacino & USA & true\tabularnewline
+6 & Robert de Niro & USA & true\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}rcrrrrr@{}}
+\caption{movies}\tabularnewline
+\toprule
+id & title & release\_year & genre & budget & thriller &
+director\_id\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+id & title & release\_year & genre & budget & thriller &
+director\_id\tabularnewline
+\midrule
+\endhead
+1 & Edward Scissorhands & 1990 & SciFi & 20 &
+\url{https://www.yout}\ldots{} & 1\tabularnewline
+2 & Gladiator & 2000 & Drama & 103 & \url{https://www.yout}\ldots{} &
+7\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}rr@{}}
+\caption{movies\_actors}\tabularnewline
+\toprule
+movie\_id & actor\_id\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+movie\_id & actor\_id\tabularnewline
+\midrule
+\endhead
+1 & 1\tabularnewline
+1 & 2\tabularnewline
+2 & 3\tabularnewline
+2 & 4\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{API}\label{api}
+
+By defualt the below operations are already implemented in our project.
+
+\subsubsection{Queries}\label{queries}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{listDirectors:{[}Director!{]}}: It returns the list of
+  directors.
+\item
+  \textbf{listActors:{[}Actor!{]}}:It returns the list of actors.
+\item
+  \textbf{listMovies:{[}Movie!{]}}: It returns the list of movies.
+\item
+  \textbf{getMovie(movieId:ID!):Movie}: It returns the movie with given
+  id.
+\end{itemize}
+
+\subsubsection{Mutations}\label{mutations}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{addMovie(request:MovieRequest):Movie!}: It adds a new movie.
+\item
+  \textbf{addActor(request:ActorRequest):Actor!}: It adds a new actor.
+\item
+  \textbf{deleteActor(``Identifier of the actor''
+  actorId:ID!):{[}Actor!{]}}: It deletes the actor with the given id.
+\end{itemize}
+
+\subsubsection{Subscriptions}\label{subscriptions}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{listenDirectorMovies(directorId:ID!):Movie!}: It open a
+  communication with the server and It is notified when a new movie is
+  created for the directorId in the request.
+\end{itemize}
+
+\subsection{GraphQL schema}\label{graphql-schema}
+
+The full GraphQL schema looks
+
+\begin{verbatim}
+schema {
+    # The query root of Workshop GraphQL interface.
+    query: Query
+    # The root query for implementing GraphQL mutations.
+    mutation: Mutation
+    # The root query for implementing GraphQL subscriptions.
+    subscription: Subscription
+
+}
+
+"""Available queries for Workshop API"""
+type Query {
+    """It returns the list of directors."""
+    listDirectors:[Director!]
+    """It returns the list of actors."""
+    listActors:[Actor!]
+    """It returns the list of movies."""
+    listMovies:[Movie!]
+    """It returns the movie with the fiven id"""
+    getMovie("Movie identifier" movieId:ID!):Movie
+}
+
+"""Available mutations for Workshop API"""
+type Mutation {
+    """I adds a new movie"""
+    addMovie(request:MovieRequest):Movie!
+    """I adds a new actor"""
+    addActor(request:ActorRequest):Actor!
+    """I deletes an actor with the fiven identifier"""
+    deleteActor("Identifier of the actor" actorId:ID!):[Actor!]
+}
+
+"""Available subscriptions for Workshop API"""
+type Subscription {
+    """It returns the movies for a given director"""
+    listenDirectorMovies(directorId:ID!):Movie!
+}
+
+
+"""Request info for creating a movie"""
+input MovieRequest {
+    "Name of the movie"
+    title: String!
+    "Year when the movie was released"
+    year: Int
+    "Genre for the movie, supported values should be: SciFi, Drama, Comedy or Action"
+    genre: String
+    "Budget for the movie, the value is provided in Euro"
+    budget: Float!
+    "URL in which we can watch the thriller of this movie"
+    thriller: String
+    "Identifier of director"
+    directorId: ID!
+}
+
+"""Movie details"""
+type Movie {
+    "Unique identifier for each movie"
+    id: ID!
+    "Name of the movie"
+    title: String!
+    "Year when the movie was released"
+    year: Int
+    "Genre for the movie, supported values should be: SciFi, Drama, Comedy or Action"
+    genre: String
+    "Budget for the movie, the value is provided in Euro"
+    budget: Float!
+    "URL in which we can watch the thriller of this movie"
+    thriller: String
+    "The director details of the movie"
+    director: Director!
+    "List of actors for the movie"
+    actors("Total of returned actors" total:Int=1): [Actor!]
+}
+
+"""Director details"""
+type Director{
+    "Unique identifier for each director"
+    id: ID!
+    "Full name of the director"
+    fullName: String!
+    "Country in which the director was born"
+    country: String
+}
+
+"""Actor creation info"""
+input ActorRequest {
+    "Full name of the director"
+    fullName: String!
+    "Country in which the actor was born"
+    country: String
+    "Gender of actor: Supported values are male or female"
+    gender: String
+}
+
+"""Actor details"""
+type Actor {
+    "Unique identifier for each actor"
+    id: ID!
+    "Full name of the actor"
+    fullName: String!
+    "Country in which the actor was born"
+    country: String
+    "Gender of actor: Supported values are male or female"
+    gender: String
+}
+\end{verbatim}
+
+\chapter{The GraphQL Playground}\label{the-graphql-playground}
+
+\section{Introduction}\label{introduction}
+
+Once the server is up and ready we can interact with our API by making
+use of the \textbf{GraphQL Playground}. There are several desktop
+applications that allow us to run our queries against GraphQL API's. On
+the other hand, to follow the workshop we will make use of an embedded
+web client which is deployed within out api.
+
+Just open
+\href{http://localhost:9001/graphiql}{ohttp://localhost:9001/graphiql}
+in your browser.
+
+\begin{figure}
+\centering
+\includegraphics{assets/graphiql.png}
+\caption{GraphQL playground}
+\end{figure}
+
+Learn to use Graphiql is not rock science. We will write our queries on
+the left panel and the result will be displayed on the right panel.
+
+To check the \textbf{API documentation} we just need to click on button
+on the right (\textless{} Docs) and a handy menu will be shown.
+
+\section{GraphQL syntax}\label{graphql-syntax}
+
+On the below picture we can observe how queries, mutations and
+subscriptions are made from the Graphiql. Beer in mind that you can only
+run one ot these three operations at time. On the other hand you can
+perform several queries or several mutations at time. Have a look at the
+examples to understand how queries cna eb executed.
+
+\begin{figure}
+\centering
+\includegraphics{assets/queries.png}
+\caption{Queries with alias}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{assets/mutations.png}
+\caption{Mutations}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{assets/subscriptions.png}
+\caption{Subscriptions}
+\end{figure}
+
+\section{Challenges}\label{challenges}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Write a query that returns the below details (\textbf{getMovie})
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics{assets/challenge-1.png}
+\caption{Edward Scissorhands}
+\end{figure}
+
+\begin{itemize}
+\item
+  How many actors are shown?
+\item
+  The returned fields in the picture are the same that the returned by
+  your query?
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Create a new director (\textbf{addDirector})
+\item
+  Subscript to the movies for the created director in the previous step.
+  (\textbf{listenDirectorMovies})
+\item
+  Open another tab in your GraphQL Playground and add a new movie in
+  which the director is the one that you just created.
+  (\textbf{addMovie}).
+\item
+  Verify that new movie has been notified to the subscription that we
+  launched in step 3.
+\end{enumerate}
+
+\chapter{GraphQL: Objects}\label{graphql-objects}
+
+\section{Introduction}\label{introduction-1}
+
+The GraphQL specification includes the following default scalar types:
+Int, Float, String, Boolean and ID. While this covers most of the use
+cases, often you need to support custom atomic data types (e.g.~Date),
+or you want a version of an existing type that does some validation. To
+enable this, GraphQL allows you to define custom scalar types.
+Enumerations are similar to custom scalars, but their values can only be
+one of a pre-defined list of strings.
+
+The way to define new scalars or enums in the schema is shown below:
+
+\begin{verbatim}
+scalar MyCustomScalar
+
+enum Direction {
+  NORTH
+  EAST
+  SOUTH
+  WEST
+}
+
+type MyType {
+    myAttribute: MyCustomScalar
+    direction: Direction
+    ...
+}
+\end{verbatim}
+
+Fields can take arguments as input. These can be used to determine the
+return value (eg, filtering search results) or to modify the application
+state. These are known as \textbf{field arguments}.
+
+If you have a look at our schema.graphql you can find an example of
+usage of a field argument for attribute actors in type Movie.
+
+\section{Code}\label{code}
+
+\subsection{Enum}\label{enum}
+
+In the introduction we see how to define a enum type in the schema. In
+the code we just need to create an enum type with the same name.
+
+\textbf{Direction.java} (This file should be in package domain)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{enum}\NormalTok{ Direction \{}
+\NormalTok{    NORTH,}
+\NormalTok{    EAST,}
+\NormalTok{    SOUTH,}
+\NormalTok{    WEST}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Resolvers}\label{resolvers}
+
+Let's imagine that we have an operation that returns a Employee type and
+this type contains an attribute details of type SocialDetails whose
+information needs to be taken from an external API. And this attribute
+won't be always required by the API consumers. Server should not waste
+time on obtaining something that clients do not need.
+
+\textbf{PersonResolver.js} (This file should be in package resolver)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Component}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ PersonResolver }\KeywordTok{implements}\NormalTok{ GraphQLResolver<Person> \{}
+    
+    \KeywordTok{public}\NormalTok{ SocialDetails }\FunctionTok{details}\NormalTok{(Person person) \{}
+        \CommentTok{/**} 
+        \CommentTok{*}\NormalTok{  We will invoke Linkedin API to obtain the info}\CommentTok{.}
+        \CommentTok{**/}
+\NormalTok{        SocialDetails details = linkedinAPI.}\FunctionTok{getDetals}\NormalTok{(person.}\FunctionTok{getId}\NormalTok{());}
+        \KeywordTok{return}\NormalTok{ details;}
+\NormalTok{    \}}
+    
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now, image that SocialDetails can be taken from more than one social
+network and we want to permit the consumers to decide which social
+network must be used. (It's known as field arguments)
+
+\textbf{schema.graphqls.}
+
+\begin{verbatim}
+enum Source{
+    Linkedin
+    Facebook
+}
+type Person {
+
+  details(source:Source=Linkedin):SocialDetails
+}
+\end{verbatim}
+
+Our resolver could look like this
+
+\textbf{Source.java} (This file should be in package domain)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{enum} \BuiltInTok{Source}\NormalTok{ \{}
+\NormalTok{    Facebook,}
+\NormalTok{    Linkedin}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{SouPersonResolverrce.java} (This file should be in package
+resolver)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Component}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ PersonResolver }\KeywordTok{implements}\NormalTok{ GraphQLResolver<Person> \{}
+    
+    \KeywordTok{public}\NormalTok{ SocialDetails }\FunctionTok{details}\NormalTok{(Person person, }\BuiltInTok{Source}\NormalTok{ source) \{}
+        \KeywordTok{if}\NormalTok{ (source==}\BuiltInTok{Source}\NormalTok{.}\FunctionTok{Linkedin}\NormalTok{)\{}
+\NormalTok{            SocialDetails details = linkedinAPI.}\FunctionTok{getDetals}\NormalTok{(person.}\FunctionTok{getId}\NormalTok{());}
+            \KeywordTok{return}\NormalTok{ details;}
+\NormalTok{        \}}
+        \KeywordTok{if}\NormalTok{ (source==}\BuiltInTok{Source}\NormalTok{.}\FunctionTok{Facebook}\NormalTok{)\{}
+\NormalTok{            SocialDetails details = facebookAPI.}\FunctionTok{getDetals}\NormalTok{(person.}\FunctionTok{getId}\NormalTok{());}
+            \KeywordTok{return}\NormalTok{ details;}
+\NormalTok{        \} }
+\NormalTok{    \}}
+    
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Scalars}\label{scalars}
+
+The java-graphql library that we use provides with class
+\texttt{GraphQLScalarType} that we need to extend to define our own
+scalars.
+
+Scalar documentation can be found
+\href{https://www.graphql-java.com/documentation/master/scalars/}{here}
+
+Keep in mind that our application works with Spring, so the code could
+be a little bit different than the examples in the above documentation.
+
+Below we can see the implementation for a scalar type that only permit
+odd numbers.
+
+\textbf{OddScalar.js} (This file should be in package scalar)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Component}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ OddScalar }\KeywordTok{extends}\NormalTok{ GraphQLScalarType \{}
+
+
+    \KeywordTok{public} \FunctionTok{OddScalar}\NormalTok{() \{}
+        \CommentTok{/**}
+        \CommentTok{*}\NormalTok{ args}\CommentTok{[0]}\NormalTok{ Scalar name}\CommentTok{:}\NormalTok{ It must be the one defined in the GraphQL schema}
+        \CommentTok{*}\NormalTok{ args}\CommentTok{[1]}\NormalTok{ Scalar description}\CommentTok{:}\NormalTok{ A brief description for our scalar type}
+        \CommentTok{*}\NormalTok{ args}\CommentTok{[2]}\NormalTok{ A Coercing instance that we define below}
+        \CommentTok{*/}
+        \KeywordTok{super}\NormalTok{(}\StringTok{"Odd"}\NormalTok{, }\StringTok{"Odd scalar"}\NormalTok{, coercing);}
+\NormalTok{    \}}
+
+    \KeywordTok{private} \DataTypeTok{static} \DataTypeTok{final}\NormalTok{ Coercing coercing = }\KeywordTok{new}\NormalTok{ Coercing<}\BuiltInTok{Object}\NormalTok{, }\BuiltInTok{Object}\NormalTok{>() \{}
+        \AttributeTok{@Override}
+        \KeywordTok{public} \BuiltInTok{Object} \FunctionTok{serialize}\NormalTok{(}\BuiltInTok{Object}\NormalTok{ input) \{}
+             \KeywordTok{if}\NormalTok{ (input }\KeywordTok{instanceof} \BuiltInTok{Integer}\NormalTok{) \{}
+                \KeywordTok{if}\NormalTok{ (result % }\DecValTok{2}\NormalTok{ !=}\DecValTok{0}\NormalTok{)\{}
+                    \KeywordTok{throw} \KeywordTok{new} \FunctionTok{CoercingSerializeException}\NormalTok{(}
+                        \StringTok{"It's not a valid odd number."}
+\NormalTok{                    );             }
+\NormalTok{               \}}
+               \KeywordTok{return}\NormalTok{ result;}
+\NormalTok{            \}}
+            \KeywordTok{throw} \KeywordTok{new} \FunctionTok{CoercingSerializeException}\NormalTok{(}
+                     \StringTok{"Expected type 'Int' but was other."}
+\NormalTok{            );}
+\NormalTok{        \}}
+
+        \AttributeTok{@Override}
+        \KeywordTok{public} \BuiltInTok{Object} \FunctionTok{parseValue}\NormalTok{(}\BuiltInTok{Object}\NormalTok{ input) \{}
+            \KeywordTok{return} \FunctionTok{serialize}\NormalTok{(input);}
+\NormalTok{        \}}
+
+        \AttributeTok{@Override}
+        \KeywordTok{public} \BuiltInTok{Object} \FunctionTok{parseLiteral}\NormalTok{(}\BuiltInTok{Object}\NormalTok{ input) \{}
+           \KeywordTok{if}\NormalTok{ (!(input }\KeywordTok{instanceof}\NormalTok{ IntValue)) \{}
+               \KeywordTok{throw} \KeywordTok{new} \FunctionTok{CoercingParseLiteralException}\NormalTok{(}
+                   \StringTok{"Expected AST type 'IntValue' but was other'."}
+\NormalTok{               );}
+\NormalTok{           \}}
+           \BuiltInTok{Integer}\NormalTok{ value = ((IntValue) input).}\FunctionTok{getValue}\NormalTok{();}
+           \KeywordTok{if}\NormalTok{ (result % }\DecValTok{2}\NormalTok{ !=}\DecValTok{0}\NormalTok{)\{}
+                \KeywordTok{throw} \KeywordTok{new} \FunctionTok{CoercingSerializeException}\NormalTok{(}
+                    \StringTok{"It's not a valid odd number."}
+\NormalTok{                );             }
+\NormalTok{            \}}
+            \KeywordTok{return}\NormalTok{ value;}
+\NormalTok{        \}}
+\NormalTok{    \};}
+    
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Challenges}\label{challenges-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Define an enum type Genre whose values are Drama and SciFi (add as
+  many other as you want) and use it for attribute genre in type Movie
+  and MovieRequest.
+\item
+  Define an enum Gender and use it for attribute gender in type Actor.
+\item
+  Define a scalar type Url and use it in attribute thriller of types
+  Movie and MovieRequest.
+\item
+  Define an enum type Currency whose possible values are Euro and
+  Dollar. Our API must permit the API consumers to decide in which
+  currency they want to obtain attribute budget in type Movie.
+\end{enumerate}
+
+\chapter{GraphQL: Operations}\label{graphql-operations}
+
+\section{Introduction}\label{introduction-2}
+
+GraphQL provides us 3 different operations:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Queries}: Operation to retrieve data from the server.
+\item
+  \textbf{Mutations}: CUD operations: Create, Update and Delete.
+\item
+  \textbf{Subscriptions}: Create and maintain real time connection to
+  the server. This enables the client to get immediate information about
+  related events. Basically, a client subscribes to an event in the
+  server, and whenever that event ocurrs, the server sends data to the
+  client.
+\end{itemize}
+
+In our workshop.graphqls we will find already implemented operations.
+
+\section{Code}\label{code-1}
+
+The only difference between implementing a mutation and a query is that
+methods for mutations are in a class that implements
+GraphQLMutationResolver and for queries in a class that implements
+GraphQLQueryResolver.
+
+\textbf{QueryResolver.java}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Component}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ QueryResolver }\KeywordTok{implements}\NormalTok{ GraphQLQueryResolver \{}
+    
+    \KeywordTok{public} \BuiltInTok{List}\NormalTok{<Monkeys> }\FunctionTok{listMonkeys}\NormalTok{(DataFetchingEnvironment env) \{}
+        \KeywordTok{return}\NormalTok{ monkeyService}
+\NormalTok{            .}\FunctionTok{listMonkeys}\NormalTok{()}
+\NormalTok{            .}\FunctionTok{stream}\NormalTok{()}
+\NormalTok{            .}\FunctionTok{map}\NormalTok{(monkeyModelToMonkey::convert)}
+\NormalTok{            .}\FunctionTok{collect}\NormalTok{(Collectors.}\FunctionTok{toList}\NormalTok{());}
+\NormalTok{    \}}
+        
+    \KeywordTok{public}\NormalTok{ Movie }\FunctionTok{getMonkey}\NormalTok{(}\BuiltInTok{Integer}\NormalTok{ monkeyId,DataFetchingEnvironment env) \{}
+\NormalTok{        MovieEntity entity = monkeyService.}\FunctionTok{findMonkeyById}\NormalTok{(monkeyId);}
+        \KeywordTok{return}\NormalTok{ monkeyModelToMonkey.}\FunctionTok{convert}\NormalTok{(entity);}
+\NormalTok{    \}}
+        
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{MutationResolver.java}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Component}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ MutationResolver }\KeywordTok{implements}\NormalTok{ GraphQLMutationResolver \{}
+     \KeywordTok{public}\NormalTok{ Monkey }\FunctionTok{addMonkey}\NormalTok{(MonkeyRequest request,DataFetchingEnvironment env) \{}
+        \KeywordTok{try}\NormalTok{ \{}
+\NormalTok{            MonkeyModel entity = monkeyRequestToMonkeyModel.}\FunctionTok{convert}\NormalTok{(request);}
+\NormalTok{            entity = monkeyService.}\FunctionTok{addMonkey}\NormalTok{(entity);}
+            \KeywordTok{return}\NormalTok{ monkeyModelToMonkey.}\FunctionTok{convert}\NormalTok{(entity);}
+\NormalTok{        \} }\KeywordTok{catch}\NormalTok{ (}\BuiltInTok{Exception}\NormalTok{ ex) \{}
+            \KeywordTok{throw}\NormalTok{ ex;}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Subscriptions looks a little bit different because we need to subscribe
+to an event. The methods must be defined in a class that implements
+GraphQLSubscriptionResolver.
+
+\textbf{SubscriptionResolver.java}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{import}\ImportTok{ org.reactivestreams.Publisher;}
+
+\AttributeTok{@Component}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ SubscriptionResolver }\KeywordTok{implements}\NormalTok{ GraphQLSubscriptionResolver \{}
+ 
+    \KeywordTok{public}\NormalTok{ Publisher<Monkey> }\FunctionTok{checkNewMonekys}\NormalTok{() \{}
+        \KeywordTok{return}\NormalTok{ monkeysPublisher.}\FunctionTok{getPublisher}\NormalTok{();}
+\NormalTok{    \}}
+        
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Challenges}\label{challenges-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Implement operations \textbf{addActor} and \textbf{deleteActor}.
+\item
+  Implement operation \textbf{rateMovie} that retrieves a new Input type
+  MovieRateRequest. MovieRateRequest contains the movieID, the user
+  email and the score. The operation will persist data into table
+  \textbf{movies\_rates} and will return the Movie.
+\item
+  Modify type Movie and add a new attribute rate whose value is the
+  average score for all the given rates.
+\item
+  Modify operation addMovie. Add a new attribute actorsId (array with
+  the id's of the actors).
+\item
+  Define a new query \textbf{getMovieRate} that retrieves an argument
+  movieId and the output type is MovieRate. The output must look like
+  this:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"rate"}\FunctionTok{:} \StringTok{"7"}\FunctionTok{,}
+  \DataTypeTok{"rates"}\FunctionTok{:} \OtherTok{[}
+    \FunctionTok{\{}
+      \DataTypeTok{"email"}\FunctionTok{:} \StringTok{"john.doe@mail.com"}\FunctionTok{,}
+      \DataTypeTok{"score"}\FunctionTok{:} \DecValTok{8}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"email"}\FunctionTok{:} \StringTok{"john.doe@mail.com"}\FunctionTok{,}
+      \DataTypeTok{"score"}\FunctionTok{:} \DecValTok{6}
+    \FunctionTok{\}}\OtherTok{,}
+  \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Create a new subscription \textbf{listenRates}. This operation
+  retrieves an argument movieId and It displays the new rates for the
+  given movieId.
+\end{enumerate}
+
+\chapter{GraphQL: Interfaces and
+Unions}\label{graphql-interfaces-and-unions}
+
+\section{Introduction}\label{introduction-3}
+
+An interface exposes a certain set of fields that a type must include to
+implement the interface.
+
+\textbf{schema.graphql}
+
+\begin{verbatim}
+interface Restaurant {
+    id:ID!
+    name: String!
+}
+
+type Indian implements Restaurant{
+    id:ID!
+    name: String!
+    brewedBeer:Boolean!
+}
+
+type Burger implements Restaurant{
+    id:ID!
+    name: String!
+    vegetarianOptions: Boolean!
+}
+
+type Query{
+    listRestaurants: [Restaurant!]
+}
+\end{verbatim}
+
+Unions are identical to interfaces, except that they don't define a
+common set of fields. Unions are generally preferred over interfaces
+when the possible types do not share a logical hierarchy.
+
+\begin{verbatim}
+union Item = Food | Electronic | Customer
+
+type Electronic {
+    size: Float
+    weight: Float
+}
+
+type Food {
+    family: String
+}
+
+type Customer {
+    fullName: String
+    zip: String
+}
+type Query{
+    listItems: [Item!]
+}
+ 
+\end{verbatim}
+
+\section{Fragments}\label{fragments}
+
+Fragments are powerful technique when we are consuming a query that
+returns an Interface or an Union. They are used to define what
+attributes we want to obtain from the server depending on the type of
+the concrete element.
+
+\begin{verbatim}
+query {
+    listRestaurants:{
+        id
+        name
+        ... on Indian {
+            brewedBeer
+        }
+        ... on Burger {
+            vegetarianOptions
+        }
+        __typename
+    }
+}  
+\end{verbatim}
+
+\section{Code}\label{code-2}
+
+Unions and interfaces can be easily represented in Java since the
+language provides us with abstract classes and interfaces. The below
+pieces of code show an example for the GraphQL definitions in the
+previous point.
+
+\textbf{Restaurant.java}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ Restaurant \{}
+    
+    \KeywordTok{private} \BuiltInTok{String}\NormalTok{ id;}
+    
+    \KeywordTok{private} \BuiltInTok{Integer}\NormalTok{ name;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Indian.java}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ Indiand }\KeywordTok{extends}\NormalTok{ Restaurant \{}
+    \KeywordTok{private} \BuiltInTok{Boolean}\NormalTok{ brewedBeer;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Burger.java}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ Burger }\KeywordTok{extends}\NormalTok{ Restaurant \{}
+    \KeywordTok{private} \BuiltInTok{Boolean}\NormalTok{ vegetarianOptions;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{QueryResolver.java}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Component}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ QueryResolver }\KeywordTok{implements}\NormalTok{ GraphQLQueryResolver \{}
+    
+    \KeywordTok{public} \BuiltInTok{List}\NormalTok{<Restaurant> }\FunctionTok{listRestaurants}\NormalTok{() \{}
+        \BuiltInTok{List}\NormalTok{<Resturant> restaurants = }\KeywordTok{new} \BuiltInTok{ArrayList}\NormalTok{<Restaurant>();}
+\NormalTok{        restaurants.}\FunctionTok{addAll}\NormalTok{(indianService.}\FunctionTok{listAll}\NormalTok{());}
+\NormalTok{        restaurants.}\FunctionTok{addAll}\NormalTok{(burgerService.}\FunctionTok{listAll}\NormalTok{());}
+        \KeywordTok{return}\NormalTok{ restaurants;}
+\NormalTok{    \} }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+To implement an Union classes don't have common attributes so we could
+classes implements and Interface instead of extending a class.
+
+\textbf{Item.java}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{interface}\NormalTok{ Item\{}
+    
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Electronic.java}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ Electronic }\KeywordTok{implements}\NormalTok{ Item\{}
+    \KeywordTok{private} \BuiltInTok{Float}\NormalTok{ size;}
+    \KeywordTok{private} \BuiltInTok{Float}\NormalTok{ weight;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Challenges}\label{challenges-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Define an interface Person with commons attributes for Actor and
+  Director. Add a new query listPeople that returns a list of people
+  ({[}Person!{]}).
+\item
+  Define an union named Item that could be a Movie or an Actor. Add an
+  operations listItems that return the full list of Items. {[}Item!{]}
+\end{itemize}
+
+\chapter{GraphQL: Directives}\label{graphql-directives}
+
+\section{Introduction}\label{introduction-4}
+
+A GraphQL schema describes directives which are used to annotate various
+parts of a GraphQL document as an indicator that they should be
+evaluated differently by a validator, executor, or client tool such as a
+code generator. GraphQL implementations should provide the \citet{skip}
+and \citet{include} directives. GraphQL implementations that support the
+type system definition language must provide the \citet{deprecated}
+directive if representing deprecated portions of the schema. Directives
+must only be used in the locations they are declared to belong in. In
+this example, a directive is defined which can be used to annotate a
+field:
+\href{https://facebook.github.io/graphql/draft/\#sec-Type-System.Directives}{facebook.github.io/graphql}
+
+Authorization is a good and common scenario in which we usually will
+make use of directives. We could control what users are allowd to fetch
+an object (or even an attribute) from the server.
+
+\begin{verbatim}
+
+directive @isAuthenticated on FIELD | FIELD_DEFINITION
+directive @hasRole(role: String) on FIELD | FIELD_DEFINITION
+
+\end{verbatim}
+
+or for clients tools as It was mentioned on the above paragraph.
+
+\begin{verbatim}
+directive @deprecated(
+  reason: String = "No longer supported"
+) on FIELD_DEFINITION | ENUM_VALUE
+
+
+type ExampleType {
+  newField: String
+  oldField: String @deprecated(reason: "Use `newField`.")
+}
+\end{verbatim}
+
+\section{Code}\label{code-3}
+
+In the below example we will implement a directive that can be assigned
+to fields This directive transform to lowercase the string attribute.
+
+\textbf{LowercaseDirective.js} (this file will be in package directive)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@Component}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ LowercaseDirective }\KeywordTok{implements}\NormalTok{ SchemaDirectiveWiring \{}
+
+    \AttributeTok{@Override}
+    \KeywordTok{public}\NormalTok{ GraphQLFieldDefinition }\FunctionTok{onField}\NormalTok{(SchemaDirectiveWiringEnvironment<GraphQLFieldDefinition> env) \{}
+\NormalTok{        GraphQLFieldDefinition field = env.}\FunctionTok{getElement}\NormalTok{();}
+\NormalTok{        DataFetcher dataFetcher = DataFetcherFactories.}\FunctionTok{wrapDataFetcher}\NormalTok{(field.}\FunctionTok{getDataFetcher}\NormalTok{(), (((dataFetchingEnvironment, value) -> \{}
+            \KeywordTok{if}\NormalTok{ (value }\KeywordTok{instanceof} \BuiltInTok{String}\NormalTok{) \{}
+                \KeywordTok{return}\NormalTok{ ((}\BuiltInTok{String}\NormalTok{) value).}\FunctionTok{toLowercase}\NormalTok{();}
+\NormalTok{            \}}
+            \KeywordTok{return}\NormalTok{ value;}
+\NormalTok{        \})));}
+        \KeywordTok{return}\NormalTok{ field.}\FunctionTok{transform}\NormalTok{(builder -> builder.}\FunctionTok{dataFetcher}\NormalTok{(dataFetcher));}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Once we've defined our directive we just need to register the bean.
+
+\textbf{Application.java}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@SpringBootApplication}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ Application \{}
+    
+    \AttributeTok{@Bean}
+    \AttributeTok{@Autowired}
+    \KeywordTok{public}\NormalTok{ SchemaDirective }\FunctionTok{lowerCaseDirective}\NormalTok{(LowercaseDirective directive) \{}
+        \KeywordTok{return} \KeywordTok{new} \FunctionTok{SchemaDirective}\NormalTok{(}\StringTok{"lower"}\NormalTok{, directive);}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Challenges}\label{challenges-4}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a directive \citet{uppercase} that can be assigned to fields.
+  This directive will transform the value of the attribute into
+  uppercase. The directive declaration will look lie this
+\end{enumerate}
+
+\begin{verbatim}
+directive @uppercase on FIELD_DEFINITION
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Create a directive \citet{multiply} with an attribute factor. The
+  directive declaration should look like this
+\end{enumerate}
+
+\begin{verbatim}
+directive @multiply (
+    factor: Int!
+) on FIELD_DEFINITION
+\end{verbatim}
+
+And when the directive is assigned to an field its value will be
+multiplied by the given factor.
+
+\begin{verbatim}
+input CarRequest {
+    km:Int! @multiply(factor:2)
+}
+\end{verbatim}
+
+\chapter{Challenges Solution}\label{challenges-solution}
+
+This workshop follows a story, and you should not start a new chapter if
+you did not complete the purposed challenges in the previous chapters.
+
+The workshop is completely open source and elaborated with great
+dedication and effort. So if you are taken the workshop is due to you
+want to learn GraphQL. That's why I invite you to try to solve all the
+purposed challenges by yourself.
+
+On the other hand, you could be stuck in one of the chapters. Just in
+that case, you could checkout the solutions for the challenges.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  GraphQL: Objects - branch: feature/objects
+\item
+  GraphQL: Operations - branch: feature/operations
+\item
+  GraphQL: Interfaces and unions - branch: feature/interfaces-unions
+\item
+  GraphQL: Directives - branch: feature/directives
+\end{enumerate}
+
+\begin{quote}
+Please if you have any doubt contact me at
+\href{mailto:ivan.corrales.solera@gmail.com}{\nolinkurl{ivan.corrales.solera@gmail.com}}
+\end{quote}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.graphql-java-kickstart.com}{GraphQL Java Quickstart}
+\item
+  \href{https://facebook.github.io/graphql/}{GraphQL Specification}
+\item
+  \href{https://spring.io/projects/spring-boot}{Spring Boot}
+\end{itemize}
+
+
+\end{document}

@@ -1,0 +1,105 @@
+# GraphQL: Operations
+
+## Introduction
+
+GraphQL provides us 3 different operations:
+
+- **Queries**: Operation to retrieve data from the server.
+- **Mutations**: CUD operations: Create, Update and Delete.
+- **Subscriptions**: Create and maintain real time connection to the server. 
+This enables the client to get immediate information about related events. Basically, a client 
+subscribes to an event in the server, and whenever that event ocurrs, the server sends data to the client. 
+
+In our workshop.graphqls we will find already implemented operations.
+
+## Code
+
+The only difference between implementing a mutation and a query is that methods for  mutations 
+are in a class that implements GraphQLMutationResolver and for queries in a class that 
+implements GraphQLQueryResolver. 
+
+**QueryResolver.java**
+```java
+@Component
+public class QueryResolver implements GraphQLQueryResolver {
+    
+    public List<Monkeys> listMonkeys(DataFetchingEnvironment env) {
+        return monkeyService
+            .listMonkeys()
+            .stream()
+            .map(monkeyModelToMonkey::convert)
+            .collect(Collectors.toList());
+    }
+        
+    public Movie getMonkey(Integer monkeyId,DataFetchingEnvironment env) {
+        MovieEntity entity = monkeyService.findMonkeyById(monkeyId);
+        return monkeyModelToMonkey.convert(entity);
+    }
+        
+}
+```
+
+**MutationResolver.java**
+```java
+@Component
+public class MutationResolver implements GraphQLMutationResolver {
+     public Monkey addMonkey(MonkeyRequest request,DataFetchingEnvironment env) {
+        try {
+            MonkeyModel entity = monkeyRequestToMonkeyModel.convert(request);
+            entity = monkeyService.addMonkey(entity);
+            return monkeyModelToMonkey.convert(entity);
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+}
+``` 
+
+Subscriptions looks a little bit different because we need to subscribe to an event.
+The methods must be defined in a class that implements GraphQLSubscriptionResolver.
+
+
+**SubscriptionResolver.java**
+```java
+import org.reactivestreams.Publisher;
+
+@Component
+public class SubscriptionResolver implements GraphQLSubscriptionResolver {
+ 
+    public Publisher<Monkey> checkNewMonekys() {
+        return monkeysPublisher.getPublisher();
+    }
+        
+}
+```
+
+## Challenges
+
+1. Implement operations **addActor** and **deleteActor**.
+2. Implement operation **rateMovie** that retrieves a new Input type MovieRateRequest. 
+MovieRateRequest contains the movieID, the user email and the score. The operation will
+persist data into table **movies_rates** and will return the Movie.
+3. Modify type Movie and add a new attribute rate whose value is the average score for 
+all the given rates.
+4. Modify operation addMovie. Add a new attribute actorsId (array with the id's of the actors).
+4. Define a new query **getMovieRate** that retrieves an argument movieId and the output
+type is MovieRate. The output must look like this:
+
+```json
+{
+  "rate": "7",
+  "rates": [
+    {
+      "email": "john.doe@mail.com",
+      "score": 8
+    },
+    {
+      "email": "john.doe@mail.com",
+      "score": 6
+    },
+  ]
+}
+```
+
+5. Create a new subscription **listenRates**. This operation retrieves an argument movieId
+and It displays the new rates for the given movieId.

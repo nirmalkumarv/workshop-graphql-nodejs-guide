@@ -1,0 +1,18 @@
+# Challenges Solution
+
+This workshop follows a story, and you should not start a new chapter if you did not complete the purposed challenges
+in the previous chapters. 
+
+The workshop is completely open source and elaborated with great dedication and effort. So if you are taken
+the workshop is due to you want to learn GraphQL. That's why I invite you to try to solve all the purposed challenges
+by yourself.
+
+On the other hand, you could be stuck in one of the chapters. Just in that case, you could checkout the solutions
+for the challenges.
+
+4. GraphQL: Objects -  branch: feature/objects
+5. GraphQL: Operations - branch: feature/operations
+6. GraphQL: Interfaces and unions - branch: feature/interfaces-unions
+7. GraphQL: Directives - branch: feature/directives
+
+> Please if you have any doubt contact me at ivan.corrales.solera@gmail.com 
