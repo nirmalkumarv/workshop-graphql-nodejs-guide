@@ -1484,10 +1484,9 @@ type ExampleType {
 
 \section{Code}\label{code-3}
 
-From my point of view, this could be the challenging part when
-implementinga GraphQL API. Have a look at
+When defining a directive we need to define its scope. Have a look at
 \href{https://www.apollographql.com/docs/graphql-tools/schema-directives.html}{apollographql.com}
-to understand how we can implement our own directives.
+to understand how to implement our own directives.
 
 Below a very basic example of directive.
 
@@ -1515,7 +1514,7 @@ Below a very basic example of directive.
 Once we've implemented the directive , we just need to add the
 directives as shown below:
 
-\textbf{schema.js}
+\textbf{src/schema.js}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1544,31 +1543,43 @@ directives as shown below:
 
 \begin{verbatim}
 directive @uppercase on FIELD_DEFINITION
-\end{verbatim}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Create a directive \citet{multiply} with an attribute factor. The
-  directive declaration should look like this
-\end{enumerate}
-
-\begin{verbatim}
-directive @multiply (
-    factor: Int!
-) on FIELD_DEFINITION
-\end{verbatim}
-
-And when the directive is assigned to an field its value will be
-multiplied by the given factor.
-
-\begin{verbatim}
-input CarRequest {
-    km:Int! @multiply(factor:2)
+"""Movie details"""
+type Movie {
+    ...
+    title: String! @uppercase
+    ...
 }
 \end{verbatim}
+
+To verify the directive was implemented correctly we can run
+
+\begin{verbatim}
+query {
+  listMovies{
+    title
+  }
+}
+\end{verbatim}
+
+and check that the title for all the movies was returned in uppercase.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"data"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"listMovies"}\FunctionTok{:} \OtherTok{[}
+      \FunctionTok{\{}
+        \DataTypeTok{"title"}\FunctionTok{:} \StringTok{"EDWARD SCISSORHANDS"}
+      \FunctionTok{\}}\OtherTok{,}
+      \FunctionTok{\{}
+        \DataTypeTok{"title"}\FunctionTok{:} \StringTok{"GLADIATOR"}
+      \FunctionTok{\}}
+    \OtherTok{]}
+  \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \chapter{Challenges Solution}\label{challenges-solution}
 

@@ -205,7 +205,7 @@ type ExampleType {
 </div>
 <div id="code-3" class="section level2">
 <h2><span class="header-section-number">7.2</span> Code</h2>
-<p>From my point of view, this could be the challenging part when implementinga GraphQL API. Have a look at <a href="https://www.apollographql.com/docs/graphql-tools/schema-directives.html">apollographql.com</a> to understand how we can implement our own directives.</p>
+<p>When defining a directive we need to define its scope. Have a look at <a href="https://www.apollographql.com/docs/graphql-tools/schema-directives.html">apollographql.com</a> to understand how to implement our own directives.</p>
 <p>Below a very basic example of directive.</p>
 <p><strong>directives.js</strong></p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> SchemaDirectiveVisitor <span class="op">}</span> <span class="im">from</span> <span class="st">&quot;graphql-tools&quot;</span><span class="op">;</span>
@@ -223,7 +223,7 @@ type ExampleType {
   <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
 <p>Once we’ve implemented the directive , we just need to add the directives as shown below:</p>
-<p><strong>schema.js</strong></p>
+<p><strong>src/schema.js</strong></p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="im">default</span> <span class="at">makeExecutableSchema</span>(<span class="op">{</span>
     typeDefs<span class="op">,</span>
     resolvers<span class="op">,</span>
@@ -239,17 +239,34 @@ type ExampleType {
 <ol style="list-style-type: decimal">
 <li>Create a directive <span class="citation">@uppercase</span> that can be assigned to fields. This directive will transform the value of the attribute into uppercase. The directive declaration will look lie this</li>
 </ol>
-<pre class="graphql"><code>directive @uppercase on FIELD_DEFINITION</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Create a directive <span class="citation">@multiply</span> with an attribute factor. The directive declaration should look like this</li>
-</ol>
-<pre class="graphql"><code>directive @multiply (
-    factor: Int!
-) on FIELD_DEFINITION</code></pre>
-<p>And when the directive is assigned to an field its value will be multiplied by the given factor.</p>
-<pre class="graphql"><code>input CarRequest {
-    km:Int! @multiply(factor:2)
+<pre class="graphql"><code>directive @uppercase on FIELD_DEFINITION
+
+&quot;&quot;&quot;Movie details&quot;&quot;&quot;
+type Movie {
+    ...
+    title: String! @uppercase
+    ...
+}
+</code></pre>
+<p>To verify the directive was implemented correctly we can run</p>
+<pre class="graphql"><code>query {
+  listMovies{
+    title
+  }
 }</code></pre>
+<p>and check that the title for all the movies was returned in uppercase.</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;listMovies&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+      <span class="fu">{</span>
+        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;EDWARD SCISSORHANDS&quot;</span>
+      <span class="fu">}</span><span class="ot">,</span>
+      <span class="fu">{</span>
+        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;GLADIATOR&quot;</span>
+      <span class="fu">}</span>
+    <span class="ot">]</span>
+  <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
 
 </div>
 </div>
