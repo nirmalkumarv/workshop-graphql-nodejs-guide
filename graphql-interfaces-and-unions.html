@@ -274,8 +274,51 @@ type Query{
 <h2><span class="header-section-number">6.4</span> Challenges</h2>
 <ul>
 <li>Define an interface Person with commons attributes for Actor and Director. Add a new query listPeople that returns a list of people ([Person!]).</li>
+</ul>
+<pre class="graphql"><code>query{
+    listPeople:[Person!]
+}</code></pre>
+<p>Once you’ve implemented this query make use of fragments to return the below details</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;listPeople&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+      <span class="fu">{</span>
+        <span class="dt">&quot;__typename&quot;</span><span class="fu">:</span> <span class="st">&quot;Actor&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;fullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Johnny Depp&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;gender&quot;</span><span class="fu">:</span> <span class="st">&quot;female&quot;</span>
+      <span class="fu">}</span><span class="ot">,</span>
+      <span class="er">...</span>
+      <span class="fu">{</span>
+          <span class="dt">&quot;__typename&quot;</span><span class="fu">:</span> <span class="st">&quot;Director&quot;</span><span class="fu">,</span>
+          <span class="dt">&quot;fullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Steven Spielberg&quot;</span><span class="fu">,</span>
+          <span class="dt">&quot;country&quot;</span><span class="fu">:</span> <span class="st">&quot;USA&quot;</span>
+       <span class="fu">}</span>
+       <span class="er">...</span>
+    <span class="ot">]</span>
+  <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
+<ul>
 <li>Define an union named Item that could be a Movie or an Actor. Add an operations listItems that return the full list of Items. [Item!]</li>
 </ul>
+<pre class="graphql"><code>query{
+    listItems:[Item!]
+}</code></pre>
+<p>Once you’ve implemented this query make use of fragments to return the below details</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;listItems&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+      <span class="fu">{</span>
+        <span class="dt">&quot;__typename&quot;</span><span class="fu">:</span> <span class="st">&quot;Movie&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Edward Scissorhands&quot;</span>
+      <span class="fu">}</span><span class="ot">,</span>
+       <span class="fu">{</span>
+         <span class="dt">&quot;__typename&quot;</span><span class="fu">:</span> <span class="st">&quot;Actor&quot;</span><span class="fu">,</span>
+          <span class="dt">&quot;fullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Russell Crowe&quot;</span>
+       <span class="fu">}</span>
+       <span class="er">...</span>
+    <span class="ot">]</span>
+  <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
 
 </div>
 </div>

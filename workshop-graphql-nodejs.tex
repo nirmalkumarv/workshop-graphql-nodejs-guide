@@ -1218,7 +1218,7 @@ and the output should look similar to this:
   given movieId.
 \end{enumerate}
 
-From one tab run
+From one tab we run the subscription
 
 \begin{verbatim}
 subscription{
@@ -1229,7 +1229,7 @@ subscription{
 }
 \end{verbatim}
 
-and when we add a new rate for movie with identifier 1
+and then we add a new rate for movie with identifier 1
 
 \begin{verbatim}
 mutation{
@@ -1246,7 +1246,7 @@ mutation{
 }
 \end{verbatim}
 
-The subscriptor should print the details for movie with id 1
+The subscription should print the details for movie with id 1
 
 \chapter{GraphQL: Interfaces and
 Unions}\label{graphql-interfaces-and-unions}
@@ -1371,10 +1371,75 @@ export default {
   Define an interface Person with commons attributes for Actor and
   Director. Add a new query listPeople that returns a list of people
   ({[}Person!{]}).
+\end{itemize}
+
+\begin{verbatim}
+query{
+    listPeople:[Person!]
+}
+\end{verbatim}
+
+Once you've implemented this query make use of fragments to return the
+below details
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"data"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"listPeople"}\FunctionTok{:} \OtherTok{[}
+      \FunctionTok{\{}
+        \DataTypeTok{"__typename"}\FunctionTok{:} \StringTok{"Actor"}\FunctionTok{,}
+        \DataTypeTok{"fullName"}\FunctionTok{:} \StringTok{"Johnny Depp"}\FunctionTok{,}
+        \DataTypeTok{"gender"}\FunctionTok{:} \StringTok{"female"}
+      \FunctionTok{\}}\OtherTok{,}
+      \ErrorTok{...}
+      \FunctionTok{\{}
+          \DataTypeTok{"__typename"}\FunctionTok{:} \StringTok{"Director"}\FunctionTok{,}
+          \DataTypeTok{"fullName"}\FunctionTok{:} \StringTok{"Steven Spielberg"}\FunctionTok{,}
+          \DataTypeTok{"country"}\FunctionTok{:} \StringTok{"USA"}
+       \FunctionTok{\}}
+       \ErrorTok{...}
+    \OtherTok{]}
+  \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
 \item
   Define an union named Item that could be a Movie or an Actor. Add an
   operations listItems that return the full list of Items. {[}Item!{]}
 \end{itemize}
+
+\begin{verbatim}
+query{
+    listItems:[Item!]
+}
+\end{verbatim}
+
+Once you've implemented this query make use of fragments to return the
+below details
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"data"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"listItems"}\FunctionTok{:} \OtherTok{[}
+      \FunctionTok{\{}
+        \DataTypeTok{"__typename"}\FunctionTok{:} \StringTok{"Movie"}\FunctionTok{,}
+        \DataTypeTok{"title"}\FunctionTok{:} \StringTok{"Edward Scissorhands"}
+      \FunctionTok{\}}\OtherTok{,}
+       \FunctionTok{\{}
+         \DataTypeTok{"__typename"}\FunctionTok{:} \StringTok{"Actor"}\FunctionTok{,}
+          \DataTypeTok{"fullName"}\FunctionTok{:} \StringTok{"Russell Crowe"}
+       \FunctionTok{\}}
+       \ErrorTok{...}
+    \OtherTok{]}
+  \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \chapter{GraphQL: Directives}\label{graphql-directives}
 
