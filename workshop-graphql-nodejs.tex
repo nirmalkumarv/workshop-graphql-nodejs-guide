@@ -213,7 +213,10 @@ or in case of you don't have make command installed
 \end{Highlighting}
 \end{Shaded}
 
-To clean the launched containers you just need to perform
+To verify that application was launched correctly, just open
+\href{http://localhost:9001/graphql}{The GraphQL Playground}
+
+To clean the containers you just need to run
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -225,15 +228,15 @@ or
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{docker-compose}\NormalTok{ -f docker-compose/docker-compose.yml down -v}
+\ExtensionTok{docker-compose}\NormalTok{ -f resources/docker-compose/docker-compose.yml down -v}
 \end{Highlighting}
 \end{Shaded}
 
 \subsection{While you're coding}\label{while-youre-coding}
 
 The above commands launch the full environment: database and API. On the
-other hand, when we're coding we could rather launch the database from
-the docker-compose and the API from our local machine.
+other hand, when we're coding we could launch the database from the
+docker-compose and the API from our local machine.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -252,7 +255,7 @@ or
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{docker-compose}\NormalTok{ -f src/main/resources/docker-compose/docker-compose.yml run --rm -p5456:5432 database}
+\ExtensionTok{docker-compose}\NormalTok{ -f resources/docker-compose/docker-compose.yml run --rm -p5456:5432 database}
 \end{Highlighting}
 \end{Shaded}
 
@@ -271,7 +274,12 @@ or
 \end{Highlighting}
 \end{Shaded}
 
-\section{The application}\label{the-application}
+\section{Workshop Application}\label{workshop-application}
+
+The application is a movie cataloging tool.
+
+The purpose of this workshop is to enrich the application with new
+functionality that will be required in upcoming chapters.
 
 \subsection{Database}\label{database}
 
@@ -360,7 +368,7 @@ movie\_id & actor\_id\tabularnewline
 
 \subsection{API}\label{api}
 
-By defualt the below operations are already implemented in our project.
+The below operations are already implemented in our project.
 
 \subsubsection{Queries}\label{queries}
 
@@ -385,10 +393,12 @@ By defualt the below operations are already implemented in our project.
 \item
   \textbf{addMovie(request:MovieRequest):Movie!}: It adds a new movie.
 \item
-  \textbf{addActor(request:ActorRequest):Actor!}: It adds a new actor.
+  \textbf{addDirector(request:DirectorRequest):Director!}: It adds a new
+  director.
 \item
-  \textbf{deleteActor(``Identifier of the actor''
-  actorId:ID!):{[}Actor!{]}}: It deletes the actor with the given id.
+  \textbf{deleteDirector(``Identifier of the director''
+  direction:ID!):{[}Director!{]}}: It deletes the director with the
+  given id.
 \end{itemize}
 
 \subsubsection{Subscriptions}\label{subscriptions}
@@ -396,14 +406,14 @@ By defualt the below operations are already implemented in our project.
 \begin{itemize}
 \tightlist
 \item
-  \textbf{listenDirectorMovies(directorId:ID!):Movie!}: It open a
-  communication with the server and It is notified when a new movie is
-  created for the directorId in the request.
+  \textbf{listenDirectorMovies(directorId:ID!):Movie!}: It opens a
+  communication with the server and is notified when a new movie is
+  created for the passed directorId in the request.
 \end{itemize}
 
 \subsection{GraphQL schema}\label{graphql-schema}
 
-The full GraphQL schema looks
+The graphql schema for our application looks like this:
 
 \begin{verbatim}
 schema {
@@ -433,9 +443,9 @@ type Mutation {
     """I adds a new movie"""
     addMovie(request:MovieRequest):Movie!
     """I adds a new actor"""
-    addActor(request:ActorRequest):Actor!
-    """I deletes an actor with the fiven identifier"""
-    deleteActor("Identifier of the actor" actorId:ID!):[Actor!]
+    addDirector(request:DirectorRequest):Director!
+    """I deletes the director with the fiven identifier"""
+    deleteDirector("Identifier of the director" directorId:ID!):[Director!]
 }
 
 """Available subscriptions for Workshop API"""
@@ -491,14 +501,12 @@ type Director{
     country: String
 }
 
-"""Actor creation info"""
-input ActorRequest {
+"""Director creation request"""
+input DirectorRequest{
     "Full name of the director"
     fullName: String!
-    "Country in which the actor was born"
+    "Country in which the director was born"
     country: String
-    "Gender of actor: Supported values are male or female"
-    gender: String
 }
 
 """Actor details"""
