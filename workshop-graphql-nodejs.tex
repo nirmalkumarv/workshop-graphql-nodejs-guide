@@ -773,6 +773,8 @@ learn more about how to implement custom scalars with gaphql-js.
   and MovieRequest.
 \end{enumerate}
 
+Run this query to verify your implementation works as expected
+
 \begin{verbatim}
 mutation {
   addMovie (request:{
@@ -801,6 +803,8 @@ mutation {
   Define an enum Gender and use it for attribute gender in type Actor.
 \end{enumerate}
 
+Run this query to verify your implementation works as expected
+
 \begin{verbatim}
 query {
   listActors{
@@ -819,8 +823,8 @@ query {
   MovieRequest. Only valid url's should be permitted.
 \end{enumerate}
 
-This query should fail since url for attribute thriller is not a valid
-url.
+Run this query to verify that only valid url's are permitted. Actually,
+the movies should not be saved into the database.
 
 \begin{verbatim}
 mutation {
@@ -843,7 +847,7 @@ mutation {
 }
 \end{verbatim}
 
-And this other query should work correctly
+Run this query to verify that your scalar Url works as expected.
 
 \begin{verbatim}
 mutation {
@@ -877,7 +881,7 @@ mutation {
   \textbf{1\euro{} =\textgreater{} 1.14\$}
 \end{enumerate}
 
-For this query
+Run this query
 
 \begin{verbatim}
 query {
@@ -888,7 +892,7 @@ query {
 }
 \end{verbatim}
 
-the output should be
+and verify that the output should be this:
 
 \begin{Shaded}
 \begin{Highlighting}[]

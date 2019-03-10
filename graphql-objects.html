@@ -278,6 +278,7 @@ type Person {
 <ol style="list-style-type: decimal">
 <li>Define an enum type Genre whose values are Drama and SciFi (add as many other as you want) and use it for attribute genre in type Movie and MovieRequest.</li>
 </ol>
+<p>Run this query to verify your implementation works as expected</p>
 <pre class="graphql"><code>mutation {
   addMovie (request:{
     title: &quot;Corpse Bride&quot;
@@ -298,6 +299,7 @@ type Person {
 <ol start="2" style="list-style-type: decimal">
 <li>Define an enum Gender and use it for attribute gender in type Actor.</li>
 </ol>
+<p>Run this query to verify your implementation works as expected</p>
 <pre class="graphql"><code>query {
   listActors{
     fullName
@@ -307,7 +309,7 @@ type Person {
 <ol start="3" style="list-style-type: decimal">
 <li>Define a scalar type Url and use it in attribute thriller of Movie and MovieRequest. Only valid url’s should be permitted.</li>
 </ol>
-<p>This query should fail since url for attribute thriller is not a valid url.</p>
+<p>Run this query to verify that only valid url’s are permitted. Actually, the movies should not be saved into the database.</p>
 <pre class="graphql"><code>mutation {
   addMovie (request:{
     title: &quot;Gran Torino&quot;
@@ -326,7 +328,7 @@ type Person {
     thriller
   }
 }</code></pre>
-<p>And this other query should work correctly</p>
+<p>Run this query to verify that your scalar Url works as expected.</p>
 <pre class="graphql"><code>mutation {
   addMovie (request:{
     title: &quot;Gran Torino&quot;
@@ -348,14 +350,14 @@ type Person {
 <ol start="4" style="list-style-type: decimal">
 <li>Define an enum type Currency whose possible values are Euro and Dollar. Our API must permit the API consumers to decide in which currency they want to obtain attribute budget in type Movie. <strong>1€ =&gt; 1.14$</strong></li>
 </ol>
-<p>For this query</p>
+<p>Run this query</p>
 <pre class="graphql"><code>query {
   getMovie(movieId:1){
     budgetInEuros: budget(currency:Euro)
     budgetInDollarts: budget(currency:Dollar)
   }
 }</code></pre>
-<p>the output should be</p>
+<p>and verify that the output should be this:</p>
 <div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
   <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span>
     <span class="dt">&quot;getMovie&quot;</span><span class="fu">:</span> <span class="fu">{</span>
