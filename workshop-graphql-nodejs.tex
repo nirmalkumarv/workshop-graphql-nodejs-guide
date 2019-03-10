@@ -1430,11 +1430,12 @@ below details
         \DataTypeTok{"__typename"}\FunctionTok{:} \StringTok{"Movie"}\FunctionTok{,}
         \DataTypeTok{"title"}\FunctionTok{:} \StringTok{"Edward Scissorhands"}
       \FunctionTok{\}}\OtherTok{,}
-       \FunctionTok{\{}
-         \DataTypeTok{"__typename"}\FunctionTok{:} \StringTok{"Actor"}\FunctionTok{,}
-          \DataTypeTok{"fullName"}\FunctionTok{:} \StringTok{"Russell Crowe"}
-       \FunctionTok{\}}
-       \ErrorTok{...}
+      \ErrorTok{...}
+      \FunctionTok{\{}
+        \DataTypeTok{"__typename"}\FunctionTok{:} \StringTok{"Actor"}\FunctionTok{,}
+        \DataTypeTok{"fullName"}\FunctionTok{:} \StringTok{"Russell Crowe"}
+      \FunctionTok{\}}
+      \ErrorTok{...}
     \OtherTok{]}
   \FunctionTok{\}}
 \FunctionTok{\}}
@@ -1536,50 +1537,47 @@ directives as shown below:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Create a directive \citet{uppercase} that can be assigned to fields.
-  This directive will transform the value of the attribute into
-  uppercase. The directive declaration will look lie this
+  Create a directive \citet{multiply} with an attribute factor. The
+  directive declaration should look like this
 \end{enumerate}
 
 \begin{verbatim}
-directive @uppercase on FIELD_DEFINITION
+directive @multiply (
+    factor: Int!
+) on FIELD_DEFINITION
+\end{verbatim}
 
-"""Movie details"""
-type Movie {
+And this directive will be used for attribute rate in type Movie. The
+behavior will be the following: If factor is 2 the returned budget will
+be the real value multiply by 2. If the factor is 3 the returned value
+will be the budget multiplied by 3\ldots{}
+
+\begin{verbatim}
+input Movie {
     ...
-    title: String! @uppercase
+    rate:Float @multiply(factor:5)
     ...
 }
 \end{verbatim}
 
-To verify the directive was implemented correctly we can run
+To verify run this query
 
 \begin{verbatim}
 query {
-  listMovies{
-    title
+  rate: getMovieRate(movieId:1){
+    realRate: rate
+  }
+  movie: getMovie(movieId:1){
+    customRate: rate
+    
   }
 }
 \end{verbatim}
 
-and check that the title for all the movies was returned in uppercase.
+and verify that customRate is the value of realRate multiplied by 5
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{\{}
-  \DataTypeTok{"data"}\FunctionTok{:} \FunctionTok{\{}
-    \DataTypeTok{"listMovies"}\FunctionTok{:} \OtherTok{[}
-      \FunctionTok{\{}
-        \DataTypeTok{"title"}\FunctionTok{:} \StringTok{"EDWARD SCISSORHANDS"}
-      \FunctionTok{\}}\OtherTok{,}
-      \FunctionTok{\{}
-        \DataTypeTok{"title"}\FunctionTok{:} \StringTok{"GLADIATOR"}
-      \FunctionTok{\}}
-    \OtherTok{]}
-  \FunctionTok{\}}
-\FunctionTok{\}}
-\end{Highlighting}
-\end{Shaded}
+```json \{ ``data'': \{ ``rate'': \{ ``realRate'': 3 \}, ``movie'': \{
+``customRate'': 15 \} \} \}
 
 \chapter{Challenges Solution}\label{challenges-solution}
 
