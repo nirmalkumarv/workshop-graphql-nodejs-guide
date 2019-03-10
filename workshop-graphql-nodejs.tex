@@ -746,15 +746,13 @@ it as a new resolver. An example of scalar type is shown below:
 \end{Highlighting}
 \end{Shaded}
 
-\textbf{src/schema.js}
+\textbf{src/resolvers.js}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{export} \ImportTok{default} \AttributeTok{makeExecutableSchema}\NormalTok{(}\OperatorTok{\{}
-    \DataTypeTok{resolvers}\OperatorTok{:} \OperatorTok{\{}
-        \DataTypeTok{Odd}\OperatorTok{:}\NormalTok{ OddType}
-    \OperatorTok{\}}
-\OperatorTok{\}}\NormalTok{)}
+\ImportTok{export} \ImportTok{default} \OperatorTok{\{}
+    \DataTypeTok{Odd}\OperatorTok{:}\NormalTok{ OddType}\OperatorTok{,}
+\OperatorTok{\}}
 \end{Highlighting}
 \end{Shaded}
 

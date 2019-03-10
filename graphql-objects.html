@@ -264,12 +264,10 @@ type Person {
 <span class="kw">function</span> <span class="at">oddValue</span>(value) <span class="op">{</span>
   <span class="cf">return</span> value <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> value : <span class="kw">null</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
-<p><strong>src/schema.js</strong></p>
-<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="im">default</span> <span class="at">makeExecutableSchema</span>(<span class="op">{</span>
-    <span class="dt">resolvers</span><span class="op">:</span> <span class="op">{</span>
-        <span class="dt">Odd</span><span class="op">:</span> OddType
-    <span class="op">}</span>
-<span class="op">}</span>)</code></pre></div>
+<p><strong>src/resolvers.js</strong></p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span>
+    <span class="dt">Odd</span><span class="op">:</span> OddType<span class="op">,</span>
+<span class="op">}</span></code></pre></div>
 <p>Have a look <a href="https://graphql.org/graphql-js/type/#graphqlscalartype">here</a> to learn more about how to implement custom scalars with gaphql-js.</p>
 </div>
 </div>
