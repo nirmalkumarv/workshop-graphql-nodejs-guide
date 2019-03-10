@@ -901,7 +901,7 @@ Run this query
 query {
   getMovie(movieId:1){
     budgetInEuros: budget(currency:Euro)
-    budgetInDollarts: budget(currency:Dollar)
+    budgetInDollars: budget(currency:Dollar)
   }
 }
 \end{verbatim}
@@ -914,7 +914,7 @@ and verify that the output should be this:
   \DataTypeTok{"data"}\FunctionTok{:} \FunctionTok{\{}
     \DataTypeTok{"getMovie"}\FunctionTok{:} \FunctionTok{\{}
       \DataTypeTok{"budgetInEuros"}\FunctionTok{:} \DecValTok{20}\FunctionTok{,}
-      \DataTypeTok{"budgetInDollarts"}\FunctionTok{:} \FloatTok{22.799999999999997}
+      \DataTypeTok{"budgetInDollars"}\FunctionTok{:} \FloatTok{22.799999999999997}
     \FunctionTok{\}}
   \FunctionTok{\}}
 \FunctionTok{\}}
@@ -962,7 +962,7 @@ We will just implament a function that can retrieve 4 arguments:
   information.
 \end{itemize}
 
-\textbf{queries.js}
+\textbf{src/queries.js}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -975,7 +975,7 @@ We will just implament a function that can retrieve 4 arguments:
 \end{Highlighting}
 \end{Shaded}
 
-\textbf{mutations.js}
+\textbf{src/mutations.js}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -990,7 +990,7 @@ We will just implament a function that can retrieve 4 arguments:
 Subscriptions looks a little bit different because we need to register
 to an event.
 
-\textbf{subscriptions.js}
+\textbf{src/subscriptions.js}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1007,6 +1007,9 @@ to an event.
 \end{Highlighting}
 \end{Shaded}
 
+Have a look at already implemented queries,mutations and subscriptions
+in this project.
+
 \section{Challenges}\label{challenges-2}
 
 \begin{enumerate}
@@ -1014,22 +1017,169 @@ to an event.
 \tightlist
 \item
   Implement operations \textbf{addActor} and \textbf{deleteActor}.
+\end{enumerate}
+
+Run this queries to verify works as expected
+
+\begin{verbatim}
+mutation {
+  addActor(request:{
+    fullName: "Penelope Cruz"
+    gender:female
+    country:"Spain"
+  }){
+    id
+  }
+}
+\end{verbatim}
+
+\begin{verbatim}
+mutation {
+  deleteActor(actorId:7){
+    id
+    fullName
+  }
+}
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Implement operation \textbf{rateMovie} that retrieves a new Input type
   MovieRateRequest. MovieRateRequest contains the movieID, the user
   email and the score. The operation will persist data into table
   \textbf{movies\_rates} and will return the Movie.
+\end{enumerate}
+
+(Email must be a new scalar type)
+
+\begin{verbatim}
+input MovieRateRequest {
+    movieId:ID!
+    email:Email!
+    score:Int!
+}
+type Mutation {
+    ...
+    rateMovie(request:MovieRateRequest!):Movie!
+    ...
+}
+\end{verbatim}
+
+Run this query to verify it works as expected
+
+\begin{verbatim}
+mutation {
+  rateMovie(request:{
+    movieId:1
+    email: "thisisme@mail.com"
+    score: 8
+  }){
+    title
+  }
+}
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
   Modify type Movie and add a new attribute rate whose value is the
   average score for all the given rates.
+\end{enumerate}
+
+\begin{verbatim}
+mutation {
+  rateMovie(request:{
+    movieId:1
+    email: "thisisme2@mail.com"
+    score: 6
+  }){
+    title
+    rate
+  }
+}
+\end{verbatim}
+
+The returned attribute \textbf{rate} must be the average.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
 \item
   Modify operation addMovie. Add a new attribute actorsId (array with
   the id's of the actors).
+\end{enumerate}
+
+Run this query
+
+\begin{verbatim}
+mutation {
+  addMovie(request:{
+    title: "The Irishman"
+    year: 2019
+    budget:130
+    genre: Action
+    actorsId: [5,6]
+    directorId: 4
+  }){
+    id
+    director{
+      fullName
+    }
+    actors(total:5){
+      id
+      fullName
+    }
+  }
+}
+\end{verbatim}
+
+and the output should be
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"data"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"addMovie"}\FunctionTok{:} \FunctionTok{\{}
+      \DataTypeTok{"title"}\FunctionTok{:} \StringTok{"The Irishman"}\FunctionTok{,}
+      \DataTypeTok{"director"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"fullName"}\FunctionTok{:} \StringTok{"Martin Scorsese"}
+      \FunctionTok{\},}
+      \DataTypeTok{"actors"}\FunctionTok{:} \OtherTok{[}
+        \FunctionTok{\{}
+          \DataTypeTok{"id"}\FunctionTok{:} \StringTok{"5"}\FunctionTok{,}
+          \DataTypeTok{"fullName"}\FunctionTok{:} \StringTok{"Al Pacino"}
+        \FunctionTok{\}}\OtherTok{,}
+        \FunctionTok{\{}
+          \DataTypeTok{"id"}\FunctionTok{:} \StringTok{"6"}\FunctionTok{,}
+          \DataTypeTok{"fullName"}\FunctionTok{:} \StringTok{"Robert de Niro"}
+        \FunctionTok{\}}
+      \OtherTok{]}
+    \FunctionTok{\}}
+  \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
 \item
   Define a new query \textbf{getMovieRate} that retrieves an argument
-  movieId and the output type is MovieRate. The output must look like
-  this:
+  movieId and the output type is MovieRate.
 \end{enumerate}
+
+Run this query
+
+\texttt{query\{\ \ \ getMovieRate(movieId:1)\{\ \ \ \ \ rate\ \ \ \ \ rates\{\ \ \ \ \ \ \ email\ \ \ \ \ \ \ score\ \ \ \ \ \}\ \ \ \}\ \}}
+
+and the output should look similar to this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1043,7 +1193,7 @@ to an event.
     \FunctionTok{\{}
       \DataTypeTok{"email"}\FunctionTok{:} \StringTok{"john.doe@mail.com"}\FunctionTok{,}
       \DataTypeTok{"score"}\FunctionTok{:} \DecValTok{6}
-    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\}}
   \OtherTok{]}
 \FunctionTok{\}}
 \end{Highlighting}

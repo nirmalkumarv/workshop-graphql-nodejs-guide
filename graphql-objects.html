@@ -362,7 +362,7 @@ type Person {
 <pre class="graphql"><code>query {
   getMovie(movieId:1){
     budgetInEuros: budget(currency:Euro)
-    budgetInDollarts: budget(currency:Dollar)
+    budgetInDollars: budget(currency:Dollar)
   }
 }</code></pre>
 <p>and verify that the output should be this:</p>
@@ -370,7 +370,7 @@ type Person {
   <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span>
     <span class="dt">&quot;getMovie&quot;</span><span class="fu">:</span> <span class="fu">{</span>
       <span class="dt">&quot;budgetInEuros&quot;</span><span class="fu">:</span> <span class="dv">20</span><span class="fu">,</span>
-      <span class="dt">&quot;budgetInDollarts&quot;</span><span class="fu">:</span> <span class="fl">22.799999999999997</span>
+      <span class="dt">&quot;budgetInDollars&quot;</span><span class="fu">:</span> <span class="fl">22.799999999999997</span>
     <span class="fu">}</span>
   <span class="fu">}</span>
 <span class="fu">}</span></code></pre></div>
