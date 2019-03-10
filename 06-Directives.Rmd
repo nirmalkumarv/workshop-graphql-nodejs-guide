@@ -39,9 +39,8 @@ type ExampleType {
 
 ## Code
 
-From my point of view, this could be the challenging part when implementinga GraphQL API.
-Have a look at [apollographql.com](https://www.apollographql.com/docs/graphql-tools/schema-directives.html) to understand
-how we can implement our own directives.
+When defining a directive we need to define its scope. Have a look at [apollographql.com](https://www.apollographql.com/docs/graphql-tools/schema-directives.html) to understand
+how to implement our own directives.
 
 Below a very basic example of directive.
 
@@ -65,7 +64,7 @@ class DeprecatedDirective extends SchemaDirectiveVisitor {
 
 Once we've implemented the directive ,  we just need to add the directives as shown below:
 
-**schema.js**
+**src/schema.js**
 ```js
 export default makeExecutableSchema({
     typeDefs,
@@ -85,20 +84,39 @@ into uppercase. The directive declaration will look lie this
 
 ```graphql
 directive @uppercase on FIELD_DEFINITION
+
+"""Movie details"""
+type Movie {
+    ...
+    title: String! @uppercase
+    ...
+}
+
 ```  
 
-2. Create a directive @multiply with an attribute factor. The directive declaration
-should look like this
+To verify the directive was implemented correctly we can run
 
 ```graphql
-directive @multiply (
-    factor: Int!
-) on FIELD_DEFINITION
+query {
+  listMovies{
+    title
+  }
+}
 ```
-And when the directive is assigned to an field its value will be multiplied by the given factor.
 
-```graphql
-input CarRequest {
-    km:Int! @multiply(factor:2)
+and check that the title for all the movies was returned in uppercase.
+
+```json
+{
+  "data": {
+    "listMovies": [
+      {
+        "title": "EDWARD SCISSORHANDS"
+      },
+      {
+        "title": "GLADIATOR"
+      }
+    ]
+  }
 }
 ```

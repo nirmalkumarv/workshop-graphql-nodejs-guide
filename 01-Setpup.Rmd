@@ -9,25 +9,20 @@ git clone https://github.com/wesovilabs-workshops/workshop-graphql-nodejs.git
 cd workshop-graphql-nodejs
 ```
 
-## Project organization
+## Project structure
 
 
 > Project follows the guidelines for structuring a NodeJS project
 
-In this project you will find two separated directories:
-
-### Javascript code
+You will find the following directories:
 
 - **src**: It contains the source code for the application
 
-
-### Docker and configuration files
-
-- **resources/graphql**: It contains the GraphQL schema implemented by the API.
+- **resources/graphql**: It contains the GraphQL schema implemented by our server.
 
 - **resources/docker-compose**: It contains the docker-compose descriptor and the containers configuration files.
 
-- **resources/local**: It contains default configuration file that will be used when running the server locally.. 
+- **resources/local**: It contains default configuration file that will be used when running the server locally. 
 
 ## Running the server
 
@@ -45,7 +40,9 @@ docker build -t=wesovilabs/workshop-graphql-nodejs:local .;
 docker-compose -f resources/docker-compose/docker-compose.yml run --rm -p9001:9001 api
 ```
 
-To clean the launched containers you just need to perform
+To verify that application was launched correctly, just open [The GraphQL Playground](http://localhost:9001/graphql)
+
+To clean the containers you just need to run
 
 ```bash
 make docker-stop
@@ -54,13 +51,13 @@ make docker-stop
 or 
 
 ```bash
-docker-compose -f docker-compose/docker-compose.yml down -v
+docker-compose -f resources/docker-compose/docker-compose.yml down -v
 ```
 
 ### While you're coding
 
 The above commands launch the full environment: database and API. On the other hand,
-when we're coding we could rather launch the database from the docker-compose and the 
+when we're coding we could launch the database from the docker-compose and the 
 API from our local machine.
 
 1. Launching database container from docker-compose
@@ -72,7 +69,7 @@ make database
 or 
 
 ```bash
-docker-compose -f src/main/resources/docker-compose/docker-compose.yml run --rm -p5456:5432 database
+docker-compose -f resources/docker-compose/docker-compose.yml run --rm -p5456:5432 database
 ```
 
 2. Run the application from your IDE or by command line
@@ -82,7 +79,13 @@ npm install;
 APP_CONFIG_PATH=./resources/local/config.json NODE_ENV=local npm start;
 ```
 
-## The application
+## Workshop Application
+
+The application is a movie cataloging tool.
+
+The purpose of this workshop is to enrich the application with new functionality that will 
+be required in upcoming chapters.
+
 
 ### Database 
 
@@ -132,7 +135,7 @@ Table: movies_actors
             
 ### API
 
-By defualt the below operations are already implemented in our project.
+The below operations are already implemented in our project.
 
 #### Queries
 
@@ -144,19 +147,18 @@ By defualt the below operations are already implemented in our project.
 #### Mutations
 
 - **addMovie(request:MovieRequest):Movie!**: It adds a new movie.
-- **addActor(request:ActorRequest):Actor!**: It adds a new actor. 
-- **deleteActor("Identifier of the actor" actorId:ID!):[Actor!]**: It 
-deletes the actor with the given id.
+- **addDirector(request:DirectorRequest):Director!**: It adds a new director. 
+- **deleteDirector("Identifier of the director" direction:ID!):[Director!]**: It 
+deletes the director with the given id.
 
 #### Subscriptions
 
-- **listenDirectorMovies(directorId:ID!):Movie!**: It open a communication with 
-the server and It is notified when a new movie is created for the directorId in the request.
-
+- **listenDirectorMovies(directorId:ID!):Movie!**: It opens a communication with 
+the server and is notified when a new movie is created for the passed directorId in the request.
 
 ### GraphQL schema
 
-The full GraphQL schema looks
+The graphql schema for our application looks like this:
 
 ```graphql
 schema {
@@ -186,9 +188,9 @@ type Mutation {
     """I adds a new movie"""
     addMovie(request:MovieRequest):Movie!
     """I adds a new actor"""
-    addActor(request:ActorRequest):Actor!
-    """I deletes an actor with the fiven identifier"""
-    deleteActor("Identifier of the actor" actorId:ID!):[Actor!]
+    addDirector(request:DirectorRequest):Director!
+    """I deletes the director with the fiven identifier"""
+    deleteDirector("Identifier of the director" directorId:ID!):[Director!]
 }
 
 """Available subscriptions for Workshop API"""
@@ -244,14 +246,12 @@ type Director{
     country: String
 }
 
-"""Actor creation info"""
-input ActorRequest {
+"""Director creation request"""
+input DirectorRequest{
     "Full name of the director"
     fullName: String!
-    "Country in which the actor was born"
+    "Country in which the director was born"
     country: String
-    "Gender of actor: Supported values are male or female"
-    gender: String
 }
 
 """Actor details"""

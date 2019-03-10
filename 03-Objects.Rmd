@@ -29,11 +29,11 @@ type MyType {
 
 ```
 
-Fields can take arguments as input. These can be used to determine the return value (eg, filtering search results) or 
-to modify the application state. These are known as **field arguments**.
+Fields can take arguments as input. These can be used to customize the return value (eg, filtering search results).
+This is known as **field argument**.
 
 If you have a look at our schema.graphql you can find an example of usage of a field argument for attribute actors 
-in type Movie. 
+in type Movie. The total argument is used to define the max number of actors returned from the server.
 
 
 ## Code
@@ -47,7 +47,7 @@ And this attribute won't be always required by the API consumers. Server should 
 waste time on obtaining something that clients do not need.
 
 
-**resolvers.js**
+**src/resolvers.js**
 ```js
 export default {
     Person: {
@@ -60,10 +60,9 @@ export default {
 ``` 
 
 Now, image that SocialDetails can be taken from more than one social network
-and we want to permit the consumers to decide which social network must be used. 
-(It's known as field arguments)
+and we want to permit the consumers to decide which social network must be used.
 
-**schema.graphql.**
+**resources/graphql/schema.graphql.**
 ```graphl
 enum Source{
     Linkedin
@@ -75,9 +74,9 @@ type Person {
 }
 
 ```
-Our resolver could look like this
+Our resolver would look like this example:
 
-**resolvers.js**
+**src/resolvers.js**
 ```js
 export default {
     Person: {
@@ -97,7 +96,7 @@ export default {
 The library **graphql** provides us with  class **GraphQLScalarType**. We just need to create a new instance an add it
 as a new resolver. An example of scalar type is shown below:
 
-**scalars.js**
+**src/scalars.js**
 ```js
 import {GraphQLScalarType} from 'graphql';
 
@@ -118,17 +117,15 @@ function oddValue(value) {
 }
 ```
 
-**schema.js**
+**src/resolvers.js**
 ```js
-export default makeExecutableSchema({
-    resolvers: {
-        Odd:OddType
-    }
-
-})
+export default {
+    Odd: OddType,
+}
 ``` 
 
-You can find more details [here](https://graphql.org/graphql-js/type/#graphqlscalartype)
+Have a look [here](https://graphql.org/graphql-js/type/#graphqlscalartype) to learn more about how to implement
+custom scalars with gaphql-js.
 
 
 
@@ -136,7 +133,134 @@ You can find more details [here](https://graphql.org/graphql-js/type/#graphqlsca
 
 1. Define an enum type Genre whose values are Drama and SciFi (add as many other as you want) and use it
 for attribute genre in type Movie and  MovieRequest.
+
+Run this query to verify your implementation works as expected
+
+```graphql
+mutation {
+  addMovie (request:{
+    title: "Corpse Bride"
+    year: 2005
+    budget: 35000000
+    directorId: 1
+    genre: SciFi
+    thriller: "https://www.youtube.com/watch?v=o5qOjhD8j08"
+  }){
+    id
+    director{
+      fullName
+      country
+    }
+    genre
+  }
+}
+```
+
+
 2. Define an enum Gender and use it for attribute gender in type Actor.
-3. Define a scalar type Url and use it in attribute thriller of types Movie and MovieRequest.
+
+Run this query to verify your implementation works as expected
+
+```graphql
+query {
+  listActors{
+    fullName
+    gender
+  }
+}
+```
+
+3. Define a scalar type Url and use it in attribute thriller of Movie and MovieRequest. Only valid
+url's should be permitted.
+
+This code could be useful for validate the url's
+
+```js
+export const validateUrl = (str) => {
+    let pattern = new RegExp('^(https?:\\/\\/)' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return pattern.test(str);
+}
+```
+
+
+Run this query to verify that only valid url's are permitted. Actually,
+the movie should not be saved into the database.
+
+```graphql
+mutation {
+  addMovie (request:{
+    title: "Gran Torino"
+    year: 2009
+    budget: 28000000
+    directorId: 6
+    genre: Drama
+    thriller: ".http"
+  }){
+    id
+    director{
+      fullName
+      country
+    }
+    genre
+    thriller
+  }
+}
+```
+
+Run this query to verify that your scalar Url works as expected.
+
+```graphql
+mutation {
+  addMovie (request:{
+    title: "Gran Torino"
+    year: 2009
+    budget: 28000000
+    directorId: 6
+    genre: Drama
+    thriller: "https://www.youtube.com/watch?v=9ecW-d-CBPc"
+  }){
+    id
+    director{
+      fullName
+      country
+    }
+    genre
+    thriller
+  }
+}
+```
+
+
 4. Define an enum type Currency whose possible values are Euro and Dollar. Our API must permit
 the API consumers to decide in which currency they want to obtain attribute budget in type Movie.
+**1€ => 1.14$**
+
+
+Run this query 
+
+```graphql
+query {
+  getMovie(movieId:1){
+    budgetInEuros: budget(currency:Euro)
+    budgetInDollars: budget(currency:Dollar)
+  }
+}
+```
+
+and verify that the output should be this:
+
+```json
+{
+  "data": {
+    "getMovie": {
+      "budgetInEuros": 20,
+      "budgetInDollars": 22.799999999999997
+    }
+  }
+}
+```

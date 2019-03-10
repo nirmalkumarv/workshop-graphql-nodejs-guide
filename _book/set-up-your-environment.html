@@ -119,14 +119,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pre-requisites</a></li>
 <li class="chapter" data-level="2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html"><i class="fa fa-check"></i><b>2</b> Set up your environment</a><ul>
 <li class="chapter" data-level="2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#download-the-project"><i class="fa fa-check"></i><b>2.1</b> Download the project</a></li>
-<li class="chapter" data-level="2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#project-organization"><i class="fa fa-check"></i><b>2.2</b> Project organization</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#javascript-code"><i class="fa fa-check"></i><b>2.2.1</b> Javascript code</a></li>
-<li class="chapter" data-level="2.2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#docker-and-configuration-files"><i class="fa fa-check"></i><b>2.2.2</b> Docker and configuration files</a></li>
-</ul></li>
+<li class="chapter" data-level="2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#project-structure"><i class="fa fa-check"></i><b>2.2</b> Project structure</a></li>
 <li class="chapter" data-level="2.3" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#running-the-server"><i class="fa fa-check"></i><b>2.3</b> Running the server</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#while-youre-coding"><i class="fa fa-check"></i><b>2.3.1</b> While you’re coding</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#the-application"><i class="fa fa-check"></i><b>2.4</b> The application</a><ul>
+<li class="chapter" data-level="2.4" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#workshop-application"><i class="fa fa-check"></i><b>2.4</b> Workshop Application</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#database"><i class="fa fa-check"></i><b>2.4.1</b> Database</a></li>
 <li class="chapter" data-level="2.4.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#api"><i class="fa fa-check"></i><b>2.4.2</b> API</a></li>
 <li class="chapter" data-level="2.4.3" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#graphql-schema"><i class="fa fa-check"></i><b>2.4.3</b> GraphQL schema</a></li>
@@ -191,26 +188,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> clone https://github.com/wesovilabs-workshops/workshop-graphql-nodejs.git
 <span class="bu">cd</span> workshop-graphql-nodejs</code></pre></div>
 </div>
-<div id="project-organization" class="section level2">
-<h2><span class="header-section-number">2.2</span> Project organization</h2>
+<div id="project-structure" class="section level2">
+<h2><span class="header-section-number">2.2</span> Project structure</h2>
 <blockquote>
 <p>Project follows the guidelines for structuring a NodeJS project</p>
 </blockquote>
-<p>In this project you will find two separated directories:</p>
-<div id="javascript-code" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Javascript code</h3>
+<p>You will find the following directories:</p>
 <ul>
-<li><strong>src</strong>: It contains the source code for the application</li>
-</ul>
-</div>
-<div id="docker-and-configuration-files" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> Docker and configuration files</h3>
-<ul>
-<li><p><strong>resources/graphql</strong>: It contains the GraphQL schema implemented by the API.</p></li>
+<li><p><strong>src</strong>: It contains the source code for the application</p></li>
+<li><p><strong>resources/graphql</strong>: It contains the GraphQL schema implemented by our server.</p></li>
 <li><p><strong>resources/docker-compose</strong>: It contains the docker-compose descriptor and the containers configuration files.</p></li>
-<li><p><strong>resources/local</strong>: It contains default configuration file that will be used when running the server locally..</p></li>
+<li><p><strong>resources/local</strong>: It contains default configuration file that will be used when running the server locally.</p></li>
 </ul>
-</div>
 </div>
 <div id="running-the-server" class="section level2">
 <h2><span class="header-section-number">2.3</span> Running the server</h2>
@@ -219,19 +208,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>or in case of you don’t have make command installed</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker</span> build -t=wesovilabs/workshop-graphql-nodejs:local .<span class="kw">;</span>
 <span class="ex">docker-compose</span> -f resources/docker-compose/docker-compose.yml run --rm -p9001:9001 api</code></pre></div>
-<p>To clean the launched containers you just need to perform</p>
+<p>To verify that application was launched correctly, just open <a href="http://localhost:9001/graphql">The GraphQL Playground</a></p>
+<p>To clean the containers you just need to run</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">make</span> docker-stop</code></pre></div>
 <p>or</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker-compose</span> -f docker-compose/docker-compose.yml down -v</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker-compose</span> -f resources/docker-compose/docker-compose.yml down -v</code></pre></div>
 <div id="while-youre-coding" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> While you’re coding</h3>
-<p>The above commands launch the full environment: database and API. On the other hand, when we’re coding we could rather launch the database from the docker-compose and the API from our local machine.</p>
+<p>The above commands launch the full environment: database and API. On the other hand, when we’re coding we could launch the database from the docker-compose and the API from our local machine.</p>
 <ol style="list-style-type: decimal">
 <li>Launching database container from docker-compose</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">make</span> database</code></pre></div>
 <p>or</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker-compose</span> -f src/main/resources/docker-compose/docker-compose.yml run --rm -p5456:5432 database</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">docker-compose</span> -f resources/docker-compose/docker-compose.yml run --rm -p5456:5432 database</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Run the application from your IDE or by command line</li>
 </ol>
@@ -239,8 +229,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="va">APP_CONFIG_PATH=</span>./resources/local/config.json <span class="va">NODE_ENV=</span>local <span class="ex">npm</span> start<span class="kw">;</span></code></pre></div>
 </div>
 </div>
-<div id="the-application" class="section level2">
-<h2><span class="header-section-number">2.4</span> The application</h2>
+<div id="workshop-application" class="section level2">
+<h2><span class="header-section-number">2.4</span> Workshop Application</h2>
+<p>The application is a movie cataloging tool.</p>
+<p>The purpose of this workshop is to enrich the application with new functionality that will be required in upcoming chapters.</p>
 <div id="database" class="section level3">
 <h3><span class="header-section-number">2.4.1</span> Database</h3>
 <div class="figure">
@@ -403,7 +395,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="api" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> API</h3>
-<p>By defualt the below operations are already implemented in our project.</p>
+<p>The below operations are already implemented in our project.</p>
 <div id="queries" class="section level4">
 <h4><span class="header-section-number">2.4.2.1</span> Queries</h4>
 <ul>
@@ -417,20 +409,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h4><span class="header-section-number">2.4.2.2</span> Mutations</h4>
 <ul>
 <li><strong>addMovie(request:MovieRequest):Movie!</strong>: It adds a new movie.</li>
-<li><strong>addActor(request:ActorRequest):Actor!</strong>: It adds a new actor.</li>
-<li><strong>deleteActor(“Identifier of the actor” actorId:ID!):[Actor!]</strong>: It deletes the actor with the given id.</li>
+<li><strong>addDirector(request:DirectorRequest):Director!</strong>: It adds a new director.</li>
+<li><strong>deleteDirector(“Identifier of the director” direction:ID!):[Director!]</strong>: It deletes the director with the given id.</li>
 </ul>
 </div>
 <div id="subscriptions" class="section level4">
 <h4><span class="header-section-number">2.4.2.3</span> Subscriptions</h4>
 <ul>
-<li><strong>listenDirectorMovies(directorId:ID!):Movie!</strong>: It open a communication with the server and It is notified when a new movie is created for the directorId in the request.</li>
+<li><strong>listenDirectorMovies(directorId:ID!):Movie!</strong>: It opens a communication with the server and is notified when a new movie is created for the passed directorId in the request.</li>
 </ul>
 </div>
 </div>
 <div id="graphql-schema" class="section level3">
 <h3><span class="header-section-number">2.4.3</span> GraphQL schema</h3>
-<p>The full GraphQL schema looks</p>
+<p>The graphql schema for our application looks like this:</p>
 <pre class="graphql"><code>schema {
     # The query root of Workshop GraphQL interface.
     query: Query
@@ -458,9 +450,9 @@ type Mutation {
     &quot;&quot;&quot;I adds a new movie&quot;&quot;&quot;
     addMovie(request:MovieRequest):Movie!
     &quot;&quot;&quot;I adds a new actor&quot;&quot;&quot;
-    addActor(request:ActorRequest):Actor!
-    &quot;&quot;&quot;I deletes an actor with the fiven identifier&quot;&quot;&quot;
-    deleteActor(&quot;Identifier of the actor&quot; actorId:ID!):[Actor!]
+    addDirector(request:DirectorRequest):Director!
+    &quot;&quot;&quot;I deletes the director with the fiven identifier&quot;&quot;&quot;
+    deleteDirector(&quot;Identifier of the director&quot; directorId:ID!):[Director!]
 }
 
 &quot;&quot;&quot;Available subscriptions for Workshop API&quot;&quot;&quot;
@@ -516,14 +508,12 @@ type Director{
     country: String
 }
 
-&quot;&quot;&quot;Actor creation info&quot;&quot;&quot;
-input ActorRequest {
+&quot;&quot;&quot;Director creation request&quot;&quot;&quot;
+input DirectorRequest{
     &quot;Full name of the director&quot;
     fullName: String!
-    &quot;Country in which the actor was born&quot;
+    &quot;Country in which the director was born&quot;
     country: String
-    &quot;Gender of actor: Supported values are male or female&quot;
-    gender: String
 }
 
 &quot;&quot;&quot;Actor details&quot;&quot;&quot;

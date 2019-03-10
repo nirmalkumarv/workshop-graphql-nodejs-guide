@@ -110,5 +110,61 @@ export default {
 
 - Define an interface Person with commons attributes for Actor and Director. Add  a new query
 listPeople that returns a list of people ([Person!]).
+
+```graphql
+query{
+    listPeople:[Person!]
+}
+```
+
+Once you've implemented this query make use of fragments to return the below details
+
+```json
+{
+  "data": {
+    "listPeople": [
+      {
+        "__typename": "Actor",
+        "fullName": "Johnny Depp",
+        "gender": "female"
+      },
+      ...
+      {
+          "__typename": "Director",
+          "fullName": "Steven Spielberg",
+          "country": "USA"
+       }
+       ...
+    ]
+  }
+}
+```
+
 - Define an union named Item that could be a Movie or an Actor. Add an operations listItems that return
 the full list of Items. [Item!]
+
+```graphql
+query{
+    listItems:[Item!]
+}
+```
+
+Once you've implemented this query make use of fragments to return the below details
+
+```json
+{
+  "data": {
+    "listItems": [
+      {
+        "__typename": "Movie",
+        "title": "Edward Scissorhands"
+      },
+       {
+         "__typename": "Actor",
+          "fullName": "Russell Crowe"
+       }
+       ...
+    ]
+  }
+}
+```

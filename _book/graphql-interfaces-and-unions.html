@@ -119,14 +119,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pre-requisites</a></li>
 <li class="chapter" data-level="2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html"><i class="fa fa-check"></i><b>2</b> Set up your environment</a><ul>
 <li class="chapter" data-level="2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#download-the-project"><i class="fa fa-check"></i><b>2.1</b> Download the project</a></li>
-<li class="chapter" data-level="2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#project-organization"><i class="fa fa-check"></i><b>2.2</b> Project organization</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#javascript-code"><i class="fa fa-check"></i><b>2.2.1</b> Javascript code</a></li>
-<li class="chapter" data-level="2.2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#docker-and-configuration-files"><i class="fa fa-check"></i><b>2.2.2</b> Docker and configuration files</a></li>
-</ul></li>
+<li class="chapter" data-level="2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#project-structure"><i class="fa fa-check"></i><b>2.2</b> Project structure</a></li>
 <li class="chapter" data-level="2.3" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#running-the-server"><i class="fa fa-check"></i><b>2.3</b> Running the server</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#while-youre-coding"><i class="fa fa-check"></i><b>2.3.1</b> While you’re coding</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#the-application"><i class="fa fa-check"></i><b>2.4</b> The application</a><ul>
+<li class="chapter" data-level="2.4" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#workshop-application"><i class="fa fa-check"></i><b>2.4</b> Workshop Application</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#database"><i class="fa fa-check"></i><b>2.4.1</b> Database</a></li>
 <li class="chapter" data-level="2.4.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#api"><i class="fa fa-check"></i><b>2.4.2</b> API</a></li>
 <li class="chapter" data-level="2.4.3" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#graphql-schema"><i class="fa fa-check"></i><b>2.4.3</b> GraphQL schema</a></li>
@@ -277,8 +274,51 @@ type Query{
 <h2><span class="header-section-number">6.4</span> Challenges</h2>
 <ul>
 <li>Define an interface Person with commons attributes for Actor and Director. Add a new query listPeople that returns a list of people ([Person!]).</li>
+</ul>
+<pre class="graphql"><code>query{
+    listPeople:[Person!]
+}</code></pre>
+<p>Once you’ve implemented this query make use of fragments to return the below details</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;listPeople&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+      <span class="fu">{</span>
+        <span class="dt">&quot;__typename&quot;</span><span class="fu">:</span> <span class="st">&quot;Actor&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;fullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Johnny Depp&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;gender&quot;</span><span class="fu">:</span> <span class="st">&quot;female&quot;</span>
+      <span class="fu">}</span><span class="ot">,</span>
+      <span class="er">...</span>
+      <span class="fu">{</span>
+          <span class="dt">&quot;__typename&quot;</span><span class="fu">:</span> <span class="st">&quot;Director&quot;</span><span class="fu">,</span>
+          <span class="dt">&quot;fullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Steven Spielberg&quot;</span><span class="fu">,</span>
+          <span class="dt">&quot;country&quot;</span><span class="fu">:</span> <span class="st">&quot;USA&quot;</span>
+       <span class="fu">}</span>
+       <span class="er">...</span>
+    <span class="ot">]</span>
+  <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
+<ul>
 <li>Define an union named Item that could be a Movie or an Actor. Add an operations listItems that return the full list of Items. [Item!]</li>
 </ul>
+<pre class="graphql"><code>query{
+    listItems:[Item!]
+}</code></pre>
+<p>Once you’ve implemented this query make use of fragments to return the below details</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;listItems&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+      <span class="fu">{</span>
+        <span class="dt">&quot;__typename&quot;</span><span class="fu">:</span> <span class="st">&quot;Movie&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Edward Scissorhands&quot;</span>
+      <span class="fu">}</span><span class="ot">,</span>
+       <span class="fu">{</span>
+         <span class="dt">&quot;__typename&quot;</span><span class="fu">:</span> <span class="st">&quot;Actor&quot;</span><span class="fu">,</span>
+          <span class="dt">&quot;fullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Russell Crowe&quot;</span>
+       <span class="fu">}</span>
+       <span class="er">...</span>
+    <span class="ot">]</span>
+  <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
 
 </div>
 </div>

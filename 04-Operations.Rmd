@@ -22,7 +22,7 @@ can retrieve 4 arguments:
 - **context**: A custom object each resolver can read from/write to.
 - **info**: It contains the query AST and more execution information. 
 
-**queries.js**
+**src/queries.js**
 ```js
 
 export const myQuery = (parentValue, args, ctx,info) => {
@@ -32,7 +32,7 @@ export const myQuery = (parentValue, args, ctx,info) => {
 };
 ```
 
-**mutations.js**
+**src/mutations.js**
 ```js
 export const myMutation = (parentValue, args, ctx, info) => {
     return {
@@ -43,7 +43,7 @@ export const myMutation = (parentValue, args, ctx, info) => {
 
 Subscriptions looks a little bit different because we need to register to an event.
 
-**subscriptions.js**
+**src/subscriptions.js**
 ```js
 export const listenChangesInTeam = {
     subscribe: (
@@ -57,17 +57,156 @@ export const listenChangesInTeam = {
 }
 ```
 
+Have a look at already implemented queries,mutations and subscriptions in this project.
+
+
 ## Challenges
 
 1. Implement operations **addActor** and **deleteActor**.
+
+Run these queries to verify they work as expected.
+
+```graphql
+mutation {
+  addActor(request:{
+    fullName: "Penelope Cruz"
+    gender:female
+    country:"Spain"
+  }){
+    id
+  }
+}
+```
+
+```graphql
+mutation {
+  deleteActor(actorId:7){
+    id
+    fullName
+  }
+}
+```
+
 2. Implement operation **rateMovie** that retrieves a new Input type MovieRateRequest. 
 MovieRateRequest contains the movieID, the user email and the score. The operation will
 persist data into table **movies_rates** and will return the Movie.
+
+(Email must be a new scalar type)
+
+```graphql
+input MovieRateRequest {
+    movieId:ID!
+    email:Email!
+    score:Int!
+}
+type Mutation {
+    ...
+    rateMovie(request:MovieRateRequest!):Movie!
+    ...
+}
+```
+
+Run this query to verify it works as expected
+
+```graphql
+mutation {
+  rateMovie(request:{
+    movieId:1
+    email: "thisisme@mail.com"
+    score: 8
+  }){
+    title
+  }
+}
+```
+
 3. Modify type Movie and add a new attribute rate whose value is the average score for 
 all the given rates.
+
+```graphql
+mutation {
+  rateMovie(request:{
+    movieId:1
+    email: "thisisme2@mail.com"
+    score: 6
+  }){
+    title
+    rate
+  }
+}
+```
+
+The returned attribute **rate** must be the average.
+
 4. Modify operation addMovie. Add a new attribute actorsId (array with the id's of the actors).
+
+Run this query
+
+```graphql
+mutation {
+  addMovie(request:{
+    title: "The Irishman"
+    year: 2019
+    budget:130
+    genre: Action
+    actorsId: [5,6]
+    directorId: 4
+  }){
+    director{
+      fullName
+    }
+    actors(total:5){
+      id
+      fullName
+    }
+  }
+}
+```
+
+and the output should be
+
+```json
+{
+  "data": {
+    "addMovie": {
+      "title": "The Irishman",
+      "director": {
+        "fullName": "Martin Scorsese"
+      },
+      "actors": [
+        {
+          "id": "5",
+          "fullName": "Al Pacino"
+        },
+        {
+          "id": "6",
+          "fullName": "Robert de Niro"
+        }
+      ]
+    }
+  }
+}
+```
+
 5. Define a new query **getMovieRate** that retrieves an argument movieId and the output
-type is MovieRate. The output must look like this:
+type is MovieRate. 
+
+Run this query
+
+```graphql
+query{
+  getMovieRate(movieId:1){
+    rate
+    rates{
+      email
+      score
+    }
+  }
+}
+```
+
+
+and the output should look similar to this:
 
 ```json
 {
@@ -80,10 +219,41 @@ type is MovieRate. The output must look like this:
     {
       "email": "john.doe@mail.com",
       "score": 6
-    },
+    }
   ]
 }
 ```
 
 5. Create a new subscription **listenRates**. This operation retrieves an argument movieId
 and It displays the new rates for the given movieId.
+
+From one tab we run the subscription
+
+```graphql
+subscription{
+  listenRates(movieId:1){
+    title
+    rate
+  }
+}
+```
+
+and then we add a new rate for movie with identifier 1
+
+
+```graphql
+mutation{
+  rateMovie(request:{
+    movieId: 1
+    email:"yo@mail2.com"
+    score:3
+  }){
+    director{
+      id
+      fullName
+    }
+  }
+}
+```
+
+The subscription should print the details for movie with id 1

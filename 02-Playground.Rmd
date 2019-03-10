@@ -2,26 +2,23 @@
 
 ## Introduction
 
-Once the server is up and ready we can interact with our API by making use of the **GraphQL Playground**. There are
-several desktop applications that allow us to run our queries against GraphQL API's. On the other hand, to follow the
-workshop we will make use of an embedded web client which is deployed within out api.
+Once the server is up and ready we can interact with our API by making use of the **GraphQL Playground**. 
 
 Just open [ohttp://localhost:9001/graphql](http://localhost:9001/graphql) in your browser.
 
 ![GraphQL playground](assets/playground.png)
 
-Learn to use ir is not rock science at all. Queries are written on the left side and the result of these is displayed on the right one. 
-
-Headers can be entered  by clicking the **HTTP Headers** button on the bottom.
+Queries are written on the left side and the response of these are displayed 
+on the right one. 
 
 To check the **API documentation** we just need to click on the green button on the right (SCHEMA) and a handy  menu will
 be shown.
 
 ## GraphQL syntax
+GraphQL operations are: queries, mutations and subscriptions. We can run only one operation per request.
 
-On the below picture we can observe how queries, mutations and subscriptions are made from the Graphiql. Beer in mind
-that you can only run one of these three operations at time. On the other hand you can perform several queries or several mutations
-at time. Have a look at the examples to understand how queries can be executed.
+On the other hand we can send more than a query or more than a mutation
+at time. 
 
 ![Queries with alias](assets/queries.png)
 
@@ -31,16 +28,15 @@ at time. Have a look at the examples to understand how queries can be executed.
 
 ## Challenges
 
-1. Write a query that returns the below details (**getMovie**)
+1. Write a query that returns the below details (**getMovie**) for movie with **id 1**.
 
-![Edward Scissorhands](assets/challenge-1.png)   
+![Edward Scissorhands](assets/challenge-one.png)   
 
-- How many actors are shown?
+- How many actors are returned from the server?
 
-- Are the returned fields the same that appear in the picture?
-
+- Are the returned fields the same ones that appear in the picture?
 
 2. Create a new director (**addDirector**)
 3. Subscript to the movies for the created director in the previous step. (**listenDirectorMovies**)
-3. Open another tab in your GraphQL Playground and add a new movie in which the director is the one that you just created. (**addMovie**). 
-4. Verify that new movie has been notified to the subscription that we launched in step 3.
+4. Open another tab in your GraphQL Playground and add a new movie in which the director is the one that you just created. (**addMovie**). 
+5. Verify that new movie has been notified to the subscription that we launched in step 3.

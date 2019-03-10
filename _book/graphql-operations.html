@@ -119,14 +119,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pre-requisites</a></li>
 <li class="chapter" data-level="2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html"><i class="fa fa-check"></i><b>2</b> Set up your environment</a><ul>
 <li class="chapter" data-level="2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#download-the-project"><i class="fa fa-check"></i><b>2.1</b> Download the project</a></li>
-<li class="chapter" data-level="2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#project-organization"><i class="fa fa-check"></i><b>2.2</b> Project organization</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#javascript-code"><i class="fa fa-check"></i><b>2.2.1</b> Javascript code</a></li>
-<li class="chapter" data-level="2.2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#docker-and-configuration-files"><i class="fa fa-check"></i><b>2.2.2</b> Docker and configuration files</a></li>
-</ul></li>
+<li class="chapter" data-level="2.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#project-structure"><i class="fa fa-check"></i><b>2.2</b> Project structure</a></li>
 <li class="chapter" data-level="2.3" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#running-the-server"><i class="fa fa-check"></i><b>2.3</b> Running the server</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#while-youre-coding"><i class="fa fa-check"></i><b>2.3.1</b> While you’re coding</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#the-application"><i class="fa fa-check"></i><b>2.4</b> The application</a><ul>
+<li class="chapter" data-level="2.4" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#workshop-application"><i class="fa fa-check"></i><b>2.4</b> Workshop Application</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#database"><i class="fa fa-check"></i><b>2.4.1</b> Database</a></li>
 <li class="chapter" data-level="2.4.2" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#api"><i class="fa fa-check"></i><b>2.4.2</b> API</a></li>
 <li class="chapter" data-level="2.4.3" data-path="set-up-your-environment.html"><a href="set-up-your-environment.html#graphql-schema"><i class="fa fa-check"></i><b>2.4.3</b> GraphQL schema</a></li>
@@ -204,21 +201,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><strong>context</strong>: A custom object each resolver can read from/write to.</li>
 <li><strong>info</strong>: It contains the query AST and more execution information.</li>
 </ul>
-<p><strong>queries.js</strong></p>
+<p><strong>src/queries.js</strong></p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript">
 <span class="im">export</span> <span class="kw">const</span> myQuery <span class="op">=</span> (parentValue<span class="op">,</span> args<span class="op">,</span> ctx<span class="op">,</span>info) <span class="op">=&gt;</span> <span class="op">{</span>
     <span class="cf">return</span> <span class="op">{</span>
         
     <span class="op">}</span>
 <span class="op">};</span></code></pre></div>
-<p><strong>mutations.js</strong></p>
+<p><strong>src/mutations.js</strong></p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="kw">const</span> myMutation <span class="op">=</span> (parentValue<span class="op">,</span> args<span class="op">,</span> ctx<span class="op">,</span> info) <span class="op">=&gt;</span> <span class="op">{</span>
     <span class="cf">return</span> <span class="op">{</span>
               
     <span class="op">}</span>
 <span class="op">};</span></code></pre></div>
 <p>Subscriptions looks a little bit different because we need to register to an event.</p>
-<p><strong>subscriptions.js</strong></p>
+<p><strong>src/subscriptions.js</strong></p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="kw">const</span> listenChangesInTeam <span class="op">=</span> <span class="op">{</span>
     <span class="dt">subscribe</span><span class="op">:</span> (
         (_<span class="op">,</span> <span class="op">{</span>teamId<span class="op">}</span>) <span class="op">=&gt;</span> <span class="op">{</span>
@@ -229,16 +226,124 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         <span class="cf">return</span> payload<span class="op">;</span>
     <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
+<p>Have a look at already implemented queries,mutations and subscriptions in this project.</p>
 </div>
 <div id="challenges-2" class="section level2">
 <h2><span class="header-section-number">5.3</span> Challenges</h2>
 <ol style="list-style-type: decimal">
 <li>Implement operations <strong>addActor</strong> and <strong>deleteActor</strong>.</li>
-<li>Implement operation <strong>rateMovie</strong> that retrieves a new Input type MovieRateRequest. MovieRateRequest contains the movieID, the user email and the score. The operation will persist data into table <strong>movies_rates</strong> and will return the Movie.</li>
-<li>Modify type Movie and add a new attribute rate whose value is the average score for all the given rates.</li>
-<li>Modify operation addMovie. Add a new attribute actorsId (array with the id’s of the actors).</li>
-<li>Define a new query <strong>getMovieRate</strong> that retrieves an argument movieId and the output type is MovieRate. The output must look like this:</li>
 </ol>
+<p>Run these queries to verify they work as expected.</p>
+<pre class="graphql"><code>mutation {
+  addActor(request:{
+    fullName: &quot;Penelope Cruz&quot;
+    gender:female
+    country:&quot;Spain&quot;
+  }){
+    id
+  }
+}</code></pre>
+<pre class="graphql"><code>mutation {
+  deleteActor(actorId:7){
+    id
+    fullName
+  }
+}</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Implement operation <strong>rateMovie</strong> that retrieves a new Input type MovieRateRequest. MovieRateRequest contains the movieID, the user email and the score. The operation will persist data into table <strong>movies_rates</strong> and will return the Movie.</li>
+</ol>
+<p>(Email must be a new scalar type)</p>
+<pre class="graphql"><code>input MovieRateRequest {
+    movieId:ID!
+    email:Email!
+    score:Int!
+}
+type Mutation {
+    ...
+    rateMovie(request:MovieRateRequest!):Movie!
+    ...
+}</code></pre>
+<p>Run this query to verify it works as expected</p>
+<pre class="graphql"><code>mutation {
+  rateMovie(request:{
+    movieId:1
+    email: &quot;thisisme@mail.com&quot;
+    score: 8
+  }){
+    title
+  }
+}</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Modify type Movie and add a new attribute rate whose value is the average score for all the given rates.</li>
+</ol>
+<pre class="graphql"><code>mutation {
+  rateMovie(request:{
+    movieId:1
+    email: &quot;thisisme2@mail.com&quot;
+    score: 6
+  }){
+    title
+    rate
+  }
+}</code></pre>
+<p>The returned attribute <strong>rate</strong> must be the average.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Modify operation addMovie. Add a new attribute actorsId (array with the id’s of the actors).</li>
+</ol>
+<p>Run this query</p>
+<pre class="graphql"><code>mutation {
+  addMovie(request:{
+    title: &quot;The Irishman&quot;
+    year: 2019
+    budget:130
+    genre: Action
+    actorsId: [5,6]
+    directorId: 4
+  }){
+    director{
+      fullName
+    }
+    actors(total:5){
+      id
+      fullName
+    }
+  }
+}</code></pre>
+<p>and the output should be</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;addMovie&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+      <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;The Irishman&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;director&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;fullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Martin Scorsese&quot;</span>
+      <span class="fu">},</span>
+      <span class="dt">&quot;actors&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+        <span class="fu">{</span>
+          <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;5&quot;</span><span class="fu">,</span>
+          <span class="dt">&quot;fullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Al Pacino&quot;</span>
+        <span class="fu">}</span><span class="ot">,</span>
+        <span class="fu">{</span>
+          <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;6&quot;</span><span class="fu">,</span>
+          <span class="dt">&quot;fullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Robert de Niro&quot;</span>
+        <span class="fu">}</span>
+      <span class="ot">]</span>
+    <span class="fu">}</span>
+  <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Define a new query <strong>getMovieRate</strong> that retrieves an argument movieId and the output type is MovieRate.</li>
+</ol>
+<p>Run this query</p>
+<pre class="graphql"><code>query{
+  getMovieRate(movieId:1){
+    rate
+    rates{
+      email
+      score
+    }
+  }
+}</code></pre>
+<p>and the output should look similar to this:</p>
 <div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
   <span class="dt">&quot;rate&quot;</span><span class="fu">:</span> <span class="st">&quot;7&quot;</span><span class="fu">,</span>
   <span class="dt">&quot;rates&quot;</span><span class="fu">:</span> <span class="ot">[</span>
@@ -249,12 +354,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="fu">{</span>
       <span class="dt">&quot;email&quot;</span><span class="fu">:</span> <span class="st">&quot;john.doe@mail.com&quot;</span><span class="fu">,</span>
       <span class="dt">&quot;score&quot;</span><span class="fu">:</span> <span class="dv">6</span>
-    <span class="fu">}</span><span class="ot">,</span>
+    <span class="fu">}</span>
   <span class="ot">]</span>
 <span class="fu">}</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Create a new subscription <strong>listenRates</strong>. This operation retrieves an argument movieId and It displays the new rates for the given movieId.</li>
 </ol>
+<p>From one tab we run the subscription</p>
+<pre class="graphql"><code>subscription{
+  listenRates(movieId:1){
+    title
+    rate
+  }
+}</code></pre>
+<p>and then we add a new rate for movie with identifier 1</p>
+<pre class="graphql"><code>mutation{
+  rateMovie(request:{
+    movieId: 1
+    email:&quot;yo@mail2.com&quot;
+    score:3
+  }){
+    director{
+      id
+      fullName
+    }
+  }
+}</code></pre>
+<p>The subscription should print the details for movie with id 1</p>
 
 </div>
 </div>
