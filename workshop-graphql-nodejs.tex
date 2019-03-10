@@ -6,6 +6,7 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
+  \usepackage{eurosym}
 \else % if luatex or xelatex
   \ifxetex
     \usepackage{mathspec}
@@ -13,6 +14,7 @@
     \usepackage{fontspec}
   \fi
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -643,12 +645,14 @@ type MyType {
 }
 \end{verbatim}
 
-Fields can take arguments as input. These can be used to determine the
-return value (eg, filtering search results) or to modify the application
-state. These are known as \textbf{field arguments}.
+Fields can take arguments as input. These can be used to customize the
+return value (eg, filtering search results). This is known as
+\textbf{field argument}.
 
 If you have a look at our schema.graphql you can find an example of
-usage of a field argument for attribute actors in type Movie.
+usage of a field argument for attribute actors in type Movie. The total
+argument is used to define the max number of actors returned from the
+server.
 
 \section{Code}\label{code}
 
@@ -660,7 +664,7 @@ information needs to be taken from an external API. And this attribute
 won't be always required by the API consumers. Server should not waste
 time on obtaining something that clients do not need.
 
-\textbf{resolvers.js}
+\textbf{src/resolvers.js}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -677,9 +681,9 @@ time on obtaining something that clients do not need.
 
 Now, image that SocialDetails can be taken from more than one social
 network and we want to permit the consumers to decide which social
-network must be used. (It's known as field arguments)
+network must be used.
 
-\textbf{schema.graphql.}
+\textbf{resources/graphql/schema.graphql.}
 
 \begin{verbatim}
 enum Source{
@@ -692,9 +696,9 @@ type Person {
 }
 \end{verbatim}
 
-Our resolver could look like this
+Our resolver would look like this example:
 
-\textbf{resolvers.js}
+\textbf{src/resolvers.js}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -718,7 +722,7 @@ The library \textbf{graphql} provides us with class
 \textbf{GraphQLScalarType}. We just need to create a new instance an add
 it as a new resolver. An example of scalar type is shown below:
 
-\textbf{scalars.js}
+\textbf{src/scalars.js}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -742,21 +746,21 @@ it as a new resolver. An example of scalar type is shown below:
 \end{Highlighting}
 \end{Shaded}
 
-\textbf{schema.js}
+\textbf{src/schema.js}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \ImportTok{export} \ImportTok{default} \AttributeTok{makeExecutableSchema}\NormalTok{(}\OperatorTok{\{}
     \DataTypeTok{resolvers}\OperatorTok{:} \OperatorTok{\{}
-        \DataTypeTok{Odd}\OperatorTok{:}\NormalTok{OddType}
+        \DataTypeTok{Odd}\OperatorTok{:}\NormalTok{ OddType}
     \OperatorTok{\}}
-
 \OperatorTok{\}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-You can find more details
-\href{https://graphql.org/graphql-js/type/\#graphqlscalartype}{here}
+Have a look
+\href{https://graphql.org/graphql-js/type/\#graphqlscalartype}{here} to
+learn more about how to implement custom scalars with gaphql-js.
 
 \section{Challenges}\label{challenges-1}
 
@@ -767,16 +771,137 @@ You can find more details
   Define an enum type Genre whose values are Drama and SciFi (add as
   many other as you want) and use it for attribute genre in type Movie
   and MovieRequest.
+\end{enumerate}
+
+\begin{verbatim}
+mutation {
+  addMovie (request:{
+    title: "Corpse Bride"
+    year: 2005
+    budget: 35000000
+    directorId: 1
+    genre: SciFi
+    thriller: "https://www.youtube.com/watch?v=o5qOjhD8j08"
+  }){
+    id
+    director{
+      fullName
+      country
+    }
+    genre
+  }
+}
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
   Define an enum Gender and use it for attribute gender in type Actor.
+\end{enumerate}
+
+\begin{verbatim}
+query {
+  listActors{
+    fullName
+    gender
+  }
+}
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
-  Define a scalar type Url and use it in attribute thriller of types
-  Movie and MovieRequest.
+  Define a scalar type Url and use it in attribute thriller of Movie and
+  MovieRequest. Only valid url's should be permitted.
+\end{enumerate}
+
+This query should fail since url for attribute thriller is not a valid
+url.
+
+\begin{verbatim}
+mutation {
+  addMovie (request:{
+    title: "Gran Torino"
+    year: 2009
+    budget: 28000000
+    directorId: 6
+    genre: Drama
+    thriller: ".http"
+  }){
+    id
+    director{
+      fullName
+      country
+    }
+    genre
+    thriller
+  }
+}
+\end{verbatim}
+
+And this other query should work correctly
+
+\begin{verbatim}
+mutation {
+  addMovie (request:{
+    title: "Gran Torino"
+    year: 2009
+    budget: 28000000
+    directorId: 6
+    genre: Drama
+    thriller: "https://www.youtube.com/watch?v=9ecW-d-CBPc"
+  }){
+    id
+    director{
+      fullName
+      country
+    }
+    genre
+    thriller
+  }
+}
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
 \item
   Define an enum type Currency whose possible values are Euro and
   Dollar. Our API must permit the API consumers to decide in which
   currency they want to obtain attribute budget in type Movie.
+  \textbf{1\euro{} =\textgreater{} 1.14\$}
 \end{enumerate}
+
+For this query
+
+\begin{verbatim}
+query {
+  getMovie(movieId:1){
+    budgetInEuros: budget(currency:Euro)
+    budgetInDollarts: budget(currency:Dollar)
+  }
+}
+\end{verbatim}
+
+the output should be
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"data"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"getMovie"}\FunctionTok{:} \FunctionTok{\{}
+      \DataTypeTok{"budgetInEuros"}\FunctionTok{:} \DecValTok{20}\FunctionTok{,}
+      \DataTypeTok{"budgetInDollarts"}\FunctionTok{:} \FloatTok{22.799999999999997}
+    \FunctionTok{\}}
+  \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \chapter{GraphQL: Operations}\label{graphql-operations}
 

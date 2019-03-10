@@ -201,15 +201,15 @@ type MyType {
     ...
 }
 </code></pre>
-<p>Fields can take arguments as input. These can be used to determine the return value (eg, filtering search results) or to modify the application state. These are known as <strong>field arguments</strong>.</p>
-<p>If you have a look at our schema.graphql you can find an example of usage of a field argument for attribute actors in type Movie.</p>
+<p>Fields can take arguments as input. These can be used to customize the return value (eg, filtering search results). This is known as <strong>field argument</strong>.</p>
+<p>If you have a look at our schema.graphql you can find an example of usage of a field argument for attribute actors in type Movie. The total argument is used to define the max number of actors returned from the server.</p>
 </div>
 <div id="code" class="section level2">
 <h2><span class="header-section-number">4.2</span> Code</h2>
 <div id="resolvers" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Resolvers</h3>
 <p>Let’s imagine that we have an operation that returns a Employee type and this type contains an attribute details of type SocialDetails whose information needs to be taken from an external API. And this attribute won’t be always required by the API consumers. Server should not waste time on obtaining something that clients do not need.</p>
-<p><strong>resolvers.js</strong></p>
+<p><strong>src/resolvers.js</strong></p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span>
     <span class="dt">Person</span><span class="op">:</span> <span class="op">{</span>
         <span class="dt">details</span><span class="op">:</span> <span class="at">async</span> (<span class="op">{</span>personId<span class="op">}</span>) <span class="op">=&gt;</span> <span class="op">{</span>
@@ -218,8 +218,8 @@ type MyType {
     <span class="op">}</span>
     
 <span class="op">}</span></code></pre></div>
-<p>Now, image that SocialDetails can be taken from more than one social network and we want to permit the consumers to decide which social network must be used. (It’s known as field arguments)</p>
-<p><strong>schema.graphql.</strong></p>
+<p>Now, image that SocialDetails can be taken from more than one social network and we want to permit the consumers to decide which social network must be used.</p>
+<p><strong>resources/graphql/schema.graphql.</strong></p>
 <pre class="graphl"><code>enum Source{
     Linkedin
     Facebook
@@ -229,8 +229,8 @@ type Person {
   details(source:Source=Linkedin):SocialDetails
 }
 </code></pre>
-<p>Our resolver could look like this</p>
-<p><strong>resolvers.js</strong></p>
+<p>Our resolver would look like this example:</p>
+<p><strong>src/resolvers.js</strong></p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span>
     <span class="dt">Person</span><span class="op">:</span> <span class="op">{</span>
         <span class="dt">details</span><span class="op">:</span> <span class="at">async</span> (<span class="op">{</span>personId<span class="op">},{</span>source<span class="op">}</span>) <span class="op">=&gt;</span> <span class="op">{</span>
@@ -246,7 +246,7 @@ type Person {
 <div id="scalars" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Scalars</h3>
 <p>The library <strong>graphql</strong> provides us with class <strong>GraphQLScalarType</strong>. We just need to create a new instance an add it as a new resolver. An example of scalar type is shown below:</p>
-<p><strong>scalars.js</strong></p>
+<p><strong>src/scalars.js</strong></p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span>GraphQLScalarType<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;graphql&#39;</span><span class="op">;</span>
 
 <span class="kw">var</span> OddType <span class="op">=</span> <span class="kw">new</span> <span class="at">GraphQLScalarType</span>(<span class="op">{</span>
@@ -264,24 +264,106 @@ type Person {
 <span class="kw">function</span> <span class="at">oddValue</span>(value) <span class="op">{</span>
   <span class="cf">return</span> value <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> value : <span class="kw">null</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
-<p><strong>schema.js</strong></p>
+<p><strong>src/schema.js</strong></p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="im">default</span> <span class="at">makeExecutableSchema</span>(<span class="op">{</span>
     <span class="dt">resolvers</span><span class="op">:</span> <span class="op">{</span>
-        <span class="dt">Odd</span><span class="op">:</span>OddType
+        <span class="dt">Odd</span><span class="op">:</span> OddType
     <span class="op">}</span>
-
 <span class="op">}</span>)</code></pre></div>
-<p>You can find more details <a href="https://graphql.org/graphql-js/type/#graphqlscalartype">here</a></p>
+<p>Have a look <a href="https://graphql.org/graphql-js/type/#graphqlscalartype">here</a> to learn more about how to implement custom scalars with gaphql-js.</p>
 </div>
 </div>
 <div id="challenges-1" class="section level2">
 <h2><span class="header-section-number">4.3</span> Challenges</h2>
 <ol style="list-style-type: decimal">
 <li>Define an enum type Genre whose values are Drama and SciFi (add as many other as you want) and use it for attribute genre in type Movie and MovieRequest.</li>
-<li>Define an enum Gender and use it for attribute gender in type Actor.</li>
-<li>Define a scalar type Url and use it in attribute thriller of types Movie and MovieRequest.</li>
-<li>Define an enum type Currency whose possible values are Euro and Dollar. Our API must permit the API consumers to decide in which currency they want to obtain attribute budget in type Movie.</li>
 </ol>
+<pre class="graphql"><code>mutation {
+  addMovie (request:{
+    title: &quot;Corpse Bride&quot;
+    year: 2005
+    budget: 35000000
+    directorId: 1
+    genre: SciFi
+    thriller: &quot;https://www.youtube.com/watch?v=o5qOjhD8j08&quot;
+  }){
+    id
+    director{
+      fullName
+      country
+    }
+    genre
+  }
+}</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Define an enum Gender and use it for attribute gender in type Actor.</li>
+</ol>
+<pre class="graphql"><code>query {
+  listActors{
+    fullName
+    gender
+  }
+}</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Define a scalar type Url and use it in attribute thriller of Movie and MovieRequest. Only valid url’s should be permitted.</li>
+</ol>
+<p>This query should fail since url for attribute thriller is not a valid url.</p>
+<pre class="graphql"><code>mutation {
+  addMovie (request:{
+    title: &quot;Gran Torino&quot;
+    year: 2009
+    budget: 28000000
+    directorId: 6
+    genre: Drama
+    thriller: &quot;.http&quot;
+  }){
+    id
+    director{
+      fullName
+      country
+    }
+    genre
+    thriller
+  }
+}</code></pre>
+<p>And this other query should work correctly</p>
+<pre class="graphql"><code>mutation {
+  addMovie (request:{
+    title: &quot;Gran Torino&quot;
+    year: 2009
+    budget: 28000000
+    directorId: 6
+    genre: Drama
+    thriller: &quot;https://www.youtube.com/watch?v=9ecW-d-CBPc&quot;
+  }){
+    id
+    director{
+      fullName
+      country
+    }
+    genre
+    thriller
+  }
+}</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Define an enum type Currency whose possible values are Euro and Dollar. Our API must permit the API consumers to decide in which currency they want to obtain attribute budget in type Movie. <strong>1€ =&gt; 1.14$</strong></li>
+</ol>
+<p>For this query</p>
+<pre class="graphql"><code>query {
+  getMovie(movieId:1){
+    budgetInEuros: budget(currency:Euro)
+    budgetInDollarts: budget(currency:Dollar)
+  }
+}</code></pre>
+<p>the output should be</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;getMovie&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+      <span class="dt">&quot;budgetInEuros&quot;</span><span class="fu">:</span> <span class="dv">20</span><span class="fu">,</span>
+      <span class="dt">&quot;budgetInDollarts&quot;</span><span class="fu">:</span> <span class="fl">22.799999999999997</span>
+    <span class="fu">}</span>
+  <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
 
 </div>
 </div>
