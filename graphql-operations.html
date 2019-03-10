@@ -233,7 +233,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ol style="list-style-type: decimal">
 <li>Implement operations <strong>addActor</strong> and <strong>deleteActor</strong>.</li>
 </ol>
-<p>Run this queries to verify works as expected</p>
+<p>Run these queries to verify they work as expected.</p>
 <pre class="graphql"><code>mutation {
   addActor(request:{
     fullName: &quot;Penelope Cruz&quot;
@@ -300,7 +300,6 @@ type Mutation {
     actorsId: [5,6]
     directorId: 4
   }){
-    id
     director{
       fullName
     }
@@ -335,7 +334,15 @@ type Mutation {
 <li>Define a new query <strong>getMovieRate</strong> that retrieves an argument movieId and the output type is MovieRate.</li>
 </ol>
 <p>Run this query</p>
-<p><code>query{   getMovieRate(movieId:1){     rate     rates{       email       score     }   } }</code></p>
+<pre class="graphql"><code>query{
+  getMovieRate(movieId:1){
+    rate
+    rates{
+      email
+      score
+    }
+  }
+}</code></pre>
 <p>and the output should look similar to this:</p>
 <div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
   <span class="dt">&quot;rate&quot;</span><span class="fu">:</span> <span class="st">&quot;7&quot;</span><span class="fu">,</span>
@@ -353,6 +360,27 @@ type Mutation {
 <ol start="5" style="list-style-type: decimal">
 <li>Create a new subscription <strong>listenRates</strong>. This operation retrieves an argument movieId and It displays the new rates for the given movieId.</li>
 </ol>
+<p>From one tab run</p>
+<pre class="graphql"><code>subscription{
+  listenRates(movieId:1){
+    title
+    rate
+  }
+}</code></pre>
+<p>and when we add a new rate for movie with identifier 1</p>
+<pre class="graphql"><code>mutation{
+  rateMovie(request:{
+    movieId: 1
+    email:&quot;yo@mail2.com&quot;
+    score:3
+  }){
+    director{
+      id
+      fullName
+    }
+  }
+}</code></pre>
+<p>The subscriptor should print the details for movie with id 1</p>
 
 </div>
 </div>

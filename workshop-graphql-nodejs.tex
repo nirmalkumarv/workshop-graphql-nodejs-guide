@@ -1019,7 +1019,7 @@ in this project.
   Implement operations \textbf{addActor} and \textbf{deleteActor}.
 \end{enumerate}
 
-Run this queries to verify works as expected
+Run these queries to verify they work as expected.
 
 \begin{verbatim}
 mutation {
@@ -1127,7 +1127,6 @@ mutation {
     actorsId: [5,6]
     directorId: 4
   }){
-    id
     director{
       fullName
     }
@@ -1177,7 +1176,17 @@ and the output should be
 
 Run this query
 
-\texttt{query\{\ \ \ getMovieRate(movieId:1)\{\ \ \ \ \ rate\ \ \ \ \ rates\{\ \ \ \ \ \ \ email\ \ \ \ \ \ \ score\ \ \ \ \ \}\ \ \ \}\ \}}
+\begin{verbatim}
+query{
+  getMovieRate(movieId:1){
+    rate
+    rates{
+      email
+      score
+    }
+  }
+}
+\end{verbatim}
 
 and the output should look similar to this:
 
@@ -1208,6 +1217,36 @@ and the output should look similar to this:
   retrieves an argument movieId and It displays the new rates for the
   given movieId.
 \end{enumerate}
+
+From one tab run
+
+\begin{verbatim}
+subscription{
+  listenRates(movieId:1){
+    title
+    rate
+  }
+}
+\end{verbatim}
+
+and when we add a new rate for movie with identifier 1
+
+\begin{verbatim}
+mutation{
+  rateMovie(request:{
+    movieId: 1
+    email:"yo@mail2.com"
+    score:3
+  }){
+    director{
+      id
+      fullName
+    }
+  }
+}
+\end{verbatim}
+
+The subscriptor should print the details for movie with id 1
 
 \chapter{GraphQL: Interfaces and
 Unions}\label{graphql-interfaces-and-unions}
