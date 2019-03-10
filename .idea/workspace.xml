@@ -2,24 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b41c97d5-3598-4a4e-80d6-e8fb135ca257" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.Rhistory" beforeDir="false" afterPath="$PROJECT_DIR$/.Rhistory" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/01-Setpup.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/01-Setpup.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02-Playground.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/02-Playground.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/03-Objects.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/03-Objects.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/04-Operations.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/04-Operations.Rmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/05-InterfacesAndUnions.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/05-InterfacesAndUnions.Rmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/06-Directives.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/06-Directives.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_book/challenges-solution.html" beforeDir="false" afterPath="$PROJECT_DIR$/_book/challenges-solution.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_book/graphql-directives.html" beforeDir="false" afterPath="$PROJECT_DIR$/_book/graphql-directives.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_book/graphql-interfaces-and-unions.html" beforeDir="false" afterPath="$PROJECT_DIR$/_book/graphql-interfaces-and-unions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_book/graphql-objects.html" beforeDir="false" afterPath="$PROJECT_DIR$/_book/graphql-objects.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_book/graphql-operations.html" beforeDir="false" afterPath="$PROJECT_DIR$/_book/graphql-operations.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_book/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_book/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_book/references.html" beforeDir="false" afterPath="$PROJECT_DIR$/_book/references.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_book/search_index.json" beforeDir="false" afterPath="$PROJECT_DIR$/_book/search_index.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_book/set-up-your-environment.html" beforeDir="false" afterPath="$PROJECT_DIR$/_book/set-up-your-environment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_book/the-graphql-playground.html" beforeDir="false" afterPath="$PROJECT_DIR$/_book/the-graphql-playground.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-output" beforeDir="false" afterPath="$PROJECT_DIR$/book-output" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,8 +58,8 @@
         <entry file="file://$PROJECT_DIR$/01-Setpup.Rmd">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="874">
-                <caret line="135" column="4" selection-start-line="135" selection-start-column="4" selection-end-line="135" selection-end-column="4" />
+              <first_editor relative-caret-position="269">
+                <caret line="267" column="3" selection-start-line="81" selection-end-line="267" selection-end-column="3" />
               </first_editor>
               <second_editor />
             </state>
@@ -84,8 +70,8 @@
         <entry file="file://$PROJECT_DIR$/02-Playground.Rmd">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="252">
-                <caret line="10" selection-start-line="10" selection-end-line="10" />
+              <first_editor relative-caret-position="218">
+                <caret line="41" column="90" selection-start-line="28" selection-end-line="41" selection-end-column="90" />
               </first_editor>
               <second_editor />
             </state>
@@ -96,8 +82,8 @@
         <entry file="file://$PROJECT_DIR$/04-Operations.Rmd">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="-290">
-                <caret line="240" column="4" selection-start-line="240" selection-start-column="4" selection-end-line="240" selection-end-column="4" />
+              <first_editor relative-caret-position="211">
+                <caret line="258" column="61" selection-start-line="62" selection-end-line="258" selection-end-column="61" />
               </first_editor>
               <second_editor />
             </state>
@@ -108,8 +94,8 @@
         <entry file="file://$PROJECT_DIR$/05-InterfacesAndUnions.Rmd">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="376">
-                <caret line="167" column="3" selection-start-line="167" selection-start-column="3" selection-end-line="167" selection-end-column="3" />
+              <first_editor relative-caret-position="346">
+                <caret line="170" column="3" selection-start-line="107" selection-end-line="170" selection-end-column="3" />
               </first_editor>
               <second_editor />
             </state>
@@ -120,8 +106,8 @@
         <entry file="file://$PROJECT_DIR$/06-Directives.Rmd">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="268">
-                <caret line="115" column="7" lean-forward="true" selection-start-line="115" selection-start-column="7" selection-end-line="115" selection-end-column="7" />
+              <first_editor relative-caret-position="388">
+                <caret line="127" column="1" selection-start-line="127" selection-start-column="1" selection-end-line="127" selection-end-column="1" />
               </first_editor>
               <second_editor />
             </state>
@@ -132,8 +118,8 @@
         <entry file="file://$PROJECT_DIR$/03-Objects.Rmd">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="98">
-                <caret line="249" column="19" selection-start-line="249" selection-start-column="19" selection-end-line="249" selection-end-column="19" />
+              <first_editor relative-caret-position="292">
+                <caret line="265" column="3" selection-start-line="131" selection-end-line="265" selection-end-column="3" />
               </first_editor>
               <second_editor />
             </state>
@@ -146,12 +132,13 @@
     <findStrings>
       <find>&lt;/h</find>
       <find>Headers</find>
-      <find>On the other hand, to follow</find>
       <find>o determine</find>
       <find>the movies should n</find>
       <find>query{ getMovieRate(movieId:1){ rate rates{ email score } } }</find>
-      <find>when we add a new rate for</find>
       <find>From my point of view, this could be the c</find>
+      <find>To verify that application was launched correctly, just o</find>
+      <find>On the other hand, to follow</find>
+      <find>when we add a new rate for</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -195,11 +182,6 @@
               <item name="workshop-graphql-nodejs-guide" type="b2602c69:ProjectViewProjectNode" />
               <item name="workshop-graphql-nodejs-guide" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="workshop-graphql-nodejs-guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workshop-graphql-nodejs-guide" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -210,7 +192,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552221150741" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552241536659" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -246,12 +228,12 @@
       <workItem from="1551591249468" duration="8528000" />
       <workItem from="1551681333837" duration="591000" />
       <workItem from="1551689928374" duration="213000" />
-      <workItem from="1552211624508" duration="6905000" />
+      <workItem from="1552211624508" duration="12285000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16237000" />
+    <option name="totallyTimeSpent" value="21617000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="6" />
@@ -357,8 +339,8 @@
     <entry file="file://$PROJECT_DIR$/01-Setpup.Rmd">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="874">
-            <caret line="135" column="4" selection-start-line="135" selection-start-column="4" selection-end-line="135" selection-end-column="4" />
+          <first_editor relative-caret-position="269">
+            <caret line="267" column="3" selection-start-line="81" selection-end-line="267" selection-end-column="3" />
           </first_editor>
           <second_editor />
         </state>
@@ -367,8 +349,8 @@
     <entry file="file://$PROJECT_DIR$/02-Playground.Rmd">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="252">
-            <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <first_editor relative-caret-position="218">
+            <caret line="41" column="90" selection-start-line="28" selection-end-line="41" selection-end-column="90" />
           </first_editor>
           <second_editor />
         </state>
@@ -377,8 +359,8 @@
     <entry file="file://$PROJECT_DIR$/03-Objects.Rmd">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="98">
-            <caret line="249" column="19" selection-start-line="249" selection-start-column="19" selection-end-line="249" selection-end-column="19" />
+          <first_editor relative-caret-position="292">
+            <caret line="265" column="3" selection-start-line="131" selection-end-line="265" selection-end-column="3" />
           </first_editor>
           <second_editor />
         </state>
@@ -387,8 +369,8 @@
     <entry file="file://$PROJECT_DIR$/04-Operations.Rmd">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="-290">
-            <caret line="240" column="4" selection-start-line="240" selection-start-column="4" selection-end-line="240" selection-end-column="4" />
+          <first_editor relative-caret-position="211">
+            <caret line="258" column="61" selection-start-line="62" selection-end-line="258" selection-end-column="61" />
           </first_editor>
           <second_editor />
         </state>
@@ -397,8 +379,8 @@
     <entry file="file://$PROJECT_DIR$/05-InterfacesAndUnions.Rmd">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="376">
-            <caret line="167" column="3" selection-start-line="167" selection-start-column="3" selection-end-line="167" selection-end-column="3" />
+          <first_editor relative-caret-position="346">
+            <caret line="170" column="3" selection-start-line="107" selection-end-line="170" selection-end-column="3" />
           </first_editor>
           <second_editor />
         </state>
@@ -407,8 +389,8 @@
     <entry file="file://$PROJECT_DIR$/06-Directives.Rmd">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="268">
-            <caret line="115" column="7" lean-forward="true" selection-start-line="115" selection-start-column="7" selection-end-line="115" selection-end-column="7" />
+          <first_editor relative-caret-position="388">
+            <caret line="127" column="1" selection-start-line="127" selection-start-column="1" selection-end-line="127" selection-end-column="1" />
           </first_editor>
           <second_editor />
         </state>

@@ -159,11 +159,12 @@ Once you've implemented this query make use of fragments to return the below det
         "__typename": "Movie",
         "title": "Edward Scissorhands"
       },
-       {
-         "__typename": "Actor",
-          "fullName": "Russell Crowe"
-       }
-       ...
+      ...
+      {
+        "__typename": "Actor",
+        "fullName": "Russell Crowe"
+      }
+      ...
     ]
   }
 }

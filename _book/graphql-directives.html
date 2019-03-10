@@ -237,36 +237,29 @@ type ExampleType {
 <div id="challenges-4" class="section level2">
 <h2><span class="header-section-number">7.3</span> Challenges</h2>
 <ol style="list-style-type: decimal">
-<li>Create a directive <span class="citation">@uppercase</span> that can be assigned to fields. This directive will transform the value of the attribute into uppercase. The directive declaration will look lie this</li>
+<li>Create a directive <span class="citation">@multiply</span> with an attribute factor. The directive declaration should look like this</li>
 </ol>
-<pre class="graphql"><code>directive @uppercase on FIELD_DEFINITION
-
-&quot;&quot;&quot;Movie details&quot;&quot;&quot;
-type Movie {
+<pre class="graphql"><code>directive @multiply (
+    factor: Int!
+) on FIELD_DEFINITION</code></pre>
+<p>And this directive will be used for attribute rate in type Movie. The behavior will be the following: If factor is 2 the returned budget will be the real value multiply by 2. If the factor is 3 the returned value will be the budget multiplied by 3…</p>
+<pre class="graphql"><code>input Movie {
     ...
-    title: String! @uppercase
+    rate:Float @multiply(factor:5)
     ...
-}
-</code></pre>
-<p>To verify the directive was implemented correctly we can run</p>
+}</code></pre>
+<p>To verify run this query</p>
 <pre class="graphql"><code>query {
-  listMovies{
-    title
+  rate: getMovieRate(movieId:1){
+    realRate: rate
+  }
+  movie: getMovie(movieId:1){
+    customRate: rate
+    
   }
 }</code></pre>
-<p>and check that the title for all the movies was returned in uppercase.</p>
-<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
-  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span>
-    <span class="dt">&quot;listMovies&quot;</span><span class="fu">:</span> <span class="ot">[</span>
-      <span class="fu">{</span>
-        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;EDWARD SCISSORHANDS&quot;</span>
-      <span class="fu">}</span><span class="ot">,</span>
-      <span class="fu">{</span>
-        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;GLADIATOR&quot;</span>
-      <span class="fu">}</span>
-    <span class="ot">]</span>
-  <span class="fu">}</span>
-<span class="fu">}</span></code></pre></div>
+<p>and verify that customRate is the value of realRate multiplied by 5</p>
+<p>```json { “data”: { “rate”: { “realRate”: 3 }, “movie”: { “customRate”: 15 } } }</p>
 
 </div>
 </div>

@@ -79,44 +79,50 @@ export default makeExecutableSchema({
 
 ## Challenges
 
-1. Create a directive @uppercase that can be assigned to fields. This directive will transform the value of the attribute
-into uppercase. The directive declaration will look lie this
+1. Create a directive @multiply with an attribute factor. The directive declaration
+should look like this
 
 ```graphql
-directive @uppercase on FIELD_DEFINITION
+directive @multiply (
+    factor: Int!
+) on FIELD_DEFINITION
+```
+And this directive will be used for attribute rate in type Movie. The behavior will be the following: If factor is 2
+the returned budget will be the real value multiply by 2. If the factor is 3 the returned value will be
+the budget multiplied by 3...
 
-"""Movie details"""
-type Movie {
+```graphql
+input Movie {
     ...
-    title: String! @uppercase
+    rate:Float @multiply(factor:5)
     ...
 }
+```
 
-```  
-
-To verify the directive was implemented correctly we can run
+To verify run this query 
 
 ```graphql
 query {
-  listMovies{
-    title
+  rate: getMovieRate(movieId:1){
+    realRate: rate
+  }
+  movie: getMovie(movieId:1){
+    customRate: rate
+    
   }
 }
 ```
 
-and check that the title for all the movies was returned in uppercase.
+and verify that customRate is the value of realRate multiplied by 5
 
 ```json
 {
   "data": {
-    "listMovies": [
-      {
-        "title": "EDWARD SCISSORHANDS"
-      },
-      {
-        "title": "GLADIATOR"
-      }
-    ]
+    "rate": {
+      "realRate": 3
+    },
+    "movie": {
+      "customRate": 15
+    }
   }
 }
-```
