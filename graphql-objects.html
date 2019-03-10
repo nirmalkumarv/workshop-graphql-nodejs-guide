@@ -309,7 +309,17 @@ type Person {
 <ol start="3" style="list-style-type: decimal">
 <li>Define a scalar type Url and use it in attribute thriller of Movie and MovieRequest. Only valid url’s should be permitted.</li>
 </ol>
-<p>Run this query to verify that only valid url’s are permitted. Actually, the movies should not be saved into the database.</p>
+<p>This code could be useful for validate the url’s</p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="kw">const</span> validateUrl <span class="op">=</span> (str) <span class="op">=&gt;</span> <span class="op">{</span>
+    <span class="kw">let</span> pattern <span class="op">=</span> <span class="kw">new</span> <span class="at">RegExp</span>(<span class="st">&#39;^(https?:</span><span class="sc">\\</span><span class="st">/</span><span class="sc">\\</span><span class="st">/)&#39;</span> <span class="op">+</span> <span class="co">// protocol</span>
+        <span class="st">&#39;((([a-z</span><span class="sc">\\</span><span class="st">d]([a-z</span><span class="sc">\\</span><span class="st">d-]*[a-z</span><span class="sc">\\</span><span class="st">d])*)</span><span class="sc">\\</span><span class="st">.?)+[a-z]{2,}|&#39;</span> <span class="op">+</span> <span class="co">// domain name</span>
+        <span class="st">&#39;((</span><span class="sc">\\</span><span class="st">d{1,3}</span><span class="sc">\\</span><span class="st">.){3}</span><span class="sc">\\</span><span class="st">d{1,3}))&#39;</span> <span class="op">+</span> <span class="co">// OR ip (v4) address</span>
+        <span class="st">&#39;(</span><span class="sc">\\</span><span class="st">:</span><span class="sc">\\</span><span class="st">d+)?(</span><span class="sc">\\</span><span class="st">/[-a-z</span><span class="sc">\\</span><span class="st">d%_.~+]*)*&#39;</span> <span class="op">+</span> <span class="co">// port and path</span>
+        <span class="st">&#39;(</span><span class="sc">\\</span><span class="st">?[;&amp;a-z</span><span class="sc">\\</span><span class="st">d%_.~+=-]*)?&#39;</span> <span class="op">+</span> <span class="co">// query string</span>
+        <span class="st">&#39;(</span><span class="sc">\\</span><span class="st">#[-a-z</span><span class="sc">\\</span><span class="st">d_]*)?$&#39;</span><span class="op">,</span> <span class="st">&#39;i&#39;</span>)<span class="op">;</span> <span class="co">// fragment locator</span>
+    <span class="cf">return</span> <span class="va">pattern</span>.<span class="at">test</span>(str)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>Run this query to verify that only valid url’s are permitted. Actually, the movie should not be saved into the database.</p>
 <pre class="graphql"><code>mutation {
   addMovie (request:{
     title: &quot;Gran Torino&quot;

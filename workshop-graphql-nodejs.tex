@@ -823,8 +823,24 @@ query {
   MovieRequest. Only valid url's should be permitted.
 \end{enumerate}
 
+This code could be useful for validate the url's
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{export} \KeywordTok{const}\NormalTok{ validateUrl }\OperatorTok{=}\NormalTok{ (str) }\OperatorTok{=>} \OperatorTok{\{}
+    \KeywordTok{let}\NormalTok{ pattern }\OperatorTok{=} \KeywordTok{new} \AttributeTok{RegExp}\NormalTok{(}\StringTok{'^(https?:}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{/}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{/)'} \OperatorTok{+} \CommentTok{// protocol}
+        \StringTok{'((([a-z}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d]([a-z}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d-]*[a-z}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d])*)}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.?)+[a-z]\{2,\}|'} \OperatorTok{+} \CommentTok{// domain name}
+        \StringTok{'((}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{1,3\}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.)\{3\}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{1,3\}))'} \OperatorTok{+} \CommentTok{// OR ip (v4) address}
+        \StringTok{'(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{:}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d+)?(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{/[-a-z}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d%_.~+]*)*'} \OperatorTok{+} \CommentTok{// port and path}
+        \StringTok{'(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{?[;&a-z}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d%_.~+=-]*)?'} \OperatorTok{+} \CommentTok{// query string}
+        \StringTok{'(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{#[-a-z}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d_]*)?$'}\OperatorTok{,} \StringTok{'i'}\NormalTok{)}\OperatorTok{;} \CommentTok{// fragment locator}
+    \ControlFlowTok{return} \VariableTok{pattern}\NormalTok{.}\AttributeTok{test}\NormalTok{(str)}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
 Run this query to verify that only valid url's are permitted. Actually,
-the movies should not be saved into the database.
+the movie should not be saved into the database.
 
 \begin{verbatim}
 mutation {
