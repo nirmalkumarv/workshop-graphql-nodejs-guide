@@ -327,12 +327,12 @@ id & full\_name & country & male\tabularnewline
 \begin{longtable}[]{@{}rcrrrrr@{}}
 \caption{movies}\tabularnewline
 \toprule
-id & title & release\_year & genre & budget & thriller &
+id & title & release\_year & genre & budget & trailer &
 director\_id\tabularnewline
 \midrule
 \endfirsthead
 \toprule
-id & title & release\_year & genre & budget & thriller &
+id & title & release\_year & genre & budget & trailer &
 director\_id\tabularnewline
 \midrule
 \endhead
@@ -457,8 +457,8 @@ input MovieRequest {
     genre: String
     "Budget for the movie, the value is provided in Euro"
     budget: Float!
-    "URL in which we can watch the thriller of this movie"
-    thriller: String
+    "URL in which we can watch the trailer of this movie"
+    trailer: String
     "Identifier of director"
     directorId: ID!
 }
@@ -475,8 +475,8 @@ type Movie {
     genre: String
     "Budget for the movie, the value is provided in Euro"
     budget: Float!
-    "URL in which we can watch the thriller of this movie"
-    thriller: String
+    "URL in which we can watch the trailer of this movie"
+    trailer: String
     "The director details of the movie"
     director: Director!
     "List of actors for the movie"
@@ -833,7 +833,7 @@ odd numbers.
 \item
   Define an enum Gender and use it for attribute gender in type Actor.
 \item
-  Define a scalar type Url and use it in attribute thriller of types
+  Define a scalar type Url and use it in attribute trailer of types
   Movie and MovieRequest.
 \item
   Define an enum type Currency whose possible values are Euro and

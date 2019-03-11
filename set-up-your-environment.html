@@ -340,8 +340,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <th align="right">release_year</th>
 <th align="right">genre</th>
 <th align="right">budget</th>
-<th align="right">thriller</th>
-<th align="right">director_id</th>
+<th align="center">trailer</th>
+<th align="center">director_id</th>
 </tr>
 </thead>
 <tbody>
@@ -351,8 +351,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="right">1990</td>
 <td align="right">SciFi</td>
 <td align="right">20</td>
-<td align="right"><a href="https://www.yout" class="uri">https://www.yout</a>…</td>
-<td align="right">1</td>
+<td align="center"><a href="https://www.yout" class="uri">https://www.yout</a>…</td>
+<td align="center">1</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
@@ -360,8 +360,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="right">2000</td>
 <td align="right">Drama</td>
 <td align="right">103</td>
-<td align="right"><a href="https://www.yout" class="uri">https://www.yout</a>…</td>
-<td align="right">7</td>
+<td align="center"><a href="https://www.yout" class="uri">https://www.yout</a>…</td>
+<td align="center">7</td>
 </tr>
 </tbody>
 </table>
@@ -472,8 +472,8 @@ input MovieRequest {
     genre: String
     &quot;Budget for the movie, the value is provided in Euro&quot;
     budget: Float!
-    &quot;URL in which we can watch the thriller of this movie&quot;
-    thriller: String
+    &quot;URL in which we can watch the trailer of this movie&quot;
+    trailer: String
     &quot;Identifier of director&quot;
     directorId: ID!
 }
@@ -490,8 +490,8 @@ type Movie {
     genre: String
     &quot;Budget for the movie, the value is provided in Euro&quot;
     budget: Float!
-    &quot;URL in which we can watch the thriller of this movie&quot;
-    thriller: String
+    &quot;URL in which we can watch the trailer of this movie&quot;
+    trailer: String
     &quot;The director details of the movie&quot;
     director: Director!
     &quot;List of actors for the movie&quot;

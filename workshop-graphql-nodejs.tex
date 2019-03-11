@@ -332,15 +332,15 @@ id & full\_name & country & male\tabularnewline
 \bottomrule
 \end{longtable}
 
-\begin{longtable}[]{@{}rcrrrrr@{}}
+\begin{longtable}[]{@{}rcrrrcc@{}}
 \caption{movies}\tabularnewline
 \toprule
-id & title & release\_year & genre & budget & thriller &
+id & title & release\_year & genre & budget & trailer &
 director\_id\tabularnewline
 \midrule
 \endfirsthead
 \toprule
-id & title & release\_year & genre & budget & thriller &
+id & title & release\_year & genre & budget & trailer &
 director\_id\tabularnewline
 \midrule
 \endhead
@@ -467,8 +467,8 @@ input MovieRequest {
     genre: String
     "Budget for the movie, the value is provided in Euro"
     budget: Float!
-    "URL in which we can watch the thriller of this movie"
-    thriller: String
+    "URL in which we can watch the trailer of this movie"
+    trailer: String
     "Identifier of director"
     directorId: ID!
 }
@@ -485,8 +485,8 @@ type Movie {
     genre: String
     "Budget for the movie, the value is provided in Euro"
     budget: Float!
-    "URL in which we can watch the thriller of this movie"
-    thriller: String
+    "URL in which we can watch the trailer of this movie"
+    trailer: String
     "The director details of the movie"
     director: Director!
     "List of actors for the movie"
@@ -781,7 +781,7 @@ mutation {
     budget: 35000000
     directorId: 1
     genre: SciFi
-    thriller: "https://www.youtube.com/watch?v=o5qOjhD8j08"
+    trailer: "https://www.youtube.com/watch?v=o5qOjhD8j08"
   }){
     id
     director{
@@ -817,7 +817,7 @@ query {
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Define a scalar type Url and use it in attribute thriller of Movie and
+  Define a scalar type Url and use it in attribute trailer of Movie and
   MovieRequest. Only valid url's should be permitted.
 \end{enumerate}
 
@@ -848,7 +848,7 @@ mutation {
     budget: 28000000
     directorId: 6
     genre: Drama
-    thriller: ".http"
+    trailer: ".http"
   }){
     id
     director{
@@ -856,7 +856,7 @@ mutation {
       country
     }
     genre
-    thriller
+    trailer
   }
 }
 \end{verbatim}
@@ -871,7 +871,7 @@ mutation {
     budget: 28000000
     directorId: 6
     genre: Drama
-    thriller: "https://www.youtube.com/watch?v=9ecW-d-CBPc"
+    trailer: "https://www.youtube.com/watch?v=9ecW-d-CBPc"
   }){
     id
     director{
@@ -879,7 +879,7 @@ mutation {
       country
     }
     genre
-    thriller
+    trailer
   }
 }
 \end{verbatim}
