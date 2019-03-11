@@ -117,7 +117,7 @@ Table: actors
             
 Table: movies
 
-           id                       title    release_year        genre       budget                thriller    director_id
+           id                       title    release_year        genre       budget                trailer    director_id
 -------------  ---------------------------  -------------  -----------  -----------  ----------------------  -------------
             1       Edward Scissorhands         1990            SciFi       20        https://www.yout...       1
             2       Gladiator                   2000            Drama       103       https://www.yout...       7
@@ -210,8 +210,8 @@ input MovieRequest {
     genre: String
     "Budget for the movie, the value is provided in Euro"
     budget: Float!
-    "URL in which we can watch the thriller of this movie"
-    thriller: String
+    "URL in which we can watch the trailer of this movie"
+    trailer: String
     "Identifier of director"
     directorId: ID!
 }
@@ -228,8 +228,8 @@ type Movie {
     genre: String
     "Budget for the movie, the value is provided in Euro"
     budget: Float!
-    "URL in which we can watch the thriller of this movie"
-    thriller: String
+    "URL in which we can watch the trailer of this movie"
+    trailer: String
     "The director details of the movie"
     director: Director!
     "List of actors for the movie"

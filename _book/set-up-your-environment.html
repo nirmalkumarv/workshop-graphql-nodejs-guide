@@ -340,7 +340,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <th align="right">release_year</th>
 <th align="right">genre</th>
 <th align="right">budget</th>
-<th align="right">thriller</th>
+<th align="right">trailer</th>
 <th align="right">director_id</th>
 </tr>
 </thead>
@@ -472,8 +472,8 @@ input MovieRequest {
     genre: String
     &quot;Budget for the movie, the value is provided in Euro&quot;
     budget: Float!
-    &quot;URL in which we can watch the thriller of this movie&quot;
-    thriller: String
+    &quot;URL in which we can watch the trailer of this movie&quot;
+    trailer: String
     &quot;Identifier of director&quot;
     directorId: ID!
 }
@@ -490,8 +490,8 @@ type Movie {
     genre: String
     &quot;Budget for the movie, the value is provided in Euro&quot;
     budget: Float!
-    &quot;URL in which we can watch the thriller of this movie&quot;
-    thriller: String
+    &quot;URL in which we can watch the trailer of this movie&quot;
+    trailer: String
     &quot;The director details of the movie&quot;
     director: Director!
     &quot;List of actors for the movie&quot;

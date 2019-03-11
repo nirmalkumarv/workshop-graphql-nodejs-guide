@@ -144,7 +144,7 @@ mutation {
     budget: 35000000
     directorId: 1
     genre: SciFi
-    thriller: "https://www.youtube.com/watch?v=o5qOjhD8j08"
+    trailer: "https://www.youtube.com/watch?v=o5qOjhD8j08"
   }){
     id
     director{
@@ -170,7 +170,7 @@ query {
 }
 ```
 
-3. Define a scalar type Url and use it in attribute thriller of Movie and MovieRequest. Only valid
+3. Define a scalar type Url and use it in attribute trailer of Movie and MovieRequest. Only valid
 url's should be permitted.
 
 This code could be useful for validate the url's
@@ -199,7 +199,7 @@ mutation {
     budget: 28000000
     directorId: 6
     genre: Drama
-    thriller: ".http"
+    trailer: ".http"
   }){
     id
     director{
@@ -207,7 +207,7 @@ mutation {
       country
     }
     genre
-    thriller
+    trailer
   }
 }
 ```
@@ -222,7 +222,7 @@ mutation {
     budget: 28000000
     directorId: 6
     genre: Drama
-    thriller: "https://www.youtube.com/watch?v=9ecW-d-CBPc"
+    trailer: "https://www.youtube.com/watch?v=9ecW-d-CBPc"
   }){
     id
     director{
@@ -230,7 +230,7 @@ mutation {
       country
     }
     genre
-    thriller
+    trailer
   }
 }
 ```

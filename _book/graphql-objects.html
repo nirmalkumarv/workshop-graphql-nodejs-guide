@@ -284,7 +284,7 @@ type Person {
     budget: 35000000
     directorId: 1
     genre: SciFi
-    thriller: &quot;https://www.youtube.com/watch?v=o5qOjhD8j08&quot;
+    trailer: &quot;https://www.youtube.com/watch?v=o5qOjhD8j08&quot;
   }){
     id
     director{
@@ -305,7 +305,7 @@ type Person {
   }
 }</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Define a scalar type Url and use it in attribute thriller of Movie and MovieRequest. Only valid url’s should be permitted.</li>
+<li>Define a scalar type Url and use it in attribute trailer of Movie and MovieRequest. Only valid url’s should be permitted.</li>
 </ol>
 <p>This code could be useful for validate the url’s</p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="im">export</span> <span class="kw">const</span> validateUrl <span class="op">=</span> (str) <span class="op">=&gt;</span> <span class="op">{</span>
@@ -325,7 +325,7 @@ type Person {
     budget: 28000000
     directorId: 6
     genre: Drama
-    thriller: &quot;.http&quot;
+    trailer: &quot;.http&quot;
   }){
     id
     director{
@@ -333,7 +333,7 @@ type Person {
       country
     }
     genre
-    thriller
+    trailer
   }
 }</code></pre>
 <p>Run this query to verify that your scalar Url works as expected.</p>
@@ -344,7 +344,7 @@ type Person {
     budget: 28000000
     directorId: 6
     genre: Drama
-    thriller: &quot;https://www.youtube.com/watch?v=9ecW-d-CBPc&quot;
+    trailer: &quot;https://www.youtube.com/watch?v=9ecW-d-CBPc&quot;
   }){
     id
     director{
@@ -352,7 +352,7 @@ type Person {
       country
     }
     genre
-    thriller
+    trailer
   }
 }</code></pre>
 <ol start="4" style="list-style-type: decimal">
