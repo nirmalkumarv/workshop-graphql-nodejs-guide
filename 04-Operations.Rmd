@@ -14,7 +14,7 @@ In our workshop.graphql we will find already implemented operations.
 
 ## Code
 
-Actually there's not difference between implement a query or a mutation. We will just implament a function that 
+Actually there's not difference between implement a query or a mutation. We will just implement a function that 
 can retrieve 4 arguments:
 
 - **parent**: The result of the previous resolver call.
